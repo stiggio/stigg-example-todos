@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, CircularProgress } from '@mui/material';
 import { Todo } from '../types';
 import { TodoItem } from './TodoItem';
 
@@ -22,10 +22,12 @@ function EmptyTodosList() {
 
 export function TodoItems({
   todos,
+  isLoading,
   onToggleTodo,
   onRemoveTodo,
 }: {
   todos: Todo[];
+  isLoading: boolean;
   onToggleTodo: (todoId: string) => void;
   onRemoveTodo: (todoId: string) => void;
 }) {
@@ -39,7 +41,11 @@ export function TodoItems({
       overflow="scroll"
       flexWrap="nowrap"
     >
-      {todos.length === 0 ? (
+      {isLoading ? (
+        <Grid container alignItems="center" justifyContent="center" flex={1}>
+          <CircularProgress />
+        </Grid>
+      ) : todos.length === 0 ? (
         <EmptyTodosList />
       ) : (
         todos.map((todo) => (

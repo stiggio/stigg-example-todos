@@ -1,35 +1,44 @@
-import { Typography } from '@mui/material';
+import { CircularProgress, Grid, Typography } from '@mui/material';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import { Members, SignIn, TodoList } from './components';
-import { User } from './types';
+import { Collaborators, SignIn, TodoList } from './components';
+import { useUsers } from './hooks/useUsers';
 
-const ProtectedRoute = ({
-  children,
-  user,
-}: {
-  children: React.ReactElement;
-  user?: User | null;
-}) => {
-  if (!user) {
+const ProtectedRoute = ({ children }: { children: React.ReactElement }) => {
+  const {
+    state: { currentUser },
+  } = useUsers();
+
+  if (!currentUser) {
     return <Navigate to="/sign-in" replace />;
   }
 
   return children;
 };
 
-export function AppRoutes({
-  user,
-  onSignIn,
-}: {
-  user: User | null;
-  onSignIn: (email: string, password: string) => void;
-}) {
+export function AppRoutes() {
+  const {
+    state: { isLoaded },
+  } = useUsers();
+
+  if (!isLoaded) {
+    return (
+      <Grid
+        minHeight={500}
+        container
+        alignItems="center"
+        justifyContent="center"
+      >
+        <CircularProgress />
+      </Grid>
+    );
+  }
+
   return (
     <Routes>
       <Route
         path="/"
         element={
-          <ProtectedRoute user={user}>
+          <ProtectedRoute>
             <TodoList />
           </ProtectedRoute>
         }
@@ -37,15 +46,12 @@ export function AppRoutes({
       <Route
         path="/members"
         element={
-          <ProtectedRoute user={user}>
-            <Members />
+          <ProtectedRoute>
+            <Collaborators />
           </ProtectedRoute>
         }
       />
-      <Route
-        path="/sign-in"
-        element={<SignIn user={user} onSignIn={onSignIn} />}
-      />
+      <Route path="/sign-in" element={<SignIn />} />
       <Route
         path="/pricing"
         element={<Typography variant="body1">Pricing here!</Typography>}

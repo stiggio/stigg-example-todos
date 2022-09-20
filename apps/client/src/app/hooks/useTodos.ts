@@ -1,57 +1,34 @@
+import React from 'react';
 import { useImmerReducer } from 'use-immer';
-import { guid } from '../components/utils';
+import * as apiGateway from '../api/apiGateway';
 import { Todo } from '../types';
-
-export const newTodo = (label: string): Todo => ({
-  completed: false,
-  id: guid(),
-  label: (label || '').trim(),
-});
+import { TodosAction, TodosActionType } from './todosActions';
 
 export type TodosState = {
+  isLoading: boolean;
   todos: Todo[];
 };
 
-export const initialState: TodosState = { todos: [] };
+export const initialState: TodosState = { todos: [], isLoading: false };
 
-export enum TodosActionType {
-  ADD_TODO = 'ADD_TODO',
-  REMOVE_TODO = 'REMOVE_TODO',
-  TOGGLE_TODO = 'TOGGLE_TODO',
-}
-
-type AddTodoAction = {
-  type: TodosActionType.ADD_TODO;
-  payload: {
-    label: string;
-  };
-};
-
-type ToggleTodoAction = {
-  type: TodosActionType.TOGGLE_TODO;
-  payload: {
-    id: string;
-  };
-};
-
-type RemoveTodoAction = {
-  type: TodosActionType.REMOVE_TODO;
-  payload: {
-    id: string;
-  };
-};
-
-export type TodosAction = AddTodoAction | RemoveTodoAction | ToggleTodoAction;
+export type TodosDispatch = React.Dispatch<TodosAction>;
 
 function reducer(state: TodosState, action: TodosAction) {
   switch (action.type) {
-    case TodosActionType.ADD_TODO:
-      state.todos.push(newTodo(action.payload.label));
+    case TodosActionType.FETCH_TODOS_STARTED:
+      state.isLoading = true;
       break;
-    case TodosActionType.REMOVE_TODO:
+    case TodosActionType.FETCH_TODOS_COMPLETED:
+      state.todos = action.payload.todos;
+      state.isLoading = false;
+      break;
+    case TodosActionType.TODO_ADDED:
+      state.todos.push(action.payload.newTodo);
+      break;
+    case TodosActionType.TODO_DELETED:
       state.todos = state.todos.filter((todo) => todo.id !== action.payload.id);
       break;
-    case TodosActionType.TOGGLE_TODO: {
+    case TodosActionType.TODO_TOGGLED: {
       const todo = state.todos.find((todo) => todo.id === action.payload.id);
       if (todo) {
         todo.completed = !todo.completed;
@@ -63,6 +40,56 @@ function reducer(state: TodosState, action: TodosAction) {
   }
 }
 
+export async function fetchTodos(dispatch: TodosDispatch) {
+  dispatch({
+    type: TodosActionType.FETCH_TODOS_STARTED,
+  });
+  const res = await apiGateway.fetchTodos();
+  dispatch({
+    type: TodosActionType.FETCH_TODOS_COMPLETED,
+    payload: { todos: res.todos },
+  });
+}
+
+export async function addTodo(
+  dispatch: TodosDispatch,
+  payload: { todoLabel: string }
+) {
+  const newTodo = await apiGateway.addTodo(payload.todoLabel);
+  dispatch({
+    type: TodosActionType.TODO_ADDED,
+    payload: {
+      newTodo,
+    },
+  });
+}
+
+export async function removeTodo(
+  dispatch: TodosDispatch,
+  payload: { todoId: string }
+) {
+  await apiGateway.removeTodo(payload.todoId);
+  dispatch({
+    type: TodosActionType.TODO_DELETED,
+    payload: {
+      id: payload.todoId,
+    },
+  });
+}
+
+export async function toggleTodo(
+  dispatch: TodosDispatch,
+  payload: { todoId: string }
+) {
+  await apiGateway.toggleTodo(payload.todoId);
+  dispatch({
+    type: TodosActionType.TODO_TOGGLED,
+    payload: {
+      id: payload.todoId,
+    },
+  });
+}
+
 export function useTodos() {
   const [state, dispatch] = useImmerReducer<TodosState, TodosAction>(
     reducer,
@@ -71,6 +98,7 @@ export function useTodos() {
 
   return {
     todos: state.todos,
+    isLoading: state.isLoading,
     dispatch,
   };
 }

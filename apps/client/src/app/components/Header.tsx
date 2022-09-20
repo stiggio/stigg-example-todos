@@ -1,4 +1,4 @@
-import { Grid, Typography, Link, Avatar } from '@mui/material';
+import { Grid, Typography, Link } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import {
   ListAlt,
@@ -7,7 +7,7 @@ import {
   Login,
   Logout,
 } from '@mui/icons-material';
-import { User } from '../types';
+import { useUsers, signOut } from '../hooks/useUsers';
 
 function HeaderLink({
   onClick,
@@ -37,14 +37,12 @@ function HeaderLink({
   );
 }
 
-export function Header({
-  user,
-  onSignOut,
-}: {
-  user: User | null;
-  onSignOut: () => void;
-}) {
+export function Header() {
   const navigate = useNavigate();
+  const {
+    state: { currentUser },
+    dispatch,
+  } = useUsers();
 
   const onPricingClick = () => {
     navigate('/pricing');
@@ -53,8 +51,8 @@ export function Header({
     navigate('/members');
   };
   const onSignOutClick = () => {
-    if (user) {
-      onSignOut();
+    if (currentUser) {
+      signOut(dispatch);
     }
 
     navigate('/sign-in');
@@ -84,7 +82,7 @@ export function Header({
         </Typography>
       </Grid>
       <Grid container item width="auto" alignItems="center">
-        {user && (
+        {currentUser && (
           <HeaderLink
             label="Members"
             icon={<People />}
@@ -97,8 +95,8 @@ export function Header({
           onClick={onPricingClick}
         />
         <HeaderLink
-          label={user ? 'Sign out' : 'Sign in'}
-          icon={user ? <Logout /> : <Login />}
+          label={currentUser ? 'Sign out' : 'Sign in'}
+          icon={currentUser ? <Logout /> : <Login />}
           onClick={onSignOutClick}
         />
       </Grid>

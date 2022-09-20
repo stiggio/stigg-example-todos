@@ -15,7 +15,6 @@ export default {
   loggedIn() {
     return !!this.token;
   },
-  // Instruct Vue to include a header with the JWT in every request
   setAuthHeader() {
     if (this.token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;

@@ -1,17 +1,40 @@
-import { Button, Grid, TextField, Typography } from '@mui/material';
-import { Navigate } from 'react-router-dom';
-import { User } from '../types';
+import { Button, Grid, Link, TextField, Typography } from '@mui/material';
+import { FormEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { signIn, signUp, useUsers } from '../hooks/useUsers';
 
-export function SignIn({
-  user,
-  onSignIn,
-}: {
-  user: User | null;
-  onSignIn: (email: string, password: string) => void;
-}) {
-  if (user) {
-    return <Navigate to="/" replace />;
-  }
+export function SignIn() {
+  const {
+    state: { currentUser, signInError },
+    dispatch,
+  } = useUsers();
+  const navigate = useNavigate();
+  const [createNewUser, setCreateNewUser] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const toggleNewUserMode = () => {
+    setCreateNewUser(!createNewUser);
+  };
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/');
+    }
+  }, [currentUser, navigate]);
+
+  const onClick = (email: string, password: string) => {
+    if (createNewUser) {
+      signUp(dispatch, { email, password });
+    } else {
+      signIn(dispatch, { email, password });
+    }
+  };
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onClick(email, password);
+  };
 
   return (
     <Grid
@@ -21,39 +44,69 @@ export function SignIn({
       justifyContent="center"
       mt={5}
     >
-      <Grid item>
-        <Typography fontSize={30} variant="body1">
-          Sign into your account
-        </Typography>
-      </Grid>
       <Grid item container flexDirection="column" alignItems="center">
-        <Grid item width={450} my={2}>
-          <TextField
-            placeholder="Email"
-            variant="outlined"
-            type="email"
-            fullWidth
-          />
-        </Grid>
-        <Grid item width={450}>
-          <TextField
-            placeholder="Password"
-            type="password"
-            variant="outlined"
-            fullWidth
-          />
-        </Grid>
-        <Grid item mt={4}>
-          <Button
-            color="primary"
-            variant="contained"
-            sx={{ color: 'white', width: 200 }}
-            onClick={() => onSignIn('nadav@stigg.io', '213123')}
-          >
-            Sign in
-          </Button>
-        </Grid>
+        <Typography fontSize={30} variant="body1">
+          {createNewUser ? 'Create a user' : 'Sign into your todos'}
+        </Typography>
+        {signInError && !createNewUser && (
+          <Typography variant="body1" color="text.primary">
+            Incorrect email or password
+          </Typography>
+        )}
       </Grid>
+      <form onSubmit={onSubmit}>
+        <Grid item container flexDirection="column" alignItems="center">
+          <Grid item width={450} my={2}>
+            <TextField
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              variant="outlined"
+              type="email"
+              fullWidth
+            />
+          </Grid>
+          <Grid item width={450}>
+            <TextField
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              type="password"
+              variant="outlined"
+              fullWidth
+            />
+          </Grid>
+          <Grid item mt={4}>
+            <Button
+              type="submit"
+              color="primary"
+              variant="contained"
+              sx={{ color: 'white', width: 450, height: 45 }}
+            >
+              {createNewUser ? 'Sign up' : 'Sign in'}
+            </Button>
+          </Grid>
+          <Grid item mt={2}>
+            <Typography
+              variant="body1"
+              color="text.primary"
+              component="span"
+              mr={1}
+            >
+              {createNewUser
+                ? 'Already have an account?'
+                : "Don't have a user?"}
+            </Typography>
+            <Link
+              sx={{ cursor: 'pointer' }}
+              underline="hover"
+              onClick={toggleNewUserMode}
+            >
+              {createNewUser ? 'Sign in now' : 'Create one now'}
+            </Link>
+          </Grid>
+        </Grid>
+      </form>
     </Grid>
   );
 }

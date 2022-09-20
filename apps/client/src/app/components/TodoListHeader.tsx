@@ -32,7 +32,7 @@ export function TodoListHeader({
     setText(event.target.value);
   };
 
-  const onKeyDown = (event: any) => {
+  const onKeyDown = (event: { key: string }) => {
     if (event.key === 'Enter') {
       onAddTodo(text);
       setText('');

@@ -5,7 +5,7 @@ export type Todo = {
 };
 
 export type User = {
-  id: string;
+  id?: string;
   email: string;
-  password: string;
+  collaborators?: string[];
 };

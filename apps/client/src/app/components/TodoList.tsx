@@ -1,23 +1,34 @@
 import { Grid } from '@mui/material';
-import { TodosActionType, useTodos } from '../hooks/useTodos';
+import { useEffect } from 'react';
+import {
+  useTodos,
+  fetchTodos,
+  addTodo,
+  removeTodo,
+  toggleTodo,
+} from '../hooks/useTodos';
 import { TodoItems } from './TodoItems';
 import { TodoListFooter } from './TodoListFooter';
 import { TodoListHeader } from './TodoListHeader';
 import { StyledCard } from './TodosCard';
 
 export function TodoList() {
-  const { todos, dispatch } = useTodos();
+  const { todos, isLoading, dispatch } = useTodos();
 
-  const onAddTodo = (label: string) => {
-    dispatch({ type: TodosActionType.ADD_TODO, payload: { label } });
+  useEffect(() => {
+    fetchTodos(dispatch);
+  }, [dispatch]);
+
+  const onAddTodo = (todoLabel: string) => {
+    addTodo(dispatch, { todoLabel });
   };
 
   const onToggleTodo = (todoId: string) => {
-    dispatch({ type: TodosActionType.TOGGLE_TODO, payload: { id: todoId } });
+    toggleTodo(dispatch, { todoId });
   };
 
   const onRemoveTodo = (todoId: string) => {
-    dispatch({ type: TodosActionType.REMOVE_TODO, payload: { id: todoId } });
+    removeTodo(dispatch, { todoId });
   };
 
   return (
@@ -34,6 +45,7 @@ export function TodoList() {
           <Grid container flexDirection="column">
             <TodoListHeader onAddTodo={onAddTodo} />
             <TodoItems
+              isLoading={isLoading}
               todos={todos}
               onToggleTodo={onToggleTodo}
               onRemoveTodo={onRemoveTodo}
