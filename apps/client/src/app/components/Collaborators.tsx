@@ -220,22 +220,22 @@ export function Collaborators() {
             <TableBody>
               {collaborators.map((collaborator, index) => (
                 <TableRow
-                  key={collaborator}
+                  key={collaborator.id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
                     <Grid container alignItems="center">
                       <Avatar sx={{ bgcolor: getColor(index) }}>
-                        {collaborator.slice(0, 2).toUpperCase()}
+                        {collaborator.email.slice(0, 2).toUpperCase()}
                       </Avatar>
                       <Typography variant="body1" color="text.primary" ml={2}>
-                        {collaborator}
+                        {collaborator.email}
                       </Typography>
                     </Grid>
                   </TableCell>
                   <TableCell align="right">
                     <IconButton
-                      onClick={() => onRemoveCollaborator(collaborator)}
+                      onClick={() => onRemoveCollaborator(collaborator.email)}
                     >
                       <Delete color="disabled" />
                     </IconButton>

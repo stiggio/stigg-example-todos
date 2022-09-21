@@ -17,8 +17,10 @@ export async function removeTodo(todoId: string) {
   await axios.delete(`/api/todos/${todoId}`);
 }
 
-export async function toggleTodo(todoId: string) {
-  await axios.put(`/api/todos/${todoId}/toggle`);
+export async function toggleTodo(todoId: string, completed: boolean) {
+  await axios.put(`/api/todos/${todoId}/toggle`, {
+    completed,
+  });
 }
 
 export async function login(email: string, password: string) {

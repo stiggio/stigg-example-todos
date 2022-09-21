@@ -6,22 +6,30 @@ const router = express.Router();
 
 router.use(authMiddleware);
 
-router.get('/', (_, res) => {
-  res.send({ todos: todosRepository.getTodos(res.locals.user) });
+router.get('/', async (_, res) => {
+  const todos = await todosRepository.getTodos(res.locals.user);
+  res.send({ todos });
 });
 
-router.post('/', (req, res) => {
-  const newTodo = todosRepository.addTodo(res.locals.user, req.body.label);
+router.post('/', async (req, res) => {
+  const newTodo = await todosRepository.addTodo(
+    res.locals.user,
+    req.body.label
+  );
   res.send(newTodo);
 });
 
-router.put('/:id/toggle', (req, res) => {
-  const newTodo = todosRepository.toggleTodo(req.params.id);
+router.put('/:id/toggle', async (req, res) => {
+  const { completed } = req.body;
+  const newTodo = await todosRepository.toggleTodo(
+    parseInt(req.params.id),
+    completed
+  );
   res.send(newTodo);
 });
 
-router.delete('/:id', (req, res) => {
-  todosRepository.removeTodo(req.params.id);
+router.delete('/:id', async (req, res) => {
+  await todosRepository.removeTodo(parseInt(req.params.id));
   res.send(req.params.id);
 });
 

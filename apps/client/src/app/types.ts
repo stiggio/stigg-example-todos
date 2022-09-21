@@ -7,5 +7,10 @@ export type Todo = {
 export type User = {
   id?: string;
   email: string;
-  collaborators?: string[];
+  collaborators?: Collaborator[];
+};
+
+export type Collaborator = {
+  id: string;
+  email: string;
 };

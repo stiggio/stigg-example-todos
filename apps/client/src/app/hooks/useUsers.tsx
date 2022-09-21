@@ -54,7 +54,7 @@ type CollaboratorChangedAction = {
     | UsersActionType.COLLABORATOR_ADDED
     | UsersActionType.COLLABORATOR_REMOVED;
   payload: {
-    collaborator: string;
+    user: User;
   };
 };
 
@@ -89,15 +89,8 @@ function reducer(state: UsersState, action: UsersAction) {
       state.currentUser = action.payload.user;
       break;
     case UsersActionType.COLLABORATOR_ADDED:
-      state.currentUser?.collaborators?.push(action.payload.collaborator);
-      break;
     case UsersActionType.COLLABORATOR_REMOVED:
-      if (state.currentUser?.collaborators) {
-        state.currentUser.collaborators =
-          state.currentUser?.collaborators?.filter(
-            (collaborator) => collaborator !== action.payload.collaborator
-          );
-      }
+      state.currentUser = action.payload.user;
       break;
     default:
       throw new Error('Not supported action type');
@@ -151,11 +144,11 @@ export async function addCollaborator(
   dispatch: UsersDispatch,
   payload: { email: string }
 ) {
-  await apiGateway.addCollaborator(payload.email);
+  const res = await apiGateway.addCollaborator(payload.email);
   dispatch({
     type: UsersActionType.COLLABORATOR_ADDED,
     payload: {
-      collaborator: payload.email,
+      user: res.data.user,
     },
   });
 }
@@ -164,11 +157,11 @@ export async function removeCollaborator(
   dispatch: UsersDispatch,
   payload: { email: string }
 ) {
-  await apiGateway.removeCollaborator(payload.email);
+  const res = await apiGateway.removeCollaborator(payload.email);
   dispatch({
     type: UsersActionType.COLLABORATOR_REMOVED,
     payload: {
-      collaborator: payload.email,
+      user: res.data.user,
     },
   });
 }

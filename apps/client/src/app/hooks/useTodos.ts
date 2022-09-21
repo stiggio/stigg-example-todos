@@ -79,9 +79,9 @@ export async function removeTodo(
 
 export async function toggleTodo(
   dispatch: TodosDispatch,
-  payload: { todoId: string }
+  payload: { todoId: string; completed: boolean }
 ) {
-  await apiGateway.toggleTodo(payload.todoId);
+  await apiGateway.toggleTodo(payload.todoId, payload.completed);
   dispatch({
     type: TodosActionType.TODO_TOGGLED,
     payload: {

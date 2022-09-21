@@ -23,8 +23,8 @@ export function TodoList() {
     addTodo(dispatch, { todoLabel });
   };
 
-  const onToggleTodo = (todoId: string) => {
-    toggleTodo(dispatch, { todoId });
+  const onToggleTodo = (todoId: string, completed: boolean) => {
+    toggleTodo(dispatch, { todoId, completed });
   };
 
   const onRemoveTodo = (todoId: string) => {

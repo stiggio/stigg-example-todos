@@ -4,18 +4,18 @@ import * as usersRepository from './users-repository';
 
 const router = express.Router();
 
-router.get('/:email', (req, res) => {
+router.get('/:email', async (req, res) => {
   const { email } = req.params;
 
-  const user = usersRepository.getUserByEmail(email);
+  const user = await usersRepository.getUserByEmail(email);
 
   res.json({ user });
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
-  const user = usersRepository.getUserByEmail(email);
+  const user = await usersRepository.getUserByEmail(email);
   if (user) {
     const verifiedPassword = user.password === password;
     if (verifiedPassword) {
@@ -26,32 +26,35 @@ router.post('/login', (req, res) => {
   res.status(401).end();
 });
 
-router.post('/signup', (req, res) => {
+router.post('/signup', async (req, res) => {
   const { email, password } = req.body;
 
-  const existingUser = usersRepository.getUserByEmail(email);
+  const existingUser = await usersRepository.getUserByEmail(email);
   if (existingUser) {
     res.status(409);
     throw new Error('Email address already exists');
   }
 
-  const user = usersRepository.signUp(email, password);
+  const user = await usersRepository.signUp(email, password);
 
   return res.json({ user });
 });
 
-router.post('/collaborator', authMiddleware, (req, res) => {
+router.post('/collaborator', authMiddleware, async (req, res) => {
   const { collaborator } = req.body;
-  const user = usersRepository.addCollaborator(res.locals.user, collaborator);
+  const user = await usersRepository.addCollaborator(
+    res.locals.user,
+    collaborator
+  );
   res.json({ user });
 });
 
 router.delete(
   '/collaborator/:collaboratorEmail',
   authMiddleware,
-  (req, res) => {
+  async (req, res) => {
     const { collaboratorEmail } = req.params;
-    const user = usersRepository.removeCollaborator(
+    const user = await usersRepository.removeCollaborator(
       res.locals.user,
       collaboratorEmail
     );

@@ -1,38 +1,57 @@
-import { guid } from '../utils';
+import { Todo } from '@prisma/client';
+import prismaClient from '../prismaClient';
 
-export type Todo = {
-  id: string;
-  label: string;
-  completed: boolean;
-  userEmail: string;
-};
+export async function addTodo(
+  userEmail: string,
+  todoLabel: string
+): Promise<Todo> {
+  const todo = await prismaClient.todo.create({
+    data: {
+      label: todoLabel,
+      completed: false,
+      author: {
+        connect: {
+          email: userEmail,
+        },
+      },
+    },
+  });
 
-const todos: Todo[] = [];
-
-const newTodo = (userEmail: string, label: string): Todo => ({
-  completed: false,
-  id: guid(),
-  label: (label || '').trim(),
-  userEmail,
-});
-
-export function addTodo(userEmail: string, todoLabel: string) {
-  const todo = newTodo(userEmail, todoLabel);
-  todos.push(todo);
   return todo;
 }
 
-export function removeTodo(todoId: string) {
-  const todoIndex = todos.findIndex((todo) => todo.id === todoId);
-  todos.splice(todoIndex, 1);
+export async function removeTodo(todoId: number): Promise<void> {
+  await prismaClient.todo.delete({
+    where: {
+      id: todoId,
+    },
+  });
 }
 
-export function toggleTodo(todoId: string) {
-  const todo = todos.find((todo) => todo.id === todoId);
-  todo.completed = !todo.completed;
+export async function toggleTodo(
+  todoId: number,
+  completed: boolean
+): Promise<Todo> {
+  const todo = await prismaClient.todo.update({
+    where: {
+      id: todoId,
+    },
+    data: {
+      completed,
+    },
+  });
+
   return todo;
 }
 
-export function getTodos(userEmail: string) {
-  return todos.filter((todo) => todo.userEmail == userEmail);
+export async function getTodos(userEmail: string): Promise<Todo[]> {
+  const todos = await prismaClient.todo.findMany({
+    where: {
+      author: {
+        email: userEmail,
+      },
+    },
+  });
+
+  return todos;
 }

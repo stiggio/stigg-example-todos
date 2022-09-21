@@ -28,7 +28,7 @@ export function TodoItems({
 }: {
   todos: Todo[];
   isLoading: boolean;
-  onToggleTodo: (todoId: string) => void;
+  onToggleTodo: (todoId: string, completed: boolean) => void;
   onRemoveTodo: (todoId: string) => void;
 }) {
   return (

@@ -20,7 +20,7 @@ export function TodoItem({
   onRemoveTodo,
 }: {
   todo: Todo;
-  onToggleTodo: (todoId: string) => void;
+  onToggleTodo: (todoId: string, completed: boolean) => void;
   onRemoveTodo: (todoId: string) => void;
 }) {
   return (
@@ -36,7 +36,7 @@ export function TodoItem({
       <Grid item container alignItems="center" width="auto">
         <TodoCheckbox
           checked={todo.completed}
-          onClick={() => onToggleTodo(todo.id)}
+          onClick={() => onToggleTodo(todo.id, !todo.completed)}
         />
         <TodoLabel $done={todo.completed} variant="body1">
           {todo.label}
