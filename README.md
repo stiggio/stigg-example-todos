@@ -17,7 +17,7 @@ To-do list is a complete, full-stack example of Stigg integration:
 📦|**Per-unit pricing (seat based).** a recurring fee according to the number of seats
 🙎🏻‍♂️ |**Customer provision.** Provision customer in stigg when user is signed up, allowing to Stigg admins to control the [user journey](https://docs.stigg.io/docs/products#defining-the-customer-journey) with **no-code**
 💲| **Billing integration.** Billing integration with Stripe: Stripe checkout, syncing customers, subscriptions, plans etc.
-🧱| **Entitlement check.** allow to users to use fetures only if they are have entitlements and free quota
+🧱| **Entitlement check.** Use Stigg SDK in order to gating features.
 📈|**Usage reporting.** Reporting usage measurments to Stigg
 💸|**Paywall widget.** Using Stigg SDK to render the [pricing paywall](https://docs.stigg.io/docs/react-sdk#rendering-pricing-plans) with a few lines of code
 ☕️|**Node.js backend.** server-side integration with Stigg Node.js SDK to create subscription, provision customer etc.
