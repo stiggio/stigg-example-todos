@@ -51,6 +51,7 @@ router.post('/signup', async (req, res) => {
     subscriptionParams: {
       planId: STARTER_PLAN_ID,
     },
+    shouldSyncFree: false,
   });
 
   return res.json({ user });
@@ -96,7 +97,6 @@ router.post('/collaborator/add-seats', authMiddleware, async (req, res) => {
   );
   const [activeSubscription] = stiggCustomer.getActiveSubscriptions();
   if (activeSubscription) {
-    console.log('activeSubscription.id', activeSubscription.id);
     await stiggClient.updateSubscription({
       subscriptionId: activeSubscription.id,
       unitQuantity:

@@ -39,3 +39,6 @@ testem.log
 Thumbs.db
 
 dev.db
+
+apps/client/.env
+apps/server/.env
