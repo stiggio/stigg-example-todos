@@ -1,4 +1,14 @@
-import { Grid, Typography, Link } from '@mui/material';
+import {
+  Box,
+  Grid,
+  Typography,
+  Link,
+  Avatar,
+  Menu,
+  MenuItem,
+  Divider,
+  ListItemIcon,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import {
   ListAlt,
@@ -6,8 +16,11 @@ import {
   MonetizationOn,
   Login,
   Logout,
+  Email,
+  Launch,
 } from '@mui/icons-material';
-import { useUsers, signOut } from '../hooks/useUsers';
+import { useUser, signOut } from '../hooks/user/useUser';
+import { useState } from 'react';
 
 function HeaderLink({
   onClick,
@@ -38,26 +51,40 @@ function HeaderLink({
 }
 
 export function Header() {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const navigate = useNavigate();
   const {
     state: { currentUser },
     dispatch,
-  } = useUsers();
+  } = useUser();
 
   const onPricingClick = () => {
-    navigate('/pricing');
-  };
-  const onMembersClick = () => {
-    navigate('/members');
-  };
-  const onSignOutClick = () => {
     if (currentUser) {
-      signOut(dispatch);
+      navigate('/customer-portal');
+    } else {
+      navigate('/pricing');
     }
-
+  };
+  const onCollaboratorsClick = () => {
+    navigate('/collaborators');
+  };
+  const onSignInClick = () => {
     navigate('/sign-in');
   };
-  const onTitleClick = () => {
+
+  const onSignOutClick = () => {
+    signOut(dispatch);
+    navigate('/sign-in');
+  };
+  const onTodosClick = () => {
     navigate('/');
   };
 
@@ -74,7 +101,7 @@ export function Header() {
         width="auto"
         alignItems="center"
         sx={{ cursor: 'pointer' }}
-        onClick={onTitleClick}
+        onClick={onTodosClick}
       >
         <ListAlt sx={{ fontSize: 42, strokeWidth: 1 }} />
         <Typography ml={1} variant="h6">
@@ -83,10 +110,13 @@ export function Header() {
       </Grid>
       <Grid container item width="auto" alignItems="center">
         {currentUser && (
+          <HeaderLink label="Todos" icon={<ListAlt />} onClick={onTodosClick} />
+        )}
+        {currentUser && (
           <HeaderLink
-            label="Members"
+            label="Collaborators"
             icon={<People />}
-            onClick={onMembersClick}
+            onClick={onCollaboratorsClick}
           />
         )}
         <HeaderLink
@@ -94,12 +124,51 @@ export function Header() {
           icon={<MonetizationOn />}
           onClick={onPricingClick}
         />
-        <HeaderLink
-          label={currentUser ? 'Sign out' : 'Sign in'}
-          icon={currentUser ? <Logout /> : <Login />}
-          onClick={onSignOutClick}
-        />
+        {!currentUser && (
+          <HeaderLink
+            label={'Sign in'}
+            icon={<Login />}
+            onClick={onSignInClick}
+          />
+        )}
+        {currentUser && (
+          <Avatar
+            onClick={handleClick}
+            sx={{ cursor: 'pointer', marginLeft: 2 }}
+          >
+            {currentUser.email.slice(0, 2).toUpperCase()}
+          </Avatar>
+        )}
       </Grid>
+
+      <Menu
+        anchorEl={anchorEl}
+        id="user-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        sx={{ marginTop: 1 }}
+        PaperProps={{
+          sx: {
+            minWidth: 180,
+          },
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <Box p={1}>
+          <Typography variant="body1" color="text.primary" fontSize={16}>
+            {currentUser?.email}
+          </Typography>
+        </Box>
+        <Divider />
+        <MenuItem onClick={onSignOutClick}>
+          <ListItemIcon>
+            <Logout fontSize="small" color="primary" />
+          </ListItemIcon>
+          Logout
+        </MenuItem>
+      </Menu>
     </Grid>
   );
 }

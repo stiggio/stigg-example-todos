@@ -1,7 +1,7 @@
 import React from 'react';
 import { useImmerReducer } from 'use-immer';
-import * as apiGateway from '../api/apiGateway';
-import { Todo } from '../types';
+import * as apiGateway from '../../api/apiGateway';
+import { Todo } from '../../types';
 import { TodosAction, TodosActionType } from './todosActions';
 
 export type TodosState = {
@@ -28,10 +28,12 @@ function reducer(state: TodosState, action: TodosAction) {
     case TodosActionType.TODO_DELETED:
       state.todos = state.todos.filter((todo) => todo.id !== action.payload.id);
       break;
-    case TodosActionType.TODO_TOGGLED: {
-      const todo = state.todos.find((todo) => todo.id === action.payload.id);
+    case TodosActionType.TODO_UPDATED: {
+      const { id, updatedTodo } = action.payload;
+      const todo = state.todos.find((todo) => todo.id === id);
       if (todo) {
-        todo.completed = !todo.completed;
+        todo.completed = updatedTodo.completed;
+        todo.label = updatedTodo.label;
       }
       break;
     }
@@ -77,15 +79,19 @@ export async function removeTodo(
   });
 }
 
-export async function toggleTodo(
+export async function updateTodo(
   dispatch: TodosDispatch,
-  payload: { todoId: string; completed: boolean }
+  payload: { todoId: string; completed?: boolean; label?: string }
 ) {
-  await apiGateway.toggleTodo(payload.todoId, payload.completed);
+  const updatedTodo = await apiGateway.updateTodo(payload.todoId, {
+    completed: payload.completed,
+    label: payload.label,
+  });
   dispatch({
-    type: TodosActionType.TODO_TOGGLED,
+    type: TodosActionType.TODO_UPDATED,
     payload: {
       id: payload.todoId,
+      updatedTodo,
     },
   });
 }

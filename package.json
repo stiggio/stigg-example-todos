@@ -6,7 +6,8 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "run-all": "nx run-many --target=serve --projects=server,client --parallel=true"
+    "run-all": "nx run-many --target=serve --projects=server,client --parallel=true",
+    "setup": "prisma migrate dev"
   },
   "private": true,
   "dependencies": {
@@ -15,17 +16,21 @@
     "@mui/material": "^5.10.5",
     "@mui/styled-engine-sc": "^5.10.3",
     "@prisma/client": "4.3.1",
+    "@stigg/node-server-sdk": "^0.51.0",
+    "@stigg/react-sdk": "^0.14.1",
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "core-js": "^3.6.5",
     "express": "^4.18.1",
     "immer": "^9.0.15",
+    "moment": "^2.29.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-dom-confetti": "^0.2.0",
     "react-is": "18.2.0",
     "react-router-dom": "6.3.0",
     "regenerator-runtime": "0.13.7",
+    "short-uuid": "^4.2.0",
     "styled-components": "^5.3.5",
     "tslib": "^2.3.0",
     "use-immer": "^0.7.0"

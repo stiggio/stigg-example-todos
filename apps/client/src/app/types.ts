@@ -1,3 +1,5 @@
+import { Customer } from '@stigg/react-sdk';
+
 export type Todo = {
   id: string;
   label: string;
@@ -7,6 +9,8 @@ export type Todo = {
 export type User = {
   id?: string;
   email: string;
+  stiggCustomerId: string;
+  stiggCustomer?: Customer;
   collaborators?: Collaborator[];
 };
 

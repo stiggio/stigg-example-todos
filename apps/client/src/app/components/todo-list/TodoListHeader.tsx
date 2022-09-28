@@ -1,5 +1,5 @@
-import { ChevronRight } from '@mui/icons-material';
-import { Grid, TextField } from '@mui/material';
+import { ChevronRight, Block } from '@mui/icons-material';
+import { CircularProgress, Grid, TextField } from '@mui/material';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -23,8 +23,12 @@ const TodoTextField = styled(TextField)`
 
 export function TodoListHeader({
   onAddTodo,
+  canAddTodo,
+  isAdding,
 }: {
-  onAddTodo: (label: string) => void;
+  onAddTodo: (label: string) => Promise<void>;
+  canAddTodo?: boolean;
+  isAdding: boolean;
 }) {
   const [text, setText] = useState('');
 
@@ -32,9 +36,9 @@ export function TodoListHeader({
     setText(event.target.value);
   };
 
-  const onKeyDown = (event: { key: string }) => {
+  const onKeyDown = async (event: { key: string }) => {
     if (event.key === 'Enter') {
-      onAddTodo(text);
+      await onAddTodo(text);
       setText('');
     }
   };
@@ -46,6 +50,8 @@ export function TodoListHeader({
       sx={{ boxShadow: 'inset 0 -2px 1px rgb(0 0 0 / 10%)' }}
     >
       <TodoTextField
+        autoFocus
+        disabled={!canAddTodo || isAdding}
         value={text}
         onChange={handleChange}
         variant="standard"
@@ -53,7 +59,12 @@ export function TodoListHeader({
         onKeyDown={onKeyDown}
         InputProps={{
           disableUnderline: true,
-          startAdornment: <ChevronRight color="disabled" fontSize="large" />,
+          startAdornment: canAddTodo ? (
+            <ChevronRight color="disabled" fontSize="large" />
+          ) : (
+            <Block color="disabled" fontSize="large" sx={{ marginRight: 1 }} />
+          ),
+          endAdornment: isAdding ? <CircularProgress size={28} /> : null,
         }}
       />
     </Grid>

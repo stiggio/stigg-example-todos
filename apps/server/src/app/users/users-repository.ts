@@ -7,11 +7,16 @@ export function getUsers() {
   return users;
 }
 
-export async function signUp(email: string, password: string) {
+export async function signUp(
+  email: string,
+  password: string,
+  stiggCustomerId: string
+) {
   const user = await prismaClient.user.create({
     data: {
       email,
       password,
+      stiggCustomerId,
     },
     include: {
       collaborators: true,

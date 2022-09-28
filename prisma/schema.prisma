@@ -11,11 +11,12 @@ datasource db {
 }
 
 model User {
-  id            Int     @id @default(autoincrement())
-  email         String  @unique
-  password      String 
-  collaborators Collaborator[]
-  todos         Todo[]
+  id              Int     @id @default(autoincrement())
+  email           String  @unique
+  password        String 
+  collaborators   Collaborator[]
+  todos           Todo[]
+  stiggCustomerId String
 }
 
 model Collaborator {

@@ -1,5 +1,5 @@
 import { Grid, Typography, CircularProgress } from '@mui/material';
-import { Todo } from '../types';
+import { Todo } from '../../types';
 import { TodoItem } from './TodoItem';
 
 function EmptyTodosList() {
@@ -24,12 +24,20 @@ export function TodoItems({
   todos,
   isLoading,
   onToggleTodo,
+  onUpdateTodo,
   onRemoveTodo,
+  removedTodo,
+  canUpdateTodo,
+  onUpgrade,
 }: {
   todos: Todo[];
   isLoading: boolean;
+  removedTodo: string | null;
   onToggleTodo: (todoId: string, completed: boolean) => void;
   onRemoveTodo: (todoId: string) => void;
+  onUpdateTodo: (todo: Todo) => void;
+  canUpdateTodo?: boolean;
+  onUpgrade: () => void;
 }) {
   return (
     <Grid
@@ -53,7 +61,11 @@ export function TodoItems({
             key={todo.id}
             todo={todo}
             onToggleTodo={onToggleTodo}
+            onUpdateTodo={onUpdateTodo}
             onRemoveTodo={onRemoveTodo}
+            removedTodo={removedTodo}
+            canUpdateTodo={canUpdateTodo}
+            onUpgrade={onUpgrade}
           />
         ))
       )}
