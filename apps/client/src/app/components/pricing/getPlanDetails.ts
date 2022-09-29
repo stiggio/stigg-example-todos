@@ -39,14 +39,17 @@ export function getPlanDetails(customer: Customer) {
   const daysLeft = diffInDays(subscription.trialEndDate);
 
   const plan = subscription?.plan;
-  const planEntitlements = [
+  let planEntitlements = [
     ...(plan?.inheritedEntitlements || []),
     ...(plan?.entitlements || []),
   ];
   const planPrice = subscription.price;
   let planPriceEntitlement: string | undefined;
   if (planPrice?.feature) {
-    const { unitQuantity, unitsPlural } = planPrice.feature;
+    const { unitQuantity, unitsPlural, displayName } = planPrice.feature;
+    planEntitlements = planEntitlements.filter(
+      (entitlement) => entitlement.feature.displayName !== displayName
+    );
     planPriceEntitlement = `${unitQuantity} ${unitsPlural}`;
   }
   const isFreePlan = subscription.pricingType === PricingType.Free;

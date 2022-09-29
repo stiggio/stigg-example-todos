@@ -44,7 +44,8 @@ router.post('/signup', async (req, res) => {
   const customerStiggId = shortUUID.generate();
   const user = await usersRepository.signUp(email, password, customerStiggId);
 
-  await getStiggClient().provisionCustomer({
+  const stiggClient = getStiggClient();
+  await stiggClient.provisionCustomer({
     customerId: customerStiggId,
     name: user.email.split('@')[0],
     email: user.email,
@@ -52,6 +53,13 @@ router.post('/signup', async (req, res) => {
       planId: STARTER_PLAN_ID,
     },
     shouldSyncFree: false,
+  });
+  // The current user is considered as collaborator as well, therefore
+  // reporting initial usage of 1
+  await stiggClient.reportUsage({
+    customerId: customerStiggId,
+    featureId: ENTITLEMENTS_IDS.collaborators,
+    value: 1,
   });
 
   return res.json({ user });

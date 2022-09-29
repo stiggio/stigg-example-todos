@@ -2192,10 +2192,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@stigg/js-client-sdk@^0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-0.40.0.tgz#1352af14a9c3e9a847923b275a41785d3a34c29c"
-  integrity sha512-ciOnl22tpWlmgrZpuATLNRVzMgTmBieJU0tuly37JQ6P+Lt+sFnNmNsTm9K9Vrl5WtTEJEyCkw1frPYBaG68fA==
+"@stigg/js-client-sdk@^0.42.1":
+  version "0.42.1"
+  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-0.42.1.tgz#8c53bbf70d1de1384fb419493740fcc0ad3cbcfe"
+  integrity sha512-rsKNPtgOhmMRjTwr1rkIghGaBSUME+72iFNE3l08PMnJHnQf99Dc4bmTmWDQOGCOXcwdQ+djRJjoiUG8Neav0g==
   dependencies:
     "@apollo/client" "^3.4.17"
     "@sentry/browser" "^7.11.1"
@@ -2204,6 +2204,7 @@
     husky "^7.0.4"
     lint-staged "^12.0.2"
     lodash "^4.17.21"
+    tiny-typed-emitter "^2.1.0"
 
 "@stigg/node-server-sdk@^0.51.0":
   version "0.51.0"
@@ -2226,12 +2227,12 @@
     tiny-typed-emitter "^2.1.0"
     ws "^8.5.0"
 
-"@stigg/react-sdk@^0.14.1":
-  version "0.14.1"
-  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-0.14.1.tgz#a2579c0e3768380e854222310e79f481802d8345"
-  integrity sha512-9wK2dPvOQD51gPJ59LidfW/sQ2u1j2RvCm8frXNgb1iXHW9sboaRIgn4vltu4zhpbVtlD0+Q42taeaKjqesC+w==
+"@stigg/react-sdk@^0.14.3":
+  version "0.14.3"
+  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-0.14.3.tgz#b8a2fe1d55dda91c02e87451436267cb70d7886b"
+  integrity sha512-ot0s5R040MHJ2/LRNQ91QMepyKMxbk1g/nRAh0jcFT7LDeVB9whGiyu7l4vnp9wYdUumXUg3hqnkHCZ9ybLCww==
   dependencies:
-    "@stigg/js-client-sdk" "^0.40.0"
+    "@stigg/js-client-sdk" "^0.42.1"
     color "^4.2.3"
     lodash "^4.17.21"
     lodash-es "^4.17.21"

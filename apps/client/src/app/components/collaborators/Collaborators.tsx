@@ -16,7 +16,7 @@ import {
   Typography,
 } from '@mui/material';
 import { BillingPeriod, BillingModel, useStiggContext } from '@stigg/react-sdk';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   useUser,
   removeCollaborator,
@@ -28,7 +28,7 @@ import { AddCollaboratorModal } from './AddCollaboratorModal';
 import { AddSeatsModal } from './AddSeatsModal';
 import { PaywallDialog } from '../paywall/PaywallDialog';
 import { getColor, getUsagePercentage, getUsageProgressColor } from '../utils';
-
+≠
 export function Collaborators() {
   const {
     state: { currentUser },
@@ -44,7 +44,7 @@ export function Collaborators() {
   const [openAddCollaborator, setOpenAddCollaborator] = useState(false);
   const handleOpenAddCollaborator = () => setOpenAddCollaborator(true);
   const handleCloseAddCollaborator = () => setOpenAddCollaborator(false);
-  const { stigg } = useStiggContext();
+  const { stigg, updatedAt } = useStiggContext();
 
   const collaboratorEntitlement = stigg?.getMeteredEntitlement({
     featureId: 'feature-collaborators',
@@ -53,21 +53,39 @@ export function Collaborators() {
       fallback: { usageLimit: 5, hasAccess: true },
     },
   });
+
+  useEffect(() => {
+    stigg?.addListener('entitlementsUpdated', (data) => {
+      console.log('entitlementsUpdated', data);
+    });
+  }, [stigg]);
+
+  console.log('updatedAt', updatedAt);
+  console.log('collaboratorEntitlement', collaboratorEntitlement);
   const canAddCollaborator = collaboratorEntitlement?.hasAccess;
   const collaboratorLimit = collaboratorEntitlement?.usageLimit || 5;
   const isUnlimitedCollaborators = collaboratorEntitlement?.isUnlimited;
 
-  const collaborators = currentUser?.collaborators || [];
+  const collaborators = currentUser?.collaborators
+    ? [...currentUser.collaborators]
+    : [];
+  if (currentUser) {
+    collaborators.unshift({
+      id: currentUser.id as string,
+      email: currentUser.email,
+    });
+  }
 
   const usagePercentage = isUnlimitedCollaborators
     ? 0
     : getUsagePercentage(collaborators.length, collaboratorLimit);
 
   const onRemoveCollaborator = async (collaborator: Collaborator) => {
-    setCollaboratorInDelete(collaborator.id);
+    // setCollaboratorInDelete(collaborator.id);
     await removeCollaborator(dispatch, { email: collaborator.email });
     await stigg?.refresh();
-    setCollaboratorInDelete(null);
+    console.log('entitlements refreshed');
+    // setCollaboratorInDelete(null);
   };
 
   const onAddCollaborator = async (collaboratorEmail: string) => {
@@ -171,7 +189,9 @@ export function Collaborators() {
                     </Grid>
                   </TableCell>
                   <TableCell align="right">
-                    {collaboratorInDelete === collaborator.id ? (
+                    {collaborator.id ===
+                    currentUser?.id ? null : collaboratorInDelete ===
+                      collaborator.id ? (
                       <CircularProgress size={26} />
                     ) : (
                       <IconButton
