@@ -9,35 +9,11 @@ import { spacing } from '@mui/system';
 import styled from 'styled-components/macro';
 import { AccessTime } from '@mui/icons-material';
 import moment from 'moment';
-import {
-  BillingPeriod,
-  BillingModel,
-  Customer,
-  EntitlementResetPeriod,
-  PricingType,
-} from '@stigg/react-sdk';
-import { diffInDays } from '../utils';
+import { Customer } from '@stigg/react-sdk';
+import { getPlanDetails, getResetDateCopy } from './getPlanDetails';
 
 const Paper = styled(MuiPaper)(spacing);
 const Button = styled(MuiButton)(spacing);
-
-export function getResetDateCopy(
-  resetPeriod: EntitlementResetPeriod | null | undefined
-): string {
-  if (!resetPeriod) {
-    return '';
-  }
-  switch (resetPeriod) {
-    case EntitlementResetPeriod.Daily:
-      return '/ day';
-    case EntitlementResetPeriod.Hourly:
-      return '/ hour';
-    case EntitlementResetPeriod.Monthly:
-      return '/ month';
-    case EntitlementResetPeriod.Weekly:
-      return '/ week';
-  }
-}
 
 export const PlanDetails = ({
   customer,
@@ -46,37 +22,22 @@ export const PlanDetails = ({
   customer: Customer;
   onManagePlan: () => void;
 }) => {
-  let isTrial = true;
-  let subscription = customer?.getActiveTrials()[0];
-  if (!subscription) {
-    isTrial = false;
-    subscription = customer?.getActiveSubscriptions()[0];
-  }
-  if (!subscription) {
+  const planDetails = getPlanDetails(customer);
+
+  if (!planDetails) {
     return null;
   }
-  const daysLeft = diffInDays(subscription.trialEndDate);
 
-  const plan = subscription?.plan;
-  const planEntitlements = [
-    ...(plan?.inheritedEntitlements || []),
-    ...(plan?.entitlements || []),
-  ];
-  const planPrice = subscription.price;
-  const isFreePlan = subscription.pricingType === PricingType.Free;
-  const isCustomPricePlan = subscription.pricingType === PricingType.Custom;
-  const priceValue = subscription.price?.amount;
-  const priceString = isCustomPricePlan
-    ? 'Custom price'
-    : isFreePlan
-    ? 'Free '
-    : `$ ${priceValue} ${
-        planPrice?.pricingModel === BillingModel.UsageBased
-          ? `/ ${planPrice?.feature?.units || ''}`
-          : planPrice?.billingPeriod === BillingPeriod.Monthly
-          ? '/ month'
-          : '/ year'
-      }`;
+  const {
+    priceString,
+    isTrial,
+    isFreePlan,
+    daysLeft,
+    subscription,
+    plan,
+    planEntitlements,
+    planPriceEntitlement,
+  } = planDetails;
 
   return (
     <Paper variant="outlined" p={10} mb={5}>
@@ -144,6 +105,11 @@ export const PlanDetails = ({
           >
             Plan includes
           </Typography>
+          {planPriceEntitlement && (
+            <Typography variant="body1" color="text.primary" mb={1}>
+              {planPriceEntitlement}
+            </Typography>
+          )}
           {planEntitlements.map((entitlement, index) => {
             const resetDateCopy = getResetDateCopy(entitlement.resetPeriod);
             return (

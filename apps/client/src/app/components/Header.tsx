@@ -16,8 +16,6 @@ import {
   MonetizationOn,
   Login,
   Logout,
-  Email,
-  Launch,
 } from '@mui/icons-material';
 import { useUser, signOut } from '../hooks/user/useUser';
 import { useState } from 'react';
