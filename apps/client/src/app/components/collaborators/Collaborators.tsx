@@ -28,7 +28,7 @@ import { AddCollaboratorModal } from './AddCollaboratorModal';
 import { AddSeatsModal } from './AddSeatsModal';
 import { PaywallDialog } from '../paywall/PaywallDialog';
 import { getColor, getUsagePercentage, getUsageProgressColor } from '../utils';
-≠
+
 export function Collaborators() {
   const {
     state: { currentUser },
