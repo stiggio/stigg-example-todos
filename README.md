@@ -48,6 +48,9 @@ If this is your first time running the app, you'll need to set up the app:
 ```
 yarn setup
 ```
+#### Billing integration
+In order to test this example project with Stripe integration, you'll need to connect your Stripe account through the Stigg management UI.
+
 
 Run the app (starts both the client and server):
 ```
