@@ -35,6 +35,15 @@ Install dependencies using yarn:
 yarn
 ```
 
+Add .env file in **client** folder with the following key:
+```
+ NX_STIGG_CLIENT_API_KEY=<YOUR-CLIENT-API-KEY>
+```
+Add .env file in **server** folder with the following key:
+```
+ NX_STIGG_SERVER_API_KEY=<YOUR-SERVER-API-KEY>
+```
+
 If this is your first time running the app, you'll need to set up the app:
 ```
 yarn setup
