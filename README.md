@@ -7,7 +7,7 @@ This is a complete end-to-end Stigg integration that demonstrate multiple common
 
 ## Overview
 <p>
-  <img src="https://user-images.githubusercontent.com/17930663/191299769-4608f104-b50f-4651-8281-274d1122d242.png" />
+  <img src="https://user-images.githubusercontent.com/17930663/193017919-b0eb364b-a57b-41f4-85a9-91ca50b08448.png" />
 </p>
 
 To-do list is a complete, full-stack example of Stigg integration:
