@@ -10,12 +10,12 @@ export function SeatsUsage({
 }: {
   collaborators: Collaborator[];
   onAddSeatsClick: () => void;
-  collaboratorLimit: number;
+  collaboratorLimit?: number;
   isUnlimitedCollaborators?: boolean;
 }) {
   const usagePercentage = isUnlimitedCollaborators
     ? 0
-    : getUsagePercentage(collaborators.length, collaboratorLimit);
+    : getUsagePercentage(collaborators.length, collaboratorLimit!);
 
   return (
     <>

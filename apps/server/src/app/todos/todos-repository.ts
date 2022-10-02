@@ -28,7 +28,7 @@ export async function removeTodo(todoId: number): Promise<void> {
   });
 }
 
-export async function updateTodo(todoId, todo: Partial<Todo>) {
+export async function updateTodo(todoId: number, todo: Partial<Todo>) {
   const updatedTodo = await prismaClient.todo.update({
     where: {
       id: todoId,

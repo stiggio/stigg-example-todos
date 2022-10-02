@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactElement }) => {
   } = useUser();
 
   if (!currentUser) {
-    return <Navigate to="/sign-in" replace />;
+    return <Navigate to="/pricing" replace />;
   }
 
   return children;

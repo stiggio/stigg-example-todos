@@ -1,8 +1,10 @@
 import { useStiggContext } from '@stigg/react-sdk';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQueryParams } from './useQueryParam';
 
-export function useWaitForCheckoutCompleted() {
+export function useWaitForCheckoutCompleted(
+  setShowProvisionSuccess: React.Dispatch<React.SetStateAction<boolean>>
+) {
   const { stigg } = useStiggContext();
   const [isAwaitingCheckout, setIsAwaitingCheckout] = useState(false);
   const checkoutSuccess = useQueryParams('checkoutSuccess');
@@ -14,6 +16,7 @@ export function useWaitForCheckoutCompleted() {
       }
 
       setIsAwaitingCheckout(true);
+      setShowProvisionSuccess(true);
       try {
         await stigg?.waitForCheckoutCompleted();
       } catch (err) {
@@ -24,7 +27,7 @@ export function useWaitForCheckoutCompleted() {
     };
 
     waitForCheckoutToComplete();
-  }, [stigg, checkoutSuccess]);
+  }, [stigg, checkoutSuccess, setShowProvisionSuccess]);
 
   return { isAwaitingCheckout };
 }

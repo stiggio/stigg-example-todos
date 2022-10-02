@@ -18,7 +18,13 @@ export async function authMiddleware(
   const userEmail = header.replace(/^Bearer /, '');
 
   const user = await usersRepository.getUserByEmail(userEmail);
-  res.locals.user = user;
+  if (!user) {
+    const err = new Error(`User with email ${userEmail} not found.`);
+    res.status(401);
+    return next(err);
+  }
+
+  req.user = user;
 
   next();
 }

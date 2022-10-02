@@ -40,22 +40,22 @@ export async function signup(email: string, password: string) {
   });
 }
 
+export async function getUser(email: string) {
+  return axios.get(`/api/users/${email}`);
+}
+
 export async function addCollaborator(email: string) {
-  return axios.post('/api/users/collaborator', {
+  return axios.post('/api/collaborators', {
     collaborator: email,
   });
 }
 
 export async function removeCollaborator(email: string) {
-  return axios.delete(`/api/users/collaborator/${email}`);
-}
-
-export async function getUser(email: string) {
-  return axios.get(`/api/users/${email}`);
+  return axios.delete(`/api/collaborators/${email}`);
 }
 
 export async function addSeats(additionalSeats: number) {
-  return axios.post('api/users/collaborator/add-seats', {
+  return axios.post('api/collaborators/add-seats', {
     additionalSeats,
   });
 }

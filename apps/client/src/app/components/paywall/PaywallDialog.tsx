@@ -12,10 +12,12 @@ type TodosPaywallProps = {
 
 export function PaywallDialog({ paywallIsOpen, onClose }: TodosPaywallProps) {
   const [showProvisionSuccess, setShowProvisionSuccess] = useState(false);
-  const { isAwaitingCheckout } = useWaitForCheckoutCompleted();
+  const { isAwaitingCheckout } = useWaitForCheckoutCompleted(
+    setShowProvisionSuccess
+  );
 
   let open = paywallIsOpen;
-  if (isAwaitingCheckout) {
+  if (isAwaitingCheckout || showProvisionSuccess) {
     open = true;
   }
 
@@ -48,7 +50,7 @@ export function PaywallDialog({ paywallIsOpen, onClose }: TodosPaywallProps) {
         </IconButton>
       </DialogTitle>
 
-      {showProvisionSuccess || isAwaitingCheckout ? (
+      {showProvisionSuccess ? (
         <SuccessfulPlanProvision
           waitingForCheckoutConfirmation={isAwaitingCheckout}
         />

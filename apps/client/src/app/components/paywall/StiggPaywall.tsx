@@ -9,6 +9,7 @@ import {
   Customer,
   BillingPeriod,
   SubscribeIntentionType,
+  useStiggContext,
 } from '@stigg/react-sdk';
 import { DeepPartial } from '@stigg/react-sdk/dist/types';
 import config from '../../config';
@@ -36,6 +37,8 @@ export function Paywall({
   const {
     state: { currentUser },
   } = useUser();
+  const { stigg } = useStiggContext();
+
   async function performCheckout(
     plan: Plan,
     customer: Customer,
@@ -58,16 +61,19 @@ export function Paywall({
     return checkoutResult;
   }
 
+  /**
+   * We support here 2 different scenarios, when there is a billing integration we use the checkout flow,
+   * and as a fallback we call to createSubscription
+   */
   const onSubscribe: OnPlanSelectedCallbackFn = async (args) => {
     if (onPlanSelected) {
       await onPlanSelected(args);
     } else {
       const { customer, plan, selectedBillingPeriod, intentionType } = args;
-      const collaboratorsQuantityLimit =
-        plan.metadata?.['collaboratorsQuantity'];
-      const collaboratorsUnitQuantity = collaboratorsQuantityLimit
-        ? parseInt(collaboratorsQuantityLimit)
-        : undefined;
+      const collaboratorsEntitlement = stigg!.getMeteredEntitlement({
+        featureId: 'feature-collaborators',
+      });
+      const collaboratorsUnitQuantity = collaboratorsEntitlement.currentUsage;
 
       if (customer?.id) {
         const shouldShowCheckout =
@@ -81,11 +87,12 @@ export function Paywall({
             plan,
             customer,
             selectedBillingPeriod,
+            // Using
             collaboratorsUnitQuantity
           );
         }
 
-        // checkout will be null in case there is no billing integration
+        // checkout will be null in the scenario when there is no billing integration
         if (!checkout) {
           await createSubscription({
             billingPeriod: selectedBillingPeriod,
