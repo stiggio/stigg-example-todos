@@ -1,20 +1,31 @@
 import { LoadingButton } from '@mui/lab';
 import { Modal, Button, Grid, Typography, TextField, Box } from '@mui/material';
+import { BillingPeriod, Subscription } from '@stigg/react-sdk';
 import { useState } from 'react';
 
 export function AddSeatsModal({
   open,
   onClose,
   onAddCollaboratorSeats,
-  seatPrice,
+  currentActiveSubscription,
 }: {
   open: boolean;
   onClose: () => void;
   onAddCollaboratorSeats: (additionalSeats: number) => Promise<void>;
-  seatPrice: number;
+  currentActiveSubscription: Subscription;
 }) {
   const [seats, setSeats] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+
+  const currentBillingPeriod = currentActiveSubscription.price?.billingPeriod;
+  const price = currentActiveSubscription.plan?.pricePoints.find(
+    (price) => price.billingPeriod === currentBillingPeriod
+  );
+  const seatPrice = price
+    ? currentBillingPeriod === BillingPeriod.Annually
+      ? price.amount / 12
+      : price.amount
+    : 0;
 
   const onAdd = async (additionalSeats: number) => {
     setIsLoading(true);

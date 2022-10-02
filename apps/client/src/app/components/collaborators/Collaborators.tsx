@@ -5,7 +5,6 @@ import {
   Button,
   Grid,
   IconButton,
-  LinearProgress,
   Paper,
   Table,
   TableBody,
@@ -15,8 +14,8 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import { BillingPeriod, BillingModel, useStiggContext } from '@stigg/react-sdk';
-import { useEffect, useState } from 'react';
+import { BillingModel, useStiggContext } from '@stigg/react-sdk';
+import { useState } from 'react';
 import {
   useUser,
   removeCollaborator,
@@ -27,7 +26,8 @@ import { Collaborator } from '../../types';
 import { AddCollaboratorModal } from './AddCollaboratorModal';
 import { AddSeatsModal } from './AddSeatsModal';
 import { PaywallDialog } from '../paywall/PaywallDialog';
-import { getColor, getUsagePercentage, getUsageProgressColor } from '../utils';
+import { getColor } from '../utils';
+import { SeatsUsage } from './SeatsUsage';
 
 export function Collaborators() {
   const {
@@ -44,7 +44,7 @@ export function Collaborators() {
   const [openAddCollaborator, setOpenAddCollaborator] = useState(false);
   const handleOpenAddCollaborator = () => setOpenAddCollaborator(true);
   const handleCloseAddCollaborator = () => setOpenAddCollaborator(false);
-  const { stigg, updatedAt } = useStiggContext();
+  const { stigg } = useStiggContext();
 
   const collaboratorEntitlement = stigg?.getMeteredEntitlement({
     featureId: 'feature-collaborators',
@@ -54,17 +54,15 @@ export function Collaborators() {
     },
   });
 
-  useEffect(() => {
-    stigg?.addListener('entitlementsUpdated', (data) => {
-      console.log('entitlementsUpdated', data);
-    });
-  }, [stigg]);
-
-  console.log('updatedAt', updatedAt);
-  console.log('collaboratorEntitlement', collaboratorEntitlement);
   const canAddCollaborator = collaboratorEntitlement?.hasAccess;
   const collaboratorLimit = collaboratorEntitlement?.usageLimit || 5;
   const isUnlimitedCollaborators = collaboratorEntitlement?.isUnlimited;
+
+  const [currentActiveSubscription] =
+    currentUser?.stiggCustomer?.getActiveSubscriptions() || [];
+  const canUpdateSeats =
+    currentActiveSubscription &&
+    currentActiveSubscription.price?.pricingModel === BillingModel.PerUnit;
 
   const collaborators = currentUser?.collaborators
     ? [...currentUser.collaborators]
@@ -76,37 +74,17 @@ export function Collaborators() {
     });
   }
 
-  const usagePercentage = isUnlimitedCollaborators
-    ? 0
-    : getUsagePercentage(collaborators.length, collaboratorLimit);
-
   const onRemoveCollaborator = async (collaborator: Collaborator) => {
-    // setCollaboratorInDelete(collaborator.id);
+    setCollaboratorInDelete(collaborator.id);
     await removeCollaborator(dispatch, { email: collaborator.email });
     await stigg?.refresh();
-    console.log('entitlements refreshed');
-    // setCollaboratorInDelete(null);
+    setCollaboratorInDelete(null);
   };
 
   const onAddCollaborator = async (collaboratorEmail: string) => {
     await addCollaborator(dispatch, { email: collaboratorEmail });
     await stigg?.refresh();
   };
-
-  const [currentActiveSubscription] =
-    currentUser?.stiggCustomer?.getActiveSubscriptions() || [];
-  const canUpdateSeats =
-    currentActiveSubscription &&
-    currentActiveSubscription.price?.pricingModel === BillingModel.PerUnit;
-  const currentBillingPeriod = currentActiveSubscription.price?.billingPeriod;
-  const price = currentActiveSubscription.plan?.pricePoints.find(
-    (price) => price.billingPeriod === currentBillingPeriod
-  );
-  const seatPrice = price
-    ? currentBillingPeriod === BillingPeriod.Annually
-      ? price.amount / 12
-      : price.amount
-    : 0;
 
   const onAddCollaboratorSeats = async (additionalSeats: number) => {
     if (canUpdateSeats) {
@@ -139,17 +117,11 @@ export function Collaborators() {
         alignItems="flex-end"
       >
         <Grid item>
-          <Typography color="text.primary" component="span">
-            {collaborators.length} /{' '}
-            {isUnlimitedCollaborators ? 'unlimited' : collaboratorLimit} seats —
-          </Typography>
-          <Button sx={{ margin: 0 }} onClick={onAddSeatsClick}>
-            Buy more
-          </Button>
-          <LinearProgress
-            variant="determinate"
-            value={usagePercentage}
-            color={getUsageProgressColor(usagePercentage)}
+          <SeatsUsage
+            collaboratorLimit={collaboratorLimit}
+            collaborators={collaborators}
+            isUnlimitedCollaborators={isUnlimitedCollaborators}
+            onAddSeatsClick={onAddSeatsClick}
           />
         </Grid>
         <Grid item>
@@ -212,7 +184,7 @@ export function Collaborators() {
         open={openAddSeats}
         onClose={handleCloseAddSeats}
         onAddCollaboratorSeats={onAddCollaboratorSeats}
-        seatPrice={seatPrice}
+        currentActiveSubscription={currentActiveSubscription}
       />
       <AddCollaboratorModal
         open={openAddCollaborator}

@@ -1,10 +1,9 @@
 import { Close } from '@mui/icons-material';
 import { Dialog, DialogTitle, IconButton } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SuccessfulPlanProvision } from './SuccessfulPlanProvision';
 import { Paywall } from './StiggPaywall';
-import { useStiggContext } from '@stigg/react-sdk';
-import { useQueryParams } from '../../hooks/useQueryParam';
+import { useWaitForCheckoutCompleted } from '../../hooks/useWaitForCheckoutCompleted';
 
 type TodosPaywallProps = {
   paywallIsOpen: boolean;
@@ -13,34 +12,12 @@ type TodosPaywallProps = {
 
 export function PaywallDialog({ paywallIsOpen, onClose }: TodosPaywallProps) {
   const [showProvisionSuccess, setShowProvisionSuccess] = useState(false);
-  const [isAwaitingCheckout, setIsAwaitingCheckout] = useState(false);
-  const { stigg } = useStiggContext();
-  const checkoutSuccess = useQueryParams('checkoutSuccess');
+  const { isAwaitingCheckout } = useWaitForCheckoutCompleted();
 
   let open = paywallIsOpen;
-  if (checkoutSuccess) {
+  if (isAwaitingCheckout) {
     open = true;
   }
-
-  useEffect(() => {
-    const waitForCheckoutToComplete = async () => {
-      if (!checkoutSuccess) {
-        return;
-      }
-
-      setIsAwaitingCheckout(true);
-      setShowProvisionSuccess(true);
-      try {
-        await stigg?.waitForCheckoutCompleted();
-      } catch (err) {
-        console.error('Failed to wait for checkout to complete', err);
-      } finally {
-        setIsAwaitingCheckout(false);
-      }
-    };
-
-    waitForCheckoutToComplete();
-  }, [stigg, checkoutSuccess]);
 
   return (
     <Dialog
@@ -71,7 +48,7 @@ export function PaywallDialog({ paywallIsOpen, onClose }: TodosPaywallProps) {
         </IconButton>
       </DialogTitle>
 
-      {showProvisionSuccess ? (
+      {showProvisionSuccess || isAwaitingCheckout ? (
         <SuccessfulPlanProvision
           waitingForCheckoutConfirmation={isAwaitingCheckout}
         />
