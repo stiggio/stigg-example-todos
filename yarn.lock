@@ -2227,10 +2227,10 @@
     tiny-typed-emitter "^2.1.0"
     ws "^8.5.0"
 
-"@stigg/react-sdk@^0.14.4":
-  version "0.14.4"
-  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-0.14.4.tgz#383f6fc4ee34d5c7f8f261f1ca67d1182121cff6"
-  integrity sha512-5tvHUAllgQTaRrRvGkPa3ifB5uvz3edeGMk4c/v1Zo79R95yohoIOHAUn5UJv5dsPh2Ku3+HPyYEtMj37slWjw==
+"@stigg/react-sdk@^0.14.5":
+  version "0.14.5"
+  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-0.14.5.tgz#9a20271d9ffd0bf302fc2cec20b45a70c67d8f3f"
+  integrity sha512-gVakfDa4GI3tROSVJr1X+NrZvZOpV6btFGF/BLBmZpC3zcZ4e+4aPBEEz5Bnw9l1Bjz6u9AWut9Eiy89lUqEmQ==
   dependencies:
     "@stigg/js-client-sdk" "^0.43.1"
     color "^4.2.3"
