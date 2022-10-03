@@ -28,6 +28,19 @@ export async function removeTodo(todoId: number): Promise<void> {
   });
 }
 
+export async function updateTodo(todoId: number, todo: Partial<Todo>) {
+  const updatedTodo = await prismaClient.todo.update({
+    where: {
+      id: todoId,
+    },
+    data: {
+      ...todo,
+    },
+  });
+
+  return updatedTodo;
+}
+
 export async function toggleTodo(
   todoId: number,
   completed: boolean

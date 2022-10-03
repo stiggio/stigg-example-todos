@@ -1,17 +1,21 @@
-import { Button, Grid, Link, TextField, Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { Grid, Link, TextField, Typography } from '@mui/material';
+import { useStiggContext } from '@stigg/react-sdk';
 import { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signIn, signUp, useUsers } from '../hooks/useUsers';
+import { signIn, signUp, useUser } from '../../hooks/user/useUser';
 
 export function SignIn() {
   const {
     state: { currentUser, signInError },
     dispatch,
-  } = useUsers();
+  } = useUser();
   const navigate = useNavigate();
   const [createNewUser, setCreateNewUser] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { stigg } = useStiggContext();
 
   const toggleNewUserMode = () => {
     setCreateNewUser(!createNewUser);
@@ -19,21 +23,23 @@ export function SignIn() {
 
   useEffect(() => {
     if (currentUser) {
-      navigate('/');
+      navigate('/customer-portal');
     }
   }, [currentUser, navigate]);
 
-  const onClick = (email: string, password: string) => {
+  const onLogin = async (email: string, password: string) => {
+    setIsLoading(true);
     if (createNewUser) {
-      signUp(dispatch, { email, password });
+      await signUp(dispatch, { email, password }, stigg);
     } else {
-      signIn(dispatch, { email, password });
+      await signIn(dispatch, { email, password }, stigg);
     }
+    setIsLoading(false);
   };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onClick(email, password);
+    onLogin(email, password);
   };
 
   return (
@@ -77,14 +83,15 @@ export function SignIn() {
             />
           </Grid>
           <Grid item mt={4}>
-            <Button
+            <LoadingButton
               type="submit"
               color="primary"
               variant="contained"
+              loading={isLoading}
               sx={{ color: 'white', width: 450, height: 45 }}
             >
               {createNewUser ? 'Sign up' : 'Sign in'}
-            </Button>
+            </LoadingButton>
           </Grid>
           <Grid item mt={2}>
             <Typography

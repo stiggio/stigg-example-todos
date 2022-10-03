@@ -1,7 +1,7 @@
 import { Card, styled } from '@mui/material';
 
 export const StyledCard = styled(Card)`
-  width: 600px;
+  width: 700px;
   border-radius: 0;
 
   &:before {
@@ -10,7 +10,7 @@ export const StyledCard = styled(Card)`
     bottom: 0;
     left: 50%;
     transform: translate(-50%);
-    width: 600px;
+    width: 700px;
     height: 50px;
     box-shadow: 0 1px 1px rgb(0 0 0 / 20%), 0 8px 0 -3px #f6f6f6,
       0 9px 1px -3px rgb(0 0 0 / 20%), 0 16px 0 -6px #f6f6f6,

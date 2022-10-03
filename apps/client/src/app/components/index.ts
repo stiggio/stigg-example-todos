@@ -1,4 +1,4 @@
-export { TodoList } from './TodoList';
-export { SignIn } from './SignIn';
-export { Collaborators } from './Collaborators';
+export { TodoList } from './todo-list/TodoList';
+export { SignIn } from './sign-in/SignIn';
+export { Collaborators } from './collaborators/Collaborators';
 export { Header } from './Header';

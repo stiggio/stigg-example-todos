@@ -1,9 +1,9 @@
-import { Todo } from '../types';
+import { Todo } from '../../types';
 
 export enum TodosActionType {
   TODO_ADDED = 'TODO_ADDED',
   TODO_DELETED = 'TODO_DELETED',
-  TODO_TOGGLED = 'TODO_TOGGLED',
+  TODO_UPDATED = 'TODO_UPDATED',
   FETCH_TODOS_COMPLETED = 'FETCH_TODOS_COMPLETED',
   FETCH_TODOS_STARTED = 'FETCH_TODOS_STARTED',
 }
@@ -15,10 +15,11 @@ type TodoAddedAction = {
   };
 };
 
-type TodoToggledAction = {
-  type: TodosActionType.TODO_TOGGLED;
+type TodoUpdatedAction = {
+  type: TodosActionType.TODO_UPDATED;
   payload: {
     id: string;
+    updatedTodo: Todo;
   };
 };
 
@@ -43,6 +44,6 @@ type FetchTodosStartedAction = {
 export type TodosAction =
   | TodoAddedAction
   | TodoDeletedAction
-  | TodoToggledAction
+  | TodoUpdatedAction
   | FetchTodosCompletedAction
   | FetchTodosStartedAction;

@@ -12,9 +12,6 @@ export default {
     sessionStorage.removeItem('token');
     this.token = null;
   },
-  loggedIn() {
-    return !!this.token;
-  },
   setAuthHeader() {
     if (this.token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;

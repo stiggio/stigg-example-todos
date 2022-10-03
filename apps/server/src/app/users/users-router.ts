@@ -1,9 +1,12 @@
 import * as express from 'express';
+import * as shortUUID from 'short-uuid';
 import { authMiddleware } from '../middleware/authMiddleware';
+import { stiggClient, ENTITLEMENTS_IDS, STARTER_PLAN_ID } from '../stiggClient';
 import * as usersRepository from './users-repository';
 
 const router = express.Router();
 
+// For simplicity, we use email as the identity token instead of a JWT token
 router.get('/:email', async (req, res) => {
   const { email } = req.params;
 
@@ -35,31 +38,69 @@ router.post('/signup', async (req, res) => {
     throw new Error('Email address already exists');
   }
 
-  const user = await usersRepository.signUp(email, password);
+  const customerStiggId = shortUUID.generate();
+  const user = await usersRepository.signUp(email, password, customerStiggId);
+
+  await stiggClient!.provisionCustomer({
+    customerId: customerStiggId,
+    name: user.email.split('@')[0],
+    email: user.email,
+    subscriptionParams: {
+      planId: STARTER_PLAN_ID,
+    },
+    shouldSyncFree: false,
+  });
+  // The current user is considered as collaborator as well, therefore
+  // reporting initial usage of 1
+  await stiggClient!.reportUsage({
+    customerId: customerStiggId,
+    featureId: ENTITLEMENTS_IDS.collaborators,
+    value: 1,
+  });
 
   return res.json({ user });
 });
 
-router.post('/collaborator', authMiddleware, async (req, res) => {
-  const { collaborator } = req.body;
-  const user = await usersRepository.addCollaborator(
-    res.locals.user,
-    collaborator
-  );
-  res.json({ user });
+router.post('/createSubscription', authMiddleware, async (req, res) => {
+  const { customerId, planId, billingPeriod, unitQuantity } = req.body;
+  await stiggClient!.createSubscription({
+    customerId,
+    planId,
+    billingPeriod,
+    unitQuantity,
+    awaitPaymentConfirmation: true,
+  });
+
+  res.end();
 });
 
-router.delete(
-  '/collaborator/:collaboratorEmail',
-  authMiddleware,
-  async (req, res) => {
-    const { collaboratorEmail } = req.params;
-    const user = await usersRepository.removeCollaborator(
-      res.locals.user,
-      collaboratorEmail
+router.post('/checkout', authMiddleware, async (req, res) => {
+  const {
+    customerId,
+    cancelUrl,
+    successUrl,
+    planId,
+    billingPeriod,
+    unitQuantity,
+  } = req.body;
+  let checkout = null;
+  try {
+    checkout = await stiggClient!.initiateCheckout({
+      planId,
+      customerId,
+      addons: [],
+      billingPeriod,
+      unitQuantity,
+      cancelUrl,
+      successUrl,
+    });
+  } catch (err) {
+    console.warn(
+      `Failed to initiate checkout for user ${customerId} for plan ${planId}`
     );
-    res.json({ user });
   }
-);
+
+  res.json({ checkout });
+});
 
 export default router;

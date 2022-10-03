@@ -1,8 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 import { useImmerReducer } from 'use-immer';
-import { User } from '../types';
-import * as apiGateway from '../api/apiGateway';
-import auth from '../auth';
+import { User } from '../../types';
+import * as apiGateway from '../../api/apiGateway';
+import auth from '../../auth';
+import { Customer, StiggClient, useStiggContext } from '@stigg/react-sdk';
+import { BillingPeriod } from '@stigg/node-server-sdk';
+import { UsersAction, UsersActionType } from './userActions';
 
 type UsersState = {
   currentUser?: User;
@@ -10,62 +13,7 @@ type UsersState = {
   isLoaded: boolean;
 };
 
-enum UsersActionType {
-  USER_LOADED = 'USER_LOADED',
-  USER_SIGNED_IN_ERROR = 'USER_SIGNED_IN_ERROR',
-  USER_SIGNED_IN = 'USER_SIGNED_IN',
-  USER_SIGNED_OUT = 'USER_SIGNED_OUT',
-  USER_SIGNED_UP = 'USER_SIGNED_UP',
-  COLLABORATOR_ADDED = 'COLLABORATOR_ADDED',
-  COLLABORATOR_REMOVED = 'COLLABORATOR_REMOVED',
-}
-
-type UserSignedInAction = {
-  type: UsersActionType.USER_SIGNED_IN;
-  payload: {
-    user: User;
-  };
-};
-
-type UserLoadedAction = {
-  type: UsersActionType.USER_LOADED;
-  payload: {
-    user?: User;
-  };
-};
-
-type UserSignedInErrorAction = {
-  type: UsersActionType.USER_SIGNED_IN_ERROR;
-};
-
-type UserSignedOutAction = {
-  type: UsersActionType.USER_SIGNED_OUT;
-};
-
-type UserSignedUpAction = {
-  type: UsersActionType.USER_SIGNED_UP;
-  payload: {
-    user: User;
-  };
-};
-
-type CollaboratorChangedAction = {
-  type:
-    | UsersActionType.COLLABORATOR_ADDED
-    | UsersActionType.COLLABORATOR_REMOVED;
-  payload: {
-    user: User;
-  };
-};
-
 export type UsersDispatch = React.Dispatch<UsersAction>;
-type UsersAction =
-  | UserSignedInAction
-  | UserSignedOutAction
-  | UserSignedInErrorAction
-  | UserSignedUpAction
-  | UserLoadedAction
-  | CollaboratorChangedAction;
 
 const UsersStateContext = React.createContext<
   { state: UsersState; dispatch: UsersDispatch } | undefined
@@ -73,11 +21,6 @@ const UsersStateContext = React.createContext<
 
 function reducer(state: UsersState, action: UsersAction) {
   switch (action.type) {
-    case UsersActionType.USER_SIGNED_IN:
-    case UsersActionType.USER_SIGNED_UP:
-      state.signInError = false;
-      state.currentUser = action.payload.user;
-      break;
     case UsersActionType.USER_SIGNED_IN_ERROR:
       state.signInError = true;
       break;
@@ -86,11 +29,20 @@ function reducer(state: UsersState, action: UsersAction) {
       break;
     case UsersActionType.USER_LOADED:
       state.isLoaded = true;
-      state.currentUser = action.payload.user;
+      state.signInError = false;
+      state.currentUser = action.payload.user
+        ? {
+            ...action.payload.user,
+            stiggCustomer: action.payload.stiggCustomer,
+          }
+        : undefined;
       break;
     case UsersActionType.COLLABORATOR_ADDED:
     case UsersActionType.COLLABORATOR_REMOVED:
-      state.currentUser = action.payload.user;
+      state.currentUser = {
+        ...state.currentUser,
+        ...action.payload.user,
+      };
       break;
     default:
       throw new Error('Not supported action type');
@@ -99,17 +51,15 @@ function reducer(state: UsersState, action: UsersAction) {
 
 export async function signIn(
   dispatch: UsersDispatch,
-  payload: { email: string; password: string }
+  payload: { email: string; password: string },
+  stiggClient: StiggClient | null
 ) {
   try {
     const res = await apiGateway.login(payload.email, payload.password);
     const { user } = res.data;
-    dispatch({
-      type: UsersActionType.USER_SIGNED_IN,
-      payload: {
-        user,
-      },
-    });
+    if (stiggClient) {
+      await loadUser(dispatch, { email: payload.email }, stiggClient);
+    }
     auth.setToken(user.email);
   } catch (err) {
     dispatch({
@@ -120,16 +70,15 @@ export async function signIn(
 
 export async function signUp(
   dispatch: UsersDispatch,
-  payload: { email: string; password: string }
+  payload: { email: string; password: string },
+  stiggClient: StiggClient | null
 ) {
   const res = await apiGateway.signup(payload.email, payload.password);
   const { user } = res.data;
-  dispatch({
-    type: UsersActionType.USER_SIGNED_UP,
-    payload: {
-      user: user,
-    },
-  });
+
+  if (stiggClient) {
+    await loadUser(dispatch, { email: payload.email }, stiggClient);
+  }
   auth.setToken(user.email);
 }
 
@@ -166,20 +115,76 @@ export async function removeCollaborator(
   });
 }
 
+export async function addCollaboratorSeats(payload: {
+  additionalSeats: number;
+}) {
+  await apiGateway.addSeats(payload.additionalSeats);
+}
+
+export async function createSubscription(payload: {
+  customerId: string;
+  planId: string;
+  billingPeriod: BillingPeriod;
+  unitQuantity?: number;
+}) {
+  const { customerId, planId, billingPeriod, unitQuantity } = payload;
+  await apiGateway.createSubscription({
+    customerId,
+    planId,
+    billingPeriod,
+    unitQuantity,
+  });
+}
+
+export async function checkout(payload: {
+  customerId: string;
+  planId: string;
+  billingPeriod: BillingPeriod;
+  unitQuantity?: number;
+  cancelUrl: string;
+  successUrl: string;
+}) {
+  const {
+    customerId,
+    planId,
+    billingPeriod,
+    unitQuantity,
+    cancelUrl,
+    successUrl,
+  } = payload;
+  const res = await apiGateway.checkout({
+    customerId,
+    planId,
+    billingPeriod,
+    unitQuantity,
+    cancelUrl,
+    successUrl,
+  });
+
+  return res.data.checkout;
+}
+
 async function loadUser(
   dispatch: UsersDispatch,
-  payload: { email?: string | null }
+  payload: { email?: string | null },
+  stiggClient: StiggClient
 ) {
   let user: User | undefined;
+  let stiggCustomer: Customer | undefined;
   if (payload.email) {
     const res = await apiGateway.getUser(payload.email);
     user = res.data.user;
+    if (user) {
+      await stiggClient.setCustomerId(user.stiggCustomerId);
+      stiggCustomer = await stiggClient.getCustomer();
+    }
   }
 
   dispatch({
     type: UsersActionType.USER_LOADED,
     payload: {
       user,
+      stiggCustomer,
     },
   });
   auth.setAuthHeader();
@@ -189,10 +194,13 @@ export function UsersProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useImmerReducer<UsersState, UsersAction>(reducer, {
     isLoaded: false,
   });
+  const { stigg } = useStiggContext();
 
   useEffect(() => {
-    loadUser(dispatch, { email: auth.token });
-  }, [dispatch]);
+    if (stigg) {
+      loadUser(dispatch, { email: auth.token }, stigg);
+    }
+  }, [dispatch, stigg]);
 
   return (
     <UsersStateContext.Provider value={{ state, dispatch }}>
@@ -201,11 +209,11 @@ export function UsersProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function useUsers() {
+export function useUser() {
   const context = useContext(UsersStateContext);
 
   if (!context) {
-    throw new Error('useUsers must be used within a CountProvider');
+    throw new Error('useUser must be used within a UsersProvider');
   }
 
   return context;

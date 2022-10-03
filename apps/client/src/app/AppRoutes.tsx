@@ -1,15 +1,17 @@
-import { CircularProgress, Grid, Typography } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Collaborators, SignIn, TodoList } from './components';
-import { useUsers } from './hooks/useUsers';
+import { CustomerPortal } from './components/pricing/CustomerPortal';
+import { Pricing } from './components/pricing/Pricing';
+import { useUser } from './hooks/user/useUser';
 
 const ProtectedRoute = ({ children }: { children: React.ReactElement }) => {
   const {
     state: { currentUser },
-  } = useUsers();
+  } = useUser();
 
   if (!currentUser) {
-    return <Navigate to="/sign-in" replace />;
+    return <Navigate to="/pricing" replace />;
   }
 
   return children;
@@ -18,7 +20,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactElement }) => {
 export function AppRoutes() {
   const {
     state: { isLoaded },
-  } = useUsers();
+  } = useUser();
 
   if (!isLoaded) {
     return (
@@ -44,18 +46,23 @@ export function AppRoutes() {
         }
       />
       <Route
-        path="/members"
+        path="/collaborators"
         element={
           <ProtectedRoute>
             <Collaborators />
           </ProtectedRoute>
         }
       />
-      <Route path="/sign-in" element={<SignIn />} />
       <Route
-        path="/pricing"
-        element={<Typography variant="body1">Pricing here!</Typography>}
+        path="/customer-portal"
+        element={
+          <ProtectedRoute>
+            <CustomerPortal />
+          </ProtectedRoute>
+        }
       />
+      <Route path="/sign-in" element={<SignIn />} />
+      <Route path="/pricing" element={<Pricing />} />
     </Routes>
   );
 }
