@@ -41,7 +41,7 @@ router.post('/signup', async (req, res) => {
   const customerStiggId = shortUUID.generate();
   const user = await usersRepository.signUp(email, password, customerStiggId);
 
-  await stiggClient!.provisionCustomer({
+  await stiggClient.provisionCustomer({
     customerId: customerStiggId,
     name: user.email.split('@')[0],
     email: user.email,
@@ -52,7 +52,7 @@ router.post('/signup', async (req, res) => {
   });
   // The current user is considered as collaborator as well, therefore
   // reporting initial usage of 1
-  await stiggClient!.reportUsage({
+  await stiggClient.reportUsage({
     customerId: customerStiggId,
     featureId: ENTITLEMENTS_IDS.collaborators,
     value: 1,
@@ -63,7 +63,7 @@ router.post('/signup', async (req, res) => {
 
 router.post('/createSubscription', authMiddleware, async (req, res) => {
   const { customerId, planId, billingPeriod, unitQuantity } = req.body;
-  await stiggClient!.createSubscription({
+  await stiggClient.createSubscription({
     customerId,
     planId,
     billingPeriod,
@@ -85,7 +85,7 @@ router.post('/checkout', authMiddleware, async (req, res) => {
   } = req.body;
   let checkout = null;
   try {
-    checkout = await stiggClient!.initiateCheckout({
+    checkout = await stiggClient.initiateCheckout({
       planId,
       customerId,
       addons: [],

@@ -28,7 +28,7 @@ router.post(
       req.user.email,
       collaborator
     );
-    await stiggClient!.reportUsage({
+    await stiggClient.reportUsage({
       customerId: req.user.stiggCustomerId,
       featureId: ENTITLEMENTS_IDS.collaborators,
       value: 1,
@@ -46,7 +46,7 @@ router.delete(
       req.user.email,
       collaboratorEmail
     );
-    await stiggClient!.reportUsage({
+    await stiggClient.reportUsage({
       customerId: req.user.stiggCustomerId,
       featureId: ENTITLEMENTS_IDS.collaborators,
       value: -1,
@@ -57,13 +57,11 @@ router.delete(
 
 router.post('/add-seats', checkCollaboratorsEntitlement(), async (req, res) => {
   const { additionalSeats } = req.body;
-  const stiggCustomer = await stiggClient!.getCustomer(
-    req.user.stiggCustomerId
-  );
+  const stiggCustomer = await stiggClient.getCustomer(req.user.stiggCustomerId);
 
   const [activeSubscription] = stiggCustomer.getActiveSubscriptions();
   if (activeSubscription?.price) {
-    await stiggClient!.updateSubscription({
+    await stiggClient.updateSubscription({
       subscriptionId: activeSubscription.id,
       // The api gets the final desired quantity, therefore we add the additional quantity to the current quantity
       unitQuantity:
