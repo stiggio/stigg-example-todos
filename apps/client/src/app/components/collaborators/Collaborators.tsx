@@ -46,7 +46,7 @@ export function Collaborators() {
   const handleCloseAddCollaborator = () => setOpenAddCollaborator(false);
   const { stigg } = useStiggContext();
 
-  const collaboratorEntitlement = stigg!.getMeteredEntitlement({
+  const collaboratorEntitlement = stigg.getMeteredEntitlement({
     featureId: 'feature-collaborators',
     options: {
       requestedUsage: 1,

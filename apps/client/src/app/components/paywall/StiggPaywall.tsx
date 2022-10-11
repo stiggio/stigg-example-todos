@@ -70,7 +70,7 @@ export function Paywall({
       await onPlanSelected(args);
     } else {
       const { customer, plan, selectedBillingPeriod, intentionType } = args;
-      const collaboratorsEntitlement = stigg!.getMeteredEntitlement({
+      const collaboratorsEntitlement = stigg.getMeteredEntitlement({
         featureId: 'feature-collaborators',
       });
       const collaboratorsUnitQuantity = collaboratorsEntitlement.currentUsage;
@@ -87,7 +87,6 @@ export function Paywall({
             plan,
             customer,
             selectedBillingPeriod,
-            // Using
             collaboratorsUnitQuantity
           );
         }
