@@ -14,7 +14,16 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <StrictMode>
-    <StiggProvider apiKey={config.stiggApiKey}>
+    <StiggProvider
+      apiKey={config.stiggApiKey}
+      theme={{
+        layout: {
+          planMinWidth: '330px',
+          descriptionMinHeight: '60px',
+          switchBottomSpacing: '20px',
+        },
+      }}
+    >
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <CssBaseline />
