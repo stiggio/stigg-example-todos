@@ -77,19 +77,19 @@ export function Collaborators() {
   const onRemoveCollaborator = async (collaborator: Collaborator) => {
     setCollaboratorInDelete(collaborator.id);
     await removeCollaborator(dispatch, { email: collaborator.email });
-    await stigg?.refresh();
+    await stigg.refresh();
     setCollaboratorInDelete(null);
   };
 
   const onAddCollaborator = async (collaboratorEmail: string) => {
     await addCollaborator(dispatch, { email: collaboratorEmail });
-    await stigg?.refresh();
+    await stigg.refresh();
   };
 
   const onAddCollaboratorSeats = async (additionalSeats: number) => {
     if (canUpdateSeats) {
       await addCollaboratorSeats({ additionalSeats });
-      await stigg?.refresh();
+      await stigg.refresh();
     }
   };
 

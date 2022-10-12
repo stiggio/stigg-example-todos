@@ -18,7 +18,7 @@ export function useWaitForCheckoutCompleted(
       setIsAwaitingCheckout(true);
       setShowProvisionSuccess(true);
       try {
-        await stigg?.waitForCheckoutCompleted();
+        await stigg.waitForCheckoutCompleted();
       } catch (err) {
         console.error('Failed to wait for checkout to complete', err);
       } finally {
