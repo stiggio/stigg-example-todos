@@ -25,7 +25,7 @@ router.get('/', checkTodosEntitlement(), async (req, res) => {
 
 router.post('/', checkTodosEntitlement(1), async (req, res) => {
   const newTodo = await todosRepository.addTodo(req.user.email, req.body.label);
-  await stiggClient!.reportUsage({
+  await stiggClient.reportUsage({
     customerId: req.user.stiggCustomerId,
     featureId: ENTITLEMENTS_IDS.todos,
     value: 1,
@@ -48,7 +48,7 @@ router.put('/:id', checkTodosEntitlement(), async (req, res) => {
 router.delete('/:id', checkTodosEntitlement(), async (req, res) => {
   const { id } = req.params;
   await todosRepository.removeTodo(parseInt(id));
-  await stiggClient!.reportUsage({
+  await stiggClient.reportUsage({
     customerId: req.user.stiggCustomerId,
     featureId: ENTITLEMENTS_IDS.todos,
     value: -1,

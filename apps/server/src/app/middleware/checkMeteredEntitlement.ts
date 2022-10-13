@@ -12,7 +12,7 @@ export const checkMeteredEntitlement =
     res: express.Response,
     next: express.NextFunction
   ) => {
-    const entitlement = await stiggClient!.getMeteredEntitlement({
+    const entitlement = await stiggClient.getMeteredEntitlement({
       customerId: req.user.stiggCustomerId,
       featureId,
       options: {

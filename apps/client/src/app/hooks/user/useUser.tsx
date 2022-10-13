@@ -3,8 +3,12 @@ import { useImmerReducer } from 'use-immer';
 import { User } from '../../types';
 import * as apiGateway from '../../api/apiGateway';
 import auth from '../../auth';
-import { Customer, StiggClient, useStiggContext } from '@stigg/react-sdk';
-import { BillingPeriod } from '@stigg/node-server-sdk';
+import {
+  BillingPeriod,
+  Customer,
+  StiggClient,
+  useStiggContext,
+} from '@stigg/react-sdk';
 import { UsersAction, UsersActionType } from './userActions';
 
 type UsersState = {

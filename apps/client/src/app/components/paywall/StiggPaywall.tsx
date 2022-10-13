@@ -2,7 +2,6 @@ import { Box, styled } from '@mui/material';
 import {
   OnPlanSelectedCallbackFn,
   Paywall as StiggPaywall,
-  StiggProvider,
   PaywallLocalization,
   PricingType,
   Plan,
@@ -12,12 +11,7 @@ import {
   useStiggContext,
 } from '@stigg/react-sdk';
 import { DeepPartial } from '@stigg/react-sdk/dist/types';
-import config from '../../config';
-import {
-  checkout,
-  createSubscription,
-  useUser,
-} from '../../hooks/user/useUser';
+import { checkout, createSubscription } from '../../hooks/user/useUser';
 
 const PaywallBox = styled(Box)`
   .stigg-plan-description:first-of-type {
@@ -34,9 +28,6 @@ export function Paywall({
   onSuccessProvision?: () => void;
   textOverrides?: DeepPartial<PaywallLocalization>;
 }) {
-  const {
-    state: { currentUser },
-  } = useUser();
   const { stigg } = useStiggContext();
 
   async function performCheckout(
@@ -70,7 +61,7 @@ export function Paywall({
       await onPlanSelected(args);
     } else {
       const { customer, plan, selectedBillingPeriod, intentionType } = args;
-      const collaboratorsEntitlement = stigg!.getMeteredEntitlement({
+      const collaboratorsEntitlement = stigg.getMeteredEntitlement({
         featureId: 'feature-collaborators',
       });
       const collaboratorsUnitQuantity = collaboratorsEntitlement.currentUsage;
@@ -87,7 +78,6 @@ export function Paywall({
             plan,
             customer,
             selectedBillingPeriod,
-            // Using
             collaboratorsUnitQuantity
           );
         }
@@ -109,24 +99,12 @@ export function Paywall({
   };
 
   return (
-    <StiggProvider
-      apiKey={config.stiggApiKey}
-      customerId={currentUser?.stiggCustomerId}
-      theme={{
-        layout: {
-          planMinWidth: '330px',
-          descriptionMinHeight: '60px',
-          switchBottomSpacing: '20px',
-        },
-      }}
-    >
-      <PaywallBox>
-        <StiggPaywall
-          highlightedPlanId="plan-todos-essentials"
-          onPlanSelected={onSubscribe}
-          textOverrides={textOverrides}
-        />
-      </PaywallBox>
-    </StiggProvider>
+    <PaywallBox>
+      <StiggPaywall
+        highlightedPlanId="plan-todos-essentials"
+        onPlanSelected={onSubscribe}
+        textOverrides={textOverrides}
+      />
+    </PaywallBox>
   );
 }

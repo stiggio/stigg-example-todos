@@ -29,7 +29,7 @@ export function TodoList() {
     fetchTodos(dispatch);
   }, [dispatch]);
 
-  const todosEntitlement = stigg!.getMeteredEntitlement({
+  const todosEntitlement = stigg.getMeteredEntitlement({
     featureId: 'feature-todos',
     options: {
       requestedUsage: 1,
@@ -40,7 +40,7 @@ export function TodoList() {
   const todosLimit = todosEntitlement.usageLimit || 5;
   const isUnlimitedTodos = todosEntitlement.isUnlimited;
 
-  const updateTodoEntitlement = stigg!.getBooleanEntitlement({
+  const updateTodoEntitlement = stigg.getBooleanEntitlement({
     featureId: 'feature-update-todo',
   });
   const canUpdateTodo = updateTodoEntitlement.hasAccess;
@@ -48,7 +48,7 @@ export function TodoList() {
   const onAddTodo = async (todoLabel: string) => {
     setIsAdding(true);
     await addTodo(dispatch, { todoLabel });
-    await stigg?.refresh();
+    await stigg.refresh();
     setIsAdding(false);
   };
 
@@ -68,7 +68,7 @@ export function TodoList() {
   const onRemoveTodo = async (todoId: string) => {
     setRemovedTodo(todoId);
     await removeTodo(dispatch, { todoId });
-    await stigg?.refresh();
+    await stigg.refresh();
     setRemovedTodo(null);
   };
 
