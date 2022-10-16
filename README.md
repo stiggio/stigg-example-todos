@@ -6,6 +6,7 @@ To-do list app is a sample web application built with Stigg React SDK and Node.j
 This is a complete end-to-end Stigg integration that demonstrate multiple common use cases e.g. per-unit pricing, usage report, entitlment checks, paywall and checkout flow, upgrade/downgrade and trial.
 
 ## Overview
+> 🚀 Visit [To-Do list](https://stigg-example-todos.herokuapp.com/) to view it live and play with it  🚀 
 <p>
   <img src="https://user-images.githubusercontent.com/17930663/193017919-b0eb364b-a57b-41f4-85a9-91ca50b08448.png" alt="todo-app" />
 </p>
@@ -38,18 +39,13 @@ In order to test this example project with Stripe integration, you'll need to [c
   ```
   yarn
   ```
-* Add `.env` file with the following content:
+* Create `.env` file from template:
   ```
-  DATABASE_URL="file:./dev.db"
+  cp .env.example .env
   ```
-* Add `.env` file under `apps/client/` folder with the following key:
-  ```
-  NX_STIGG_CLIENT_API_KEY=<YOUR-CLIENT-API-KEY>
-  ```
-* Add `.env` file under `apps/server/` folder with the following key:
-  ```
-  NX_STIGG_SERVER_API_KEY=<YOUR-SERVER-API-KEY>
-  ```
+* Obtain API keys from https://app.stigg.io/account/settings and update `.env` file:
+  * Client API key - `NX_STIGG_CLIENT_API_KEY` - 
+  * Server API key - `NX_STIGG_SERVER_API_KEY` - 
 * If this is your first time running the app, you'll need to set up the app:
   ```
   yarn setup
