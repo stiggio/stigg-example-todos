@@ -39,6 +39,6 @@ testem.log
 Thumbs.db
 
 dev.db
+dev.db-journal
 
-apps/client/.env
-apps/server/.env
+.env
