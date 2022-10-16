@@ -5,12 +5,16 @@
   "scripts": {
     "start": "nx serve",
     "server": "nx run server:serve",
-    "build": "nx build",
+    "build": "nx run-many --target=build --projects=server,client --parallel=true",
     "test": "nx test",
     "run-all": "nx run-many --target=serve --projects=server,client --parallel=true",
-    "setup": "prisma migrate dev"
+    "setup": "prisma migrate dev",
+    "heroku-prebuild": "sed -ie 's/sqlite/postgresql/g' prisma/schema.prisma && sed -ie 's/sqlite/postgresql/g' prisma/migrations/migration_lock.toml"
   },
   "private": true,
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "@mui/icons-material": "^5.10.3",
     "@mui/lab": "^5.0.0-alpha.100",
@@ -23,6 +27,7 @@
     "body-parser": "^1.20.0",
     "core-js": "^3.6.5",
     "express": "^4.18.1",
+    "express-static": "^1.2.6",
     "immer": "^9.0.15",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",

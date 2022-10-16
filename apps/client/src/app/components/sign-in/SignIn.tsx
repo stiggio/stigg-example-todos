@@ -23,7 +23,7 @@ export function SignIn() {
 
   useEffect(() => {
     if (currentUser) {
-      navigate('/customer-portal');
+      navigate('/');
     }
   }, [currentUser, navigate]);
 
