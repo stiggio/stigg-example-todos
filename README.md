@@ -5,8 +5,9 @@
 To-do list app is a sample web application built with Stigg React SDK and Node.js SDK.
 This is a complete end-to-end Stigg integration that demonstrate multiple common use cases e.g. per-unit pricing, usage report, entitlment checks, paywall and checkout flow, upgrade/downgrade and trial.
 
-## Overview
-> 🚀 Visit [To-Do list](https://stigg-example-todos.herokuapp.com/) to view it live and play with it  🚀 
+> 🚀 Visit the live [To-Do list](https://stigg-example-todos.herokuapp.com/) application to play with it  🚀
+
+## Overview 
 <p>
   <img src="https://user-images.githubusercontent.com/17930663/193017919-b0eb364b-a57b-41f4-85a9-91ca50b08448.png" alt="todo-app" />
 </p>
