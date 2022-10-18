@@ -26,6 +26,10 @@ To-do list is a complete, full-stack example of Stigg integration:
 🆓|**Plan trial period.** Using trial to allow customers to try for free the enterprise plan
 🔖|**Entity metadata.** Using plan metadata for custom functionality like setting seats quantity limit
 
+### Video demo - Get started with Stigg's integration
+
+[<img src="https://i.ytimg.com/vi/Cl-gE9-oYDg/maxresdefault.jpg" width="75%">](https://www.youtube.com/watch?v=Cl-gE9-oYDg "Get started with Stigg's integration")
+
 ## Requirements
 
 You'll need a Stigg account in order to get Client/Server API key and run this project.
