@@ -1,9 +1,9 @@
 import { Close } from '@mui/icons-material';
 import { Dialog, DialogTitle, IconButton } from '@mui/material';
+import { useWaitForCheckoutCompleted, ProvisionStatus } from '@stigg/react-sdk';
 import { useState } from 'react';
-import { SuccessfulPlanProvision } from './SuccessfulPlanProvision';
+import { PlanProvisionStatus } from './PlanProvisionStatus';
 import { Paywall } from './StiggPaywall';
-import { useWaitForCheckoutCompleted } from '../../hooks/useWaitForCheckoutCompleted';
 
 type TodosPaywallProps = {
   paywallIsOpen: boolean;
@@ -11,15 +11,15 @@ type TodosPaywallProps = {
 };
 
 export function PaywallDialog({ paywallIsOpen, onClose }: TodosPaywallProps) {
-  const [showProvisionSuccess, setShowProvisionSuccess] = useState(false);
-  const { isAwaitingCheckout } = useWaitForCheckoutCompleted(
-    setShowProvisionSuccess
-  );
+  const [provisionStatus, setProvisionStatus] =
+    useState<ProvisionStatus | null>(null);
+  const { isAwaitingCheckout } = useWaitForCheckoutCompleted({
+    onProvisionStart: () => setProvisionStatus(ProvisionStatus.IN_PROGRESS),
+    onProvisionSucceeded: () => setProvisionStatus(ProvisionStatus.SUCCEEDED),
+    onProvisionFailed: () => setProvisionStatus(ProvisionStatus.FAILED),
+  });
 
-  let open = paywallIsOpen;
-  if (isAwaitingCheckout || showProvisionSuccess) {
-    open = true;
-  }
+  const open = paywallIsOpen || isAwaitingCheckout || !!provisionStatus;
 
   return (
     <Dialog
@@ -50,12 +50,14 @@ export function PaywallDialog({ paywallIsOpen, onClose }: TodosPaywallProps) {
         </IconButton>
       </DialogTitle>
 
-      {showProvisionSuccess ? (
-        <SuccessfulPlanProvision
-          waitingForCheckoutConfirmation={isAwaitingCheckout}
-        />
+      {provisionStatus ? (
+        <PlanProvisionStatus provisionStatus={provisionStatus} />
       ) : (
-        <Paywall onSuccessProvision={() => setShowProvisionSuccess(true)} />
+        <Paywall
+          onSuccessProvision={() =>
+            setProvisionStatus(ProvisionStatus.SUCCEEDED)
+          }
+        />
       )}
     </Dialog>
   );
