@@ -39,7 +39,7 @@ export function Paywall({
     const checkoutResult = await checkout({
       customerId: customer.id,
       planId: plan.id,
-      successUrl: `${window.location.href}?checkoutSuccess=1&planId=${plan.id}`,
+      successUrl: window.location.href,
       cancelUrl: window.location.href,
       billingPeriod: currentBillingPeriod,
       unitQuantity,
