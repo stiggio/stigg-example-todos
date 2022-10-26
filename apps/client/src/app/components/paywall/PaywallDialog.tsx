@@ -1,9 +1,13 @@
 import { Close } from '@mui/icons-material';
-import { Dialog, DialogTitle, IconButton } from '@mui/material';
+import { useWaitForCheckoutCompleted, ProvisionStatus } from '@stigg/react-sdk';
 import { useState } from 'react';
-import { SuccessfulPlanProvision } from './SuccessfulPlanProvision';
+import {
+  CloseButton,
+  StyledDialog,
+  StyledDialogTitle,
+} from './PaywallDialog.style';
+import { PlanProvisionStatus } from './PlanProvisionStatus';
 import { Paywall } from './StiggPaywall';
-import { useWaitForCheckoutCompleted } from '../../hooks/useWaitForCheckoutCompleted';
 
 type TodosPaywallProps = {
   paywallIsOpen: boolean;
@@ -11,52 +15,33 @@ type TodosPaywallProps = {
 };
 
 export function PaywallDialog({ paywallIsOpen, onClose }: TodosPaywallProps) {
-  const [showProvisionSuccess, setShowProvisionSuccess] = useState(false);
-  const { isAwaitingCheckout } = useWaitForCheckoutCompleted(
-    setShowProvisionSuccess
-  );
+  const [provisionStatus, setProvisionStatus] =
+    useState<ProvisionStatus | null>(null);
+  const { isAwaitingCheckout } = useWaitForCheckoutCompleted({
+    onProvisionStart: () => setProvisionStatus(ProvisionStatus.IN_PROGRESS),
+    onProvisionSucceeded: () => setProvisionStatus(ProvisionStatus.SUCCEEDED),
+    onProvisionFailed: () => setProvisionStatus(ProvisionStatus.FAILED),
+  });
 
-  let open = paywallIsOpen;
-  if (isAwaitingCheckout || showProvisionSuccess) {
-    open = true;
-  }
+  const open = paywallIsOpen || isAwaitingCheckout || !!provisionStatus;
 
   return (
-    <Dialog
-      open={open}
-      fullWidth={true}
-      onClose={onClose}
-      PaperProps={{
-        sx: {
-          height: 730,
-          minWidth: 1150,
-          backgroundColor: '#F4F4F4',
-          paddingTop: 6,
-        },
-      }}
-    >
-      <DialogTitle sx={{ position: 'absolute', right: 10, top: 10 }}>
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
+    <StyledDialog open={open} onClose={onClose} fullWidth>
+      <StyledDialogTitle>
+        <CloseButton onClick={onClose}>
           <Close />
-        </IconButton>
-      </DialogTitle>
+        </CloseButton>
+      </StyledDialogTitle>
 
-      {showProvisionSuccess ? (
-        <SuccessfulPlanProvision
-          waitingForCheckoutConfirmation={isAwaitingCheckout}
-        />
+      {provisionStatus ? (
+        <PlanProvisionStatus provisionStatus={provisionStatus} />
       ) : (
-        <Paywall onSuccessProvision={() => setShowProvisionSuccess(true)} />
+        <Paywall
+          onSuccessProvision={() =>
+            setProvisionStatus(ProvisionStatus.SUCCEEDED)
+          }
+        />
       )}
-    </Dialog>
+    </StyledDialog>
   );
 }
