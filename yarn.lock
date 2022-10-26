@@ -2385,10 +2385,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@stigg/js-client-sdk@^0.45.1":
-  version "0.45.1"
-  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-0.45.1.tgz#d4b120762873b1ae9651ecf85182f7d3b4bb8c2c"
-  integrity sha512-K0y88a6zsSEYPHxsp34QNS/woRIGe/lD3J+xl75WZSvP9mswPUefZ/t3WjG1R5w/XcGT2QoK7DV/HuixUmuxnQ==
+"@stigg/js-client-sdk@^0.46.1":
+  version "0.46.1"
+  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-0.46.1.tgz#62304c40043efbf44118cb499990d27d14cb531c"
+  integrity sha512-U8PcHi1uRiVS1u/ug5+AYYUCFr42JSpLbVIi988OWUmtn2gz2Nf5R/svuPeCU8qYUMMrJKyd8/Nl+fTb+GMQow==
   dependencies:
     "@apollo/client" "^3.4.17"
     "@sentry/browser" "^7.11.1"
@@ -2399,10 +2399,10 @@
     lodash "^4.17.21"
     tiny-typed-emitter "^2.1.0"
 
-"@stigg/node-server-sdk@^0.55.0":
-  version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-0.55.0.tgz#1e3641fc875419043dedb9ba6bfb02fff5347734"
-  integrity sha512-aBeK/IWL7jgoilXFbC2J3ESZh5NnWQSHhufnwatZB2dRfuA/bRNBE+MbjFDOqfIS1wc/uvoSLahiB5dRMhMMUA==
+"@stigg/node-server-sdk@^0.55.2":
+  version "0.55.2"
+  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-0.55.2.tgz#0d2f3456dc4e401b1d58e8d9bad2ae8eef588850"
+  integrity sha512-gf/lkTMyd1VlU0udiD/YKyeeW3CCUr9v+GeA16owi1+LlPfjZF3XpKXCVP51Ex1aI/fdMvrbUoe4E2UKBNGFXw==
   dependencies:
     "@apollo/client" "^3.4.16"
     "@bitauth/libauth" "^1.17.1"
@@ -2420,12 +2420,12 @@
     tiny-typed-emitter "^2.1.0"
     ws "^8.5.0"
 
-"@stigg/react-sdk@^0.16.0":
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-0.16.0.tgz#d5d0a48464e3e26d252361b3a7db3e998869655e"
-  integrity sha512-VBGd2++DuOIZSxJc/L4oKA92pnPIL185FZJypiJJBKIZu+XTAUp4p0yKx0OUg9NPUiDYc4Ev+ZCqUml9+PLxYw==
+"@stigg/react-sdk@^0.17.0":
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-0.17.0.tgz#53c9b6e1a43a94cf216e7b4de1b2ea7397e8f404"
+  integrity sha512-c75dClr4ce1I3kcCD7zsZHDMT/cSjMVcWG/3766OQrFc8iqEaHIk/y0EoAIn31UFovpFV1yFqaWU99gqelxYYw==
   dependencies:
-    "@stigg/js-client-sdk" "^0.45.1"
+    "@stigg/js-client-sdk" "^0.46.1"
     color "^4.2.3"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
