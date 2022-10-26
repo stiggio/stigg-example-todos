@@ -86,8 +86,12 @@ export async function signUp(
   auth.setToken(user.email);
 }
 
-export async function signOut(dispatch: UsersDispatch) {
+export async function signOut(dispatch: UsersDispatch, stiggClient: StiggClient | null) {
   auth.logout();
+
+  if (stiggClient) {
+    await stiggClient.clearCustomer();
+  }
   dispatch({
     type: UsersActionType.USER_SIGNED_OUT,
   });
