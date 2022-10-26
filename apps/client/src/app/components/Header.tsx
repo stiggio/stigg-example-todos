@@ -19,7 +19,7 @@ import {
 } from '@mui/icons-material';
 import { useUser, signOut } from '../hooks/user/useUser';
 import { useState } from 'react';
-import {useStiggContext} from "../../../../../../react-sdk";
+import { useStiggContext } from "@stigg/react-sdk";
 
 function HeaderLink({
   onClick,

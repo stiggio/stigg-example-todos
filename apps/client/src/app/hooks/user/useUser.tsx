@@ -88,7 +88,8 @@ export async function signUp(
 
 export async function signOut(dispatch: UsersDispatch, stiggClient: StiggClient | null) {
   auth.logout();
-  if (stiggClient){
+
+  if (stiggClient) {
     await stiggClient.clearCustomer();
   }
   dispatch({
