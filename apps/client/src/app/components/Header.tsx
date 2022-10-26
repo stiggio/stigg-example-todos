@@ -19,6 +19,7 @@ import {
 } from '@mui/icons-material';
 import { useUser, signOut } from '../hooks/user/useUser';
 import { useState } from 'react';
+import {useStiggContext} from "../../../../../../react-sdk";
 
 function HeaderLink({
   onClick,
@@ -50,6 +51,7 @@ function HeaderLink({
 
 export function Header() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { stigg } = useStiggContext();
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -78,8 +80,8 @@ export function Header() {
     navigate('/sign-in');
   };
 
-  const onSignOutClick = () => {
-    signOut(dispatch);
+  const onSignOutClick = async () => {
+    await signOut(dispatch, stigg);
     navigate('/sign-in');
   };
   const onTodosClick = () => {
