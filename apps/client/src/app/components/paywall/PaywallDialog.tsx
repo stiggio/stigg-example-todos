@@ -1,7 +1,11 @@
 import { Close } from '@mui/icons-material';
-import { Dialog, DialogTitle, IconButton } from '@mui/material';
 import { useWaitForCheckoutCompleted, ProvisionStatus } from '@stigg/react-sdk';
 import { useState } from 'react';
+import {
+  CloseButton,
+  StyledDialog,
+  StyledDialogTitle,
+} from './PaywallDialog.style';
 import { PlanProvisionStatus } from './PlanProvisionStatus';
 import { Paywall } from './StiggPaywall';
 
@@ -22,33 +26,12 @@ export function PaywallDialog({ paywallIsOpen, onClose }: TodosPaywallProps) {
   const open = paywallIsOpen || isAwaitingCheckout || !!provisionStatus;
 
   return (
-    <Dialog
-      open={open}
-      fullWidth={true}
-      onClose={onClose}
-      PaperProps={{
-        sx: {
-          height: 730,
-          minWidth: 1150,
-          backgroundColor: '#F4F4F4',
-          paddingTop: 6,
-        },
-      }}
-    >
-      <DialogTitle sx={{ position: 'absolute', right: 10, top: 10 }}>
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
+    <StyledDialog open={open} onClose={onClose} fullWidth>
+      <StyledDialogTitle>
+        <CloseButton onClick={onClose}>
           <Close />
-        </IconButton>
-      </DialogTitle>
+        </CloseButton>
+      </StyledDialogTitle>
 
       {provisionStatus ? (
         <PlanProvisionStatus provisionStatus={provisionStatus} />
@@ -59,6 +42,6 @@ export function PaywallDialog({ paywallIsOpen, onClose }: TodosPaywallProps) {
           }
         />
       )}
-    </Dialog>
+    </StyledDialog>
   );
 }
