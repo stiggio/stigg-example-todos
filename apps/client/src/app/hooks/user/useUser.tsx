@@ -86,7 +86,10 @@ export async function signUp(
   auth.setToken(user.email);
 }
 
-export async function signOut(dispatch: UsersDispatch, stiggClient: StiggClient | null) {
+export async function signOut(
+  dispatch: UsersDispatch,
+  stiggClient: StiggClient | null
+) {
   auth.logout();
 
   if (stiggClient) {
@@ -142,6 +145,18 @@ export async function createSubscription(payload: {
     billingPeriod,
     unitQuantity,
   });
+}
+
+export async function provisionSubscription(payload: {
+  customerId: string;
+  planId: string;
+  billingPeriod: BillingPeriod;
+  cancelUrl: string;
+  successUrl: string;
+  unitQuantity?: number;
+}) {
+  const res = await apiGateway.provisionSubscription(payload);
+  return res.data.result;
 }
 
 export async function checkout(payload: {
