@@ -132,21 +132,6 @@ export async function addCollaboratorSeats(payload: {
   await apiGateway.addSeats(payload.additionalSeats);
 }
 
-export async function createSubscription(payload: {
-  customerId: string;
-  planId: string;
-  billingPeriod: BillingPeriod;
-  unitQuantity?: number;
-}) {
-  const { customerId, planId, billingPeriod, unitQuantity } = payload;
-  await apiGateway.createSubscription({
-    customerId,
-    planId,
-    billingPeriod,
-    unitQuantity,
-  });
-}
-
 export async function provisionSubscription(payload: {
   customerId: string;
   planId: string;
@@ -157,34 +142,6 @@ export async function provisionSubscription(payload: {
 }) {
   const res = await apiGateway.provisionSubscription(payload);
   return res.data.result;
-}
-
-export async function checkout(payload: {
-  customerId: string;
-  planId: string;
-  billingPeriod: BillingPeriod;
-  unitQuantity?: number;
-  cancelUrl: string;
-  successUrl: string;
-}) {
-  const {
-    customerId,
-    planId,
-    billingPeriod,
-    unitQuantity,
-    cancelUrl,
-    successUrl,
-  } = payload;
-  const res = await apiGateway.checkout({
-    customerId,
-    planId,
-    billingPeriod,
-    unitQuantity,
-    cancelUrl,
-    successUrl,
-  });
-
-  return res.data.checkout;
 }
 
 async function loadUser(

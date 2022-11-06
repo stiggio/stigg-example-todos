@@ -25,8 +25,9 @@ export function Paywall({
 }) {
   const { stigg } = useStiggContext();
   /**
+   *
    * We support here 2 different scenarios, when there is a billing integration we use the checkout flow,
-   * and as a fallback we call to createSubscription
+   * and as a creation of a subscription without redirection to stripe
    */
   const onSubscribe: OnPlanSelectedCallbackFn = async (args) => {
     if (onPlanSelected) {
