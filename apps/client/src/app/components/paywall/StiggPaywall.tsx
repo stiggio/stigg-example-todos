@@ -49,7 +49,7 @@ export function Paywall({
           successUrl: window.location.href,
         });
 
-        if (checkoutResult.checkoutUrl === window.location.href) {
+        if (checkoutResult.status === 'PaymentRequired') {
           if (onSuccessProvision) {
             onSuccessProvision();
           }
