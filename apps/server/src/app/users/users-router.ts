@@ -77,8 +77,10 @@ router.post('/provisionSubscription', authMiddleware, async (req, res) => {
       customerId,
       billingPeriod,
       unitQuantity,
-      cancelUrl,
-      successUrl,
+      checkoutOptions: {
+        cancelUrl,
+        successUrl,
+      },
       awaitPaymentConfirmation: true,
     });
   } catch (err) {
