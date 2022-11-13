@@ -3,15 +3,10 @@ import {
   OnPlanSelectedCallbackFn,
   Paywall as StiggPaywall,
   PaywallLocalization,
-  PricingType,
-  Plan,
-  Customer,
-  BillingPeriod,
-  SubscribeIntentionType,
   useStiggContext,
 } from '@stigg/react-sdk';
 import { DeepPartial } from '@stigg/react-sdk/dist/types';
-import { checkout, createSubscription } from '../../hooks/user/useUser';
+import { provisionSubscription } from '../../hooks/user/useUser';
 
 const PaywallBox = styled(Box)`
   .stigg-plan-description:first-of-type {
@@ -29,70 +24,37 @@ export function Paywall({
   textOverrides?: DeepPartial<PaywallLocalization>;
 }) {
   const { stigg } = useStiggContext();
-
-  async function performCheckout(
-    plan: Plan,
-    customer: Customer,
-    currentBillingPeriod: BillingPeriod,
-    unitQuantity?: number
-  ) {
-    const checkoutResult = await checkout({
-      customerId: customer.id,
-      planId: plan.id,
-      successUrl: window.location.href,
-      cancelUrl: window.location.href,
-      billingPeriod: currentBillingPeriod,
-      unitQuantity,
-    });
-
-    if (checkoutResult) {
-      window.location.href = checkoutResult.checkoutUrl;
-    }
-
-    return checkoutResult;
-  }
-
   /**
+   *
    * We support here 2 different scenarios, when there is a billing integration we use the checkout flow,
-   * and as a fallback we call to createSubscription
+   * and as a creation of a subscription without redirection to stripe
    */
   const onSubscribe: OnPlanSelectedCallbackFn = async (args) => {
     if (onPlanSelected) {
       await onPlanSelected(args);
     } else {
-      const { customer, plan, selectedBillingPeriod, intentionType } = args;
+      const { customer, plan, selectedBillingPeriod } = args;
       const collaboratorsEntitlement = stigg.getMeteredEntitlement({
         featureId: 'feature-collaborators',
       });
       const collaboratorsUnitQuantity = collaboratorsEntitlement.currentUsage;
 
       if (customer?.id) {
-        const shouldShowCheckout =
-          !customer.hasPaymentMethod &&
-          plan.pricingType !== PricingType.Free &&
-          intentionType !== SubscribeIntentionType.START_TRIAL;
+        const checkoutResult = await provisionSubscription({
+          billingPeriod: selectedBillingPeriod,
+          customerId: customer.id,
+          planId: plan.id,
+          unitQuantity: collaboratorsUnitQuantity,
+          cancelUrl: window.location.href,
+          successUrl: window.location.href,
+        });
 
-        let checkout = null;
-        if (shouldShowCheckout) {
-          checkout = await performCheckout(
-            plan,
-            customer,
-            selectedBillingPeriod,
-            collaboratorsUnitQuantity
-          );
-        }
-
-        // checkout will be null in the scenario when there is no billing integration
-        if (!checkout) {
-          await createSubscription({
-            billingPeriod: selectedBillingPeriod,
-            customerId: customer.id,
-            planId: plan.id,
-            unitQuantity: collaboratorsUnitQuantity,
-          });
+        if (checkoutResult.status === 'PaymentRequired') {
           if (onSuccessProvision) {
             onSuccessProvision();
           }
+        } else {
+          window.location.href = checkoutResult.checkoutUrl;
         }
       }
     }

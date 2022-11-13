@@ -2399,10 +2399,10 @@
     lodash "^4.17.21"
     tiny-typed-emitter "^2.1.0"
 
-"@stigg/node-server-sdk@^0.55.2":
-  version "0.55.2"
-  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-0.55.2.tgz#0d2f3456dc4e401b1d58e8d9bad2ae8eef588850"
-  integrity sha512-gf/lkTMyd1VlU0udiD/YKyeeW3CCUr9v+GeA16owi1+LlPfjZF3XpKXCVP51Ex1aI/fdMvrbUoe4E2UKBNGFXw==
+"@stigg/node-server-sdk@^0.57.0":
+  version "0.57.0"
+  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-0.57.0.tgz#e942266631d9b8afe5f5da6fad3e87c60813d8e4"
+  integrity sha512-Y4qc3+2Hu3Qf107+AMb0O9jmd2PTjh3G1CfYFVZWrUkaIX7NCKA/sdfGRym31K/jEMwJ7CTNUCKhjM0Fb4GhHQ==
   dependencies:
     "@apollo/client" "^3.4.16"
     "@bitauth/libauth" "^1.17.1"

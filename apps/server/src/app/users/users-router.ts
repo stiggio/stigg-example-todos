@@ -61,20 +61,7 @@ router.post('/signup', async (req, res) => {
   return res.json({ user });
 });
 
-router.post('/createSubscription', authMiddleware, async (req, res) => {
-  const { customerId, planId, billingPeriod, unitQuantity } = req.body;
-  await stiggClient.createSubscription({
-    customerId,
-    planId,
-    billingPeriod,
-    unitQuantity,
-    awaitPaymentConfirmation: true,
-  });
-
-  res.end();
-});
-
-router.post('/checkout', authMiddleware, async (req, res) => {
+router.post('/provisionSubscription', authMiddleware, async (req, res) => {
   const {
     customerId,
     cancelUrl,
@@ -83,24 +70,26 @@ router.post('/checkout', authMiddleware, async (req, res) => {
     billingPeriod,
     unitQuantity,
   } = req.body;
-  let checkout = null;
+  let result = null;
   try {
-    checkout = await stiggClient.initiateCheckout({
+    result = await stiggClient.provisionSubscription({
       planId,
       customerId,
-      addons: [],
       billingPeriod,
       unitQuantity,
-      cancelUrl,
-      successUrl,
+      checkoutOptions: {
+        cancelUrl,
+        successUrl,
+      },
+      awaitPaymentConfirmation: true,
     });
   } catch (err) {
     console.warn(
-      `Failed to initiate checkout for user ${customerId} for plan ${planId}`
+      `Failed to provision a subscription for user ${customerId} for plan ${planId}`
     );
   }
 
-  res.json({ checkout });
+  res.json({ result });
 });
 
 export default router;

@@ -86,7 +86,10 @@ export async function signUp(
   auth.setToken(user.email);
 }
 
-export async function signOut(dispatch: UsersDispatch, stiggClient: StiggClient | null) {
+export async function signOut(
+  dispatch: UsersDispatch,
+  stiggClient: StiggClient | null
+) {
   auth.logout();
 
   if (stiggClient) {
@@ -129,47 +132,16 @@ export async function addCollaboratorSeats(payload: {
   await apiGateway.addSeats(payload.additionalSeats);
 }
 
-export async function createSubscription(payload: {
+export async function provisionSubscription(payload: {
   customerId: string;
   planId: string;
   billingPeriod: BillingPeriod;
-  unitQuantity?: number;
-}) {
-  const { customerId, planId, billingPeriod, unitQuantity } = payload;
-  await apiGateway.createSubscription({
-    customerId,
-    planId,
-    billingPeriod,
-    unitQuantity,
-  });
-}
-
-export async function checkout(payload: {
-  customerId: string;
-  planId: string;
-  billingPeriod: BillingPeriod;
-  unitQuantity?: number;
   cancelUrl: string;
   successUrl: string;
+  unitQuantity?: number;
 }) {
-  const {
-    customerId,
-    planId,
-    billingPeriod,
-    unitQuantity,
-    cancelUrl,
-    successUrl,
-  } = payload;
-  const res = await apiGateway.checkout({
-    customerId,
-    planId,
-    billingPeriod,
-    unitQuantity,
-    cancelUrl,
-    successUrl,
-  });
-
-  return res.data.checkout;
+  const res = await apiGateway.provisionSubscription(payload);
+  return res.data.result;
 }
 
 async function loadUser(

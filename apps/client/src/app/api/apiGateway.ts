@@ -60,46 +60,27 @@ export async function addSeats(additionalSeats: number) {
   });
 }
 
-export async function createSubscription({
+export async function provisionSubscription({
   customerId,
   planId,
   billingPeriod,
   unitQuantity,
-}: {
-  customerId: string;
-  planId: string;
-  billingPeriod: BillingPeriod;
-  unitQuantity?: number;
-}) {
-  return axios.post('api/users/createSubscription', {
-    customerId,
-    planId,
-    billingPeriod,
-    unitQuantity,
-  });
-}
-
-export async function checkout({
-  customerId,
   cancelUrl,
   successUrl,
-  planId,
-  billingPeriod,
-  unitQuantity,
 }: {
   customerId: string;
   planId: string;
   billingPeriod: BillingPeriod;
-  unitQuantity?: number;
   cancelUrl: string;
   successUrl: string;
+  unitQuantity?: number;
 }) {
-  return axios.post('api/users/checkout', {
+  return axios.post('api/users/provisionSubscription', {
     customerId,
-    cancelUrl,
-    successUrl,
     planId,
     billingPeriod,
     unitQuantity,
+    successUrl,
+    cancelUrl,
   });
 }
