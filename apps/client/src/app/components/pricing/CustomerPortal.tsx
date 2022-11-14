@@ -8,15 +8,8 @@ export function CustomerPortal() {
   const [isPaywallOpen, setIsPaywallOpen] = useState(false);
 
   return (
-    <Grid
-      container
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      my={3}
-    >
+    <Grid container flexDirection="column" justifyContent="center" my={3}>
       <StiggCustomerPortal paywallComponent={<Paywall />} />
-
       <PaywallDialog
         paywallIsOpen={isPaywallOpen}
         onClose={() => setIsPaywallOpen(false)}
