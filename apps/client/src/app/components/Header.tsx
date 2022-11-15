@@ -19,7 +19,7 @@ import {
 } from '@mui/icons-material';
 import { useUser, signOut } from '../hooks/user/useUser';
 import { useState } from 'react';
-import { useStiggContext } from "@stigg/react-sdk";
+import { useStiggContext } from '@stigg/react-sdk';
 
 function HeaderLink({
   onClick,
@@ -120,7 +120,7 @@ export function Header() {
           />
         )}
         <HeaderLink
-          label="Pricing"
+          label={currentUser ? 'Billing' : 'Pricing'}
           icon={<MonetizationOn />}
           onClick={onPricingClick}
         />
