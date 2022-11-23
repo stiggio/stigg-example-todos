@@ -44,7 +44,7 @@ export function Collaborators() {
   const [openAddCollaborator, setOpenAddCollaborator] = useState(false);
   const handleOpenAddCollaborator = () => setOpenAddCollaborator(true);
   const handleCloseAddCollaborator = () => setOpenAddCollaborator(false);
-  const { stigg } = useStiggContext();
+  const { stigg, refreshData } = useStiggContext();
 
   const collaboratorEntitlement = stigg.getMeteredEntitlement({
     featureId: 'feature-collaborators',
@@ -77,19 +77,19 @@ export function Collaborators() {
   const onRemoveCollaborator = async (collaborator: Collaborator) => {
     setCollaboratorInDelete(collaborator.id);
     await removeCollaborator(dispatch, { email: collaborator.email });
-    await stigg.refresh();
+    await refreshData();
     setCollaboratorInDelete(null);
   };
 
   const onAddCollaborator = async (collaboratorEmail: string) => {
     await addCollaborator(dispatch, { email: collaboratorEmail });
-    await stigg.refresh();
+    await refreshData();
   };
 
   const onAddCollaboratorSeats = async (additionalSeats: number) => {
     if (canUpdateSeats) {
       await addCollaboratorSeats({ additionalSeats });
-      await stigg.refresh();
+      await refreshData();
     }
   };
 

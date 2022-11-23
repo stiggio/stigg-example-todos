@@ -23,7 +23,7 @@ export function Paywall({
   onSuccessProvision?: () => void;
   textOverrides?: DeepPartial<PaywallLocalization>;
 }) {
-  const { stigg } = useStiggContext();
+  const { stigg, refreshData } = useStiggContext();
   /**
    *
    * We support here 2 different scenarios, when there is a billing integration we use the checkout flow,
@@ -54,7 +54,7 @@ export function Paywall({
             onSuccessProvision();
           }
         } else {
-          window.location.href = checkoutResult.checkoutUrl;
+          refreshData();
         }
       }
     }

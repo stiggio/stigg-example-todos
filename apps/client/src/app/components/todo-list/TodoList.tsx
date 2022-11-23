@@ -19,7 +19,7 @@ import { Todo } from '../../types';
 
 export function TodoList() {
   const { todos, isLoading, dispatch } = useTodos();
-  const { stigg } = useStiggContext();
+  const { stigg, refreshData } = useStiggContext();
   const [isAdding, setIsAdding] = useState(false);
   const [isPaywallOpen, setIsPaywallOpen] = useState(false);
   const [todoToUpdate, setTodoToUpdate] = useState<Todo | null>(null);
@@ -48,7 +48,7 @@ export function TodoList() {
   const onAddTodo = async (todoLabel: string) => {
     setIsAdding(true);
     await addTodo(dispatch, { todoLabel });
-    await stigg.refresh();
+    await refreshData();
     setIsAdding(false);
   };
 
@@ -68,7 +68,7 @@ export function TodoList() {
   const onRemoveTodo = async (todoId: string) => {
     setRemovedTodo(todoId);
     await removeTodo(dispatch, { todoId });
-    await stigg.refresh();
+    await refreshData();
     setRemovedTodo(null);
   };
 
