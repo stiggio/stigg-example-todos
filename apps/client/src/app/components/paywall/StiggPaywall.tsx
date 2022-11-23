@@ -49,11 +49,13 @@ export function Paywall({
           successUrl: window.location.href,
         });
 
-        if (checkoutResult.status === 'PaymentRequired') {
+        if (checkoutResult.provisionStatus === 'PaymentRequired') {
+          window.location.href = checkoutResult.checkoutUrl;
+        } else {
           if (onSuccessProvision) {
             onSuccessProvision();
           }
-        } else {
+
           refreshData();
         }
       }
