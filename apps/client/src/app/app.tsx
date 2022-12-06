@@ -17,7 +17,7 @@ export function App() {
       <UsersProvider>
         <Grid container flexDirection="column" alignItems="center">
           <TopBanner />
-          <Grid container item maxWidth={1100} flexDirection="column">
+          <Grid container item maxWidth={1105} flexDirection="column">
             <Header />
             <AppRoutes />
           </Grid>
