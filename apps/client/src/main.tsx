@@ -14,7 +14,6 @@ root.render(
       apiKey={config.stiggApiKey}
       theme={{
         layout: {
-          planMinWidth: '332px',
           descriptionMinHeight: '60px',
           switchBottomSpacing: '20px',
         },
