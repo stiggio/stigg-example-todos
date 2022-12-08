@@ -34,7 +34,6 @@ export function Pricing() {
           onPlanSelected={onPlanSelected}
           textOverrides={{
             planCTAButton: {
-              upgrade: 'Get started',
               startTrial: () => 'Get started',
             },
           }}
