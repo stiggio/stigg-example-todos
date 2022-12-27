@@ -155,7 +155,7 @@ async function loadUser(
     const res = await apiGateway.getUser(payload.email);
     user = res.data.user;
     if (user) {
-      await stiggClient.setCustomerId(user.stiggCustomerId);
+      await stiggClient.setCustomerId(user.stiggCustomerId, res.data.stiggCustomerSecret);
       stiggCustomer = await stiggClient.getCustomer();
     }
   }

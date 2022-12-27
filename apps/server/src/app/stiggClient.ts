@@ -1,4 +1,5 @@
 import Stigg from '@stigg/node-server-sdk';
+import { createHmac } from 'crypto';
 
 export let stiggClient: Stigg;
 
@@ -17,6 +18,16 @@ export function initStiggClient(): Stigg {
   stiggClient = Stigg.initialize({ apiKey });
 
   return stiggClient;
+}
+
+export function createCustomerSecret(customerId: string): string | null {
+  const signingToken = process.env['NX_STIGG_SIGNING_TOKEN'];
+
+  if (!signingToken) {
+    return null;
+  }
+
+  return createHmac('sha256', signingToken).update(customerId).digest('hex');
 }
 
 export const STARTER_PLAN_ID = 'plan-todos-starter';
