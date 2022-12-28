@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as shortUUID from 'short-uuid';
 import { authMiddleware } from '../middleware/authMiddleware';
-import { stiggClient, ENTITLEMENTS_IDS, STARTER_PLAN_ID, createCustomerSecret } from '../stiggClient';
+import { stiggClient, ENTITLEMENTS_IDS, STARTER_PLAN_ID, createCustomerToken } from '../stiggClient';
 import * as usersRepository from './users-repository';
 
 const router = express.Router();
@@ -11,9 +11,9 @@ router.get('/:email', async (req, res) => {
   const { email } = req.params;
 
   const user = await usersRepository.getUserByEmail(email);
-  const stiggCustomerSecret = user ? createCustomerSecret(user.stiggCustomerId) : null;
+  const stiggCustomerToken = user ? createCustomerToken(user.stiggCustomerId) : null;
 
-  res.json({ user, stiggCustomerSecret });
+  res.json({ user, stiggCustomerToken });
 });
 
 router.post('/login', async (req, res) => {

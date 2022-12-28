@@ -20,14 +20,16 @@ export function initStiggClient(): Stigg {
   return stiggClient;
 }
 
-export function createCustomerSecret(customerId: string): string | null {
+export function createCustomerToken(customerId: string): string | null {
   const signingToken = process.env['NX_STIGG_SIGNING_TOKEN'];
 
   if (!signingToken) {
     return null;
   }
 
-  return createHmac('sha256', signingToken).update(customerId).digest('hex');
+  const signature = createHmac('sha256', signingToken).update(customerId).digest('hex');
+
+  return `HMAC-SHA256 ${customerId}:${signature}`;
 }
 
 export const STARTER_PLAN_ID = 'plan-todos-starter';
