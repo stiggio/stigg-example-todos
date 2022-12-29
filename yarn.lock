@@ -2564,10 +2564,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@stigg/js-client-sdk@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-1.1.0.tgz#678e00a5fb83828bf6d3e021c0aa9af8f3ab8e7b"
-  integrity sha512-2Hw/d4Wea1zgcV2Ki//zShhwup3uc6LtwVVA9KVHombD0Ck8OfmHPFBzyPqKKxvfqWedv+d5VZWzP9Tj3lCkyQ==
+"@stigg/js-client-sdk@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-1.3.0.tgz#3fe21776beb63beff54363dc2c74302c3f8e3f51"
+  integrity sha512-eIwZ5PvE0lP2okgCIJMtCpb+pdruHqGgkVcBlv7K1JJIfmrww/DsyVBoUQUyjwHR9xHiAewVEOjdcGpPqbA0wg==
   dependencies:
     "@apollo/client" "^3.4.17"
     "@sentry/browser" "^7.11.1"
@@ -2578,10 +2578,10 @@
     lodash "^4.17.21"
     tiny-typed-emitter "^2.1.0"
 
-"@stigg/node-server-sdk@^0.57.0":
-  version "0.57.0"
-  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-0.57.0.tgz#e942266631d9b8afe5f5da6fad3e87c60813d8e4"
-  integrity sha512-Y4qc3+2Hu3Qf107+AMb0O9jmd2PTjh3G1CfYFVZWrUkaIX7NCKA/sdfGRym31K/jEMwJ7CTNUCKhjM0Fb4GhHQ==
+"@stigg/node-server-sdk@^0.64.1":
+  version "0.64.1"
+  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-0.64.1.tgz#a5d294f5c9049f6351a020fec1d7822974c82af3"
+  integrity sha512-alcKJ8+qTQJpwXlYYDpb+4uB1xfpHF8ezYiQIs1N8mlG+xYFTRLe8u0Gz0z7QJkdh42A9dLcG2vsMfyq21kkgQ==
   dependencies:
     "@apollo/client" "^3.4.16"
     "@bitauth/libauth" "^1.17.1"
@@ -2599,16 +2599,17 @@
     tiny-typed-emitter "^2.1.0"
     ws "^8.5.0"
 
-"@stigg/react-sdk@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-1.0.1.tgz#013aacdfe19f7ca84ed46939f5044ecd1a9f0776"
-  integrity sha512-4meUmBxzhSjB28sQ+57nf8ugFVe8yX5a2fjw1XLyal4MOIjQR6VQq5aPsBU1MdjH9gn7paP/2vCLjJk44WuDeQ==
+"@stigg/react-sdk@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-1.3.0.tgz#f81fc25a2a0d16775adcf822f3be8a087dde5349"
+  integrity sha512-rH9y+Z07QzauCJ10pIU/0+YPZuWn8Gzug7ofhBaUys7e9Y856v3O/bZQdBNJyTEWT9vTDmL7cQ94knAz9N0qcA==
   dependencies:
     "@emotion/react" "^11.10.5"
     "@emotion/styled" "^11.10.5"
     "@mui/material" "^5.10.13"
-    "@stigg/js-client-sdk" "^1.1.0"
+    "@stigg/js-client-sdk" "^1.3.0"
     "@types/styled-components" "^5.1.26"
+    classnames "^2.3.2"
     color "^4.2.3"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
@@ -4358,6 +4359,11 @@ cjs-module-lexer@^1.0.0:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/cjs-module-lexer/-/cjs-module-lexer-1.2.2.tgz#9f84ba3244a512f3a54e5277e8eef4c489864e40"
   integrity sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==
+
+classnames@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.2.tgz#351d813bf0137fcc6a76a16b88208d2560a0d924"
+  integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
 
 clean-stack@^2.0.0:
   version "2.2.0"
