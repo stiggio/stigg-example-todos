@@ -2564,13 +2564,14 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@stigg/js-client-sdk@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-1.4.0.tgz#3128b884847aac0a07f951b265f35803bad19e20"
-  integrity sha512-z2URe/Q0h6ksp6ZtKIYdFAGVC2ZBSCO6AX7Tb6EuHgYQL0efY3865e6d4Xh6sMlqFrzdAB7VeFnNqUYeedYLEw==
+"@stigg/js-client-sdk@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-1.7.0.tgz#4cf5e428b9142627e2f632534f7c5deb0caeee9f"
+  integrity sha512-03r1G8sPealJ0XkuYICugx38UjryD+QJvuAfXvsIR2fFz9WllgqMaTHaBlXCnncgZX6lBGKlLSVm34oVkSmPNw==
   dependencies:
     "@apollo/client" "^3.4.17"
     "@sentry/browser" "^7.11.1"
+    axios "^1.2.2"
     cross-fetch "^3.1.4"
     graphql "^16.0.1"
     husky "^7.0.4"
@@ -2599,15 +2600,15 @@
     tiny-typed-emitter "^2.1.0"
     ws "^8.5.0"
 
-"@stigg/react-sdk@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-1.5.0.tgz#cbb8f905ee571584dd6c57698151b8ed8114218f"
-  integrity sha512-ME4Cbca8pc3RP4bdC9A79EwWA0CpONLqQ/8URDm2nMQOs3K1ahUu1lp/Zw70zIrZksvAxIGb7YQyx/wE3oxw9A==
+"@stigg/react-sdk@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-1.7.0.tgz#176ee283b2d977838c2d13e1591b3b681361c5e2"
+  integrity sha512-imMTvMni01TG2a8OPjuSgMBRbgBvUlyT6wusZIxNK09ht45hNaTJ1+FpvnagxXlC9zSVcNbvWNve4w5ewaVAfg==
   dependencies:
     "@emotion/react" "^11.10.5"
     "@emotion/styled" "^11.10.5"
     "@mui/material" "^5.10.13"
-    "@stigg/js-client-sdk" "^1.4.0"
+    "@stigg/js-client-sdk" "^1.7.0"
     "@types/styled-components" "^5.1.26"
     classnames "^2.3.2"
     color "^4.2.3"
@@ -3817,6 +3818,15 @@ axios@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.1.2.tgz#8b6f6c540abf44ab98d9904e8daf55351ca4a331"
   integrity sha512-bznQyETwElsXl2RK7HLLwb5GPpOLlycxHCtrpDR/4RqqBzjARaOTo3jz4IgtntWUYee7Ne4S8UHd92VCuzPaWA==
+  dependencies:
+    follow-redirects "^1.15.0"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
+
+axios@^1.2.2:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.2.4.tgz#6555dd955d2efa9b8f4cb4cb0b3371b7b243537a"
+  integrity sha512-lIQuCfBJvZB/Bv7+RWUqEJqNShGOVpk9v7P0ZWx5Ip0qY6u7JBAU6dzQPMLasU9vHL2uD8av/1FDJXj7n6c39w==
   dependencies:
     follow-redirects "^1.15.0"
     form-data "^4.0.0"

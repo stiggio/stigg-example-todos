@@ -5,10 +5,12 @@
   "scripts": {
     "start": "nx serve",
     "server": "nx run server:serve",
+    "client": "nx run client:serve",
     "build": "nx run-many --target=build --projects=server,client --parallel=true",
     "test": "nx test",
     "run-all": "nx run-many --target=serve --projects=server,client --parallel=true",
     "setup": "prisma migrate dev",
+    "db:reset": "rimraf prisma/{dev.db,dev.db-journal} && yarn setup",
     "heroku-prebuild": "sed -ie 's/sqlite/postgresql/g' prisma/schema.prisma && sed -ie 's/sqlite/postgresql/g' prisma/migrations/migration_lock.toml"
   },
   "private": true,
@@ -22,7 +24,7 @@
     "@mui/styled-engine-sc": "^5.10.3",
     "@prisma/client": "4.3.1",
     "@stigg/node-server-sdk": "^0.66.0",
-    "@stigg/react-sdk": "^1.5.0",
+    "@stigg/react-sdk": "^1.7.0",
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "core-js": "^3.6.5",
