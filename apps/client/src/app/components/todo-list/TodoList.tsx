@@ -29,21 +29,21 @@ export function TodoList() {
     fetchTodos(dispatch);
   }, [dispatch]);
 
-  const todosEntitlement = stigg.getMeteredEntitlement({
-    featureId: 'feature-todos',
-    options: {
-      requestedUsage: 1,
-      fallback: { usageLimit: 5, hasAccess: true },
-    },
-  });
-  const canAddTodo = todosEntitlement.hasAccess;
-  const todosLimit = todosEntitlement.usageLimit || 5;
-  const isUnlimitedTodos = todosEntitlement.isUnlimited;
+  // const todosEntitlement = stigg.getMeteredEntitlement({
+  //   featureId: 'feature-todos',
+  //   options: {
+  //     requestedUsage: 1,
+  //     fallback: { usageLimit: 5, hasAccess: true },
+  //   },
+  // });
+  const canAddTodo = true;
+  const todosLimit = 50000;
+  const isUnlimitedTodos = false;
 
-  const updateTodoEntitlement = stigg.getBooleanEntitlement({
-    featureId: 'feature-update-todo',
-  });
-  const canUpdateTodo = updateTodoEntitlement.hasAccess;
+  // const updateTodoEntitlement = stigg.getBooleanEntitlement({
+  //   featureId: 'feature-update-todo',
+  // });
+  const canUpdateTodo = true;
 
   const onAddTodo = async (todoLabel: string) => {
     setIsAdding(true);

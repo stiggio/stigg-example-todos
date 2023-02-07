@@ -46,17 +46,17 @@ export function Collaborators() {
   const handleCloseAddCollaborator = () => setOpenAddCollaborator(false);
   const { stigg, refreshData } = useStiggContext();
 
-  const collaboratorEntitlement = stigg.getMeteredEntitlement({
-    featureId: 'feature-collaborators',
-    options: {
-      requestedUsage: 1,
-      fallback: { usageLimit: 5, hasAccess: true },
-    },
-  });
+  // const collaboratorEntitlement = stigg.getMeteredEntitlement({
+  //   featureId: 'feature-collaborators',
+  //   options: {
+  //     requestedUsage: 1,
+  //     fallback: { usageLimit: 5, hasAccess: true },
+  //   },
+  // });
 
-  const canAddCollaborator = collaboratorEntitlement.hasAccess;
-  const collaboratorLimit = collaboratorEntitlement.usageLimit;
-  const isUnlimitedCollaborators = collaboratorEntitlement.isUnlimited;
+  const canAddCollaborator = true;
+  const collaboratorLimit = 5000;
+  const isUnlimitedCollaborators = false;
 
   const [currentActiveSubscription] =
     currentUser?.stiggCustomer?.getActiveSubscriptions() || [];
