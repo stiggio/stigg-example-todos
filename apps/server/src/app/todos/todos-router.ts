@@ -19,6 +19,8 @@ const checkTodosEntitlement = (requestUsage?: number) =>
   );
 
 router.get('/', checkTodosEntitlement(), async (req, res) => {
+  const bla = await stiggClient.getEntitlements(req.user.stiggCustomerId);
+  console.log(`custpmer entitlements`, bla);
   const todos = await todosRepository.getTodos(req.user.email);
   res.send({ todos });
 });
