@@ -77,10 +77,12 @@ router.post('/provisionSubscription', authMiddleware, async (req, res) => {
       planId,
       customerId,
       billingPeriod,
-      unitQuantity,
+      unitQuantity: unitQuantity || 1,
       checkoutOptions: {
-        cancelUrl,
-        successUrl,
+        cancelUrl: 'https://google.com',
+        successUrl: 'https://google.com',
+        allowPromoCodes: true,
+        referenceId: '1231231',
       },
       awaitPaymentConfirmation: true,
     });

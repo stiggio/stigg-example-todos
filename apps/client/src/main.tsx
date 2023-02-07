@@ -12,6 +12,7 @@ root.render(
   <StrictMode>
     <StiggProvider
       apiKey={config.stiggApiKey}
+      baseUri={'https://api-staging.stigg.io/graphql'}
       theme={{
         layout: {
           descriptionMinHeight: '60px',

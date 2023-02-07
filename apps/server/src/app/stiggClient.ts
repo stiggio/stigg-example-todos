@@ -15,7 +15,16 @@ export function initStiggClient(): Stigg {
     return stiggClient;
   }
 
-  stiggClient = Stigg.initialize({ apiKey });
+  stiggClient = Stigg.initialize({
+    apiKey,
+    baseUri: 'https://api-staging.stigg.io',
+    realtimeUpdatesEnabled: false,
+    redis: {
+      host: 'pubsub-elasticache-staging.gemlbt.ng.0001.use2.cache.amazonaws.com',
+      db: 4,
+      environmentPrefix: 'roy-test',
+    },
+  });
 
   return stiggClient;
 }
@@ -27,7 +36,9 @@ export function createCustomerToken(customerId: string): string | null {
     return null;
   }
 
-  const signature = createHmac('sha256', signingToken).update(customerId).digest('hex');
+  const signature = createHmac('sha256', signingToken)
+    .update(customerId)
+    .digest('hex');
 
   return `HMAC-SHA256 ${customerId}:${signature}`;
 }
