@@ -2564,10 +2564,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@stigg/js-client-sdk@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-1.7.0.tgz#4cf5e428b9142627e2f632534f7c5deb0caeee9f"
-  integrity sha512-03r1G8sPealJ0XkuYICugx38UjryD+QJvuAfXvsIR2fFz9WllgqMaTHaBlXCnncgZX6lBGKlLSVm34oVkSmPNw==
+"@stigg/js-client-sdk@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-1.9.0.tgz#60eac50110fbe992c98cd4bff806a1560497084c"
+  integrity sha512-uR8+Fpq6VVh4MZPIAKz6P2vlSiPtgu2NEJRvdDTHmWa8ju0oaNSVL5qt31z2DJMJY07xGCO4wFX2neiMBG12Lg==
   dependencies:
     "@apollo/client" "^3.4.17"
     "@sentry/browser" "^7.11.1"
@@ -2600,15 +2600,15 @@
     tiny-typed-emitter "^2.1.0"
     ws "^8.5.0"
 
-"@stigg/react-sdk@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-1.7.0.tgz#176ee283b2d977838c2d13e1591b3b681361c5e2"
-  integrity sha512-imMTvMni01TG2a8OPjuSgMBRbgBvUlyT6wusZIxNK09ht45hNaTJ1+FpvnagxXlC9zSVcNbvWNve4w5ewaVAfg==
+"@stigg/react-sdk@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-1.9.0.tgz#e2d1ac662e3074d170a6ee0d4050d765ea53f2ce"
+  integrity sha512-6yTmN+0BYgQk9p/SJcA65POvUfUJFREgDSRVk0nSPIXnMkz6booUXNFXqt2Ee+Q64BJe9o1zcGluC3Ex2p+1Xg==
   dependencies:
     "@emotion/react" "^11.10.5"
     "@emotion/styled" "^11.10.5"
     "@mui/material" "^5.10.13"
-    "@stigg/js-client-sdk" "^1.7.0"
+    "@stigg/js-client-sdk" "^1.9.0"
     "@types/styled-components" "^5.1.26"
     classnames "^2.3.2"
     color "^4.2.3"
