@@ -2579,16 +2579,17 @@
     lodash "^4.17.21"
     tiny-typed-emitter "^2.1.0"
 
-"@stigg/node-server-sdk@^0.66.0":
-  version "0.66.0"
-  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-0.66.0.tgz#9fd7fd29142ed8e2b304fc0098e3e48a7581304e"
-  integrity sha512-K6Tm5BzffPRyv4KnHk4z/EUjUJOThaxW4EaRzXHWhN+tTzdu06VOPkSnR3Qjw0Y7vpIM+4XlP5wJdvBVLdHRRw==
+"@stigg/node-server-sdk@^0.69.0":
+  version "0.69.0"
+  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-0.69.0.tgz#6db36ef2840b0c19940d456270be7c9690b24aec"
+  integrity sha512-vqIq0tNEu9NDKwYAQxyP3f0CUZEfrSLkonI5JQRkEZn6f2lMXfKFozSQFHpZxrcoiJ2zWqfjjgGUVKgxZ24BSQ==
   dependencies:
     "@apollo/client" "^3.4.16"
     "@bitauth/libauth" "^1.17.1"
     "@graphql-codegen/fragment-matcher" "^3.2.1"
     "@sentry/node" "^7.11.1"
     "@types/ws" "^8.2.3"
+    axios "^1.2.2"
     cross-fetch "^3.1.5"
     graphql "^15.6.1"
     graphql-ws "^5.6.0"
