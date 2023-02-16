@@ -2564,10 +2564,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@stigg/js-client-sdk@^1.9.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-1.9.0.tgz#60eac50110fbe992c98cd4bff806a1560497084c"
-  integrity sha512-uR8+Fpq6VVh4MZPIAKz6P2vlSiPtgu2NEJRvdDTHmWa8ju0oaNSVL5qt31z2DJMJY07xGCO4wFX2neiMBG12Lg==
+"@stigg/js-client-sdk@^1.12.0":
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-1.12.0.tgz#004265cbc200e3ed625c6e1e71b1bf1cf6a34220"
+  integrity sha512-8UXJHVS2hkP30xqPtnzyUzezPKm3qx3h6cuDX2acLONFE3QgyQXAir21s4nXwrQ8ijbiXO7MhkwTr6ossi7A3w==
   dependencies:
     "@apollo/client" "^3.4.17"
     "@sentry/browser" "^7.11.1"
@@ -2579,10 +2579,10 @@
     lodash "^4.17.21"
     tiny-typed-emitter "^2.1.0"
 
-"@stigg/node-server-sdk@^0.69.0":
-  version "0.69.0"
-  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-0.69.0.tgz#6db36ef2840b0c19940d456270be7c9690b24aec"
-  integrity sha512-vqIq0tNEu9NDKwYAQxyP3f0CUZEfrSLkonI5JQRkEZn6f2lMXfKFozSQFHpZxrcoiJ2zWqfjjgGUVKgxZ24BSQ==
+"@stigg/node-server-sdk@^0.72.0":
+  version "0.72.0"
+  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-0.72.0.tgz#02f9adc9675779ba654ecfba9a1e994979a58b93"
+  integrity sha512-n1wl2hgZN4u0bq8gKLJ0vJFh9S2xwtJQ7X6QamIDkJs7qwN8FCrldNtj+PBt/CwqYK7c+2zcpxWUtjDD1/GHyg==
   dependencies:
     "@apollo/client" "^3.4.16"
     "@bitauth/libauth" "^1.17.1"
@@ -2601,15 +2601,15 @@
     tiny-typed-emitter "^2.1.0"
     ws "^8.5.0"
 
-"@stigg/react-sdk@^1.9.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-1.9.0.tgz#e2d1ac662e3074d170a6ee0d4050d765ea53f2ce"
-  integrity sha512-6yTmN+0BYgQk9p/SJcA65POvUfUJFREgDSRVk0nSPIXnMkz6booUXNFXqt2Ee+Q64BJe9o1zcGluC3Ex2p+1Xg==
+"@stigg/react-sdk@^1.9.1":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-1.9.1.tgz#b1a9d7436194dc1258099694c322a0adbe60f98f"
+  integrity sha512-+XtirnHr8neL0Ih2corF3NHiDujHK4nKwnJxCWzuFK+ZYvFXXU5SZVqDKGOmo+fh+QqeryrJhD6EjHJCwj7Rdg==
   dependencies:
     "@emotion/react" "^11.10.5"
     "@emotion/styled" "^11.10.5"
     "@mui/material" "^5.10.13"
-    "@stigg/js-client-sdk" "^1.9.0"
+    "@stigg/js-client-sdk" "^1.12.0"
     "@types/styled-components" "^5.1.26"
     classnames "^2.3.2"
     color "^4.2.3"
