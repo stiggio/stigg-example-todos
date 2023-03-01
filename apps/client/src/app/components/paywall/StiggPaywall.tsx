@@ -68,6 +68,7 @@ export function Paywall({
         highlightedPlanId="plan-todos-essentials"
         onPlanSelected={onSubscribe}
         textOverrides={textOverrides}
+        billingCountryCode="JP"
       />
     </PaywallBox>
   );

@@ -1,8 +1,9 @@
 import * as express from 'express';
 import * as shortUUID from 'short-uuid';
-import { authMiddleware } from '../middleware/authMiddleware';
+import {authMiddleware} from '../middleware/authMiddleware';
 import { stiggClient, ENTITLEMENTS_IDS, STARTER_PLAN_ID, createCustomerToken } from '../stiggClient';
 import * as usersRepository from './users-repository';
+import {BillingPeriod} from "../../../../../../node-server-sdk";
 
 const router = express.Router();
 
@@ -78,6 +79,7 @@ router.post('/provisionSubscription', authMiddleware, async (req, res) => {
       customerId,
       billingPeriod,
       unitQuantity,
+      billingCountryCode: 'JP',
       checkoutOptions: {
         cancelUrl,
         successUrl,
