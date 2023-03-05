@@ -2574,13 +2574,14 @@
   resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-0.358.0.tgz#6ecea03ccc557a6aef8b8774e2f80b26f772eff7"
   integrity sha512-hwjY1o07pfwDbmkTQFDCNND0pUJO97o177iwqRjSSB5YntBvUbEWbBk0tgHIElicHRgFb/VPp48HEybQSdmUVg==
 
-"@stigg/js-client-sdk@^1.12.0":
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-1.12.0.tgz#004265cbc200e3ed625c6e1e71b1bf1cf6a34220"
-  integrity sha512-8UXJHVS2hkP30xqPtnzyUzezPKm3qx3h6cuDX2acLONFE3QgyQXAir21s4nXwrQ8ijbiXO7MhkwTr6ossi7A3w==
+"@stigg/js-client-sdk@1.17.0":
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-1.17.0.tgz#0e5c68ae102d8a8bac5154f06f388e4472510b6e"
+  integrity sha512-HE3B8xfaPZLwxUWrMK1n7zHq9TEIR+ypagaq5W6wlBokyJEfilUaM/VnXzZPZS87Dxj/vXj29Yupuv4pwH6f6Q==
   dependencies:
     "@apollo/client" "^3.4.17"
     "@sentry/browser" "^7.11.1"
+    "@stigg/api-client-js" "0.358.0"
     axios "^1.2.2"
     cross-fetch "^3.1.4"
     graphql "^16.0.1"
@@ -2614,15 +2615,15 @@
     tiny-typed-emitter "^2.1.0"
     ws "^8.5.0"
 
-"@stigg/react-sdk@^1.9.1":
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-1.9.1.tgz#b1a9d7436194dc1258099694c322a0adbe60f98f"
-  integrity sha512-+XtirnHr8neL0Ih2corF3NHiDujHK4nKwnJxCWzuFK+ZYvFXXU5SZVqDKGOmo+fh+QqeryrJhD6EjHJCwj7Rdg==
+"@stigg/react-sdk@1.21.0":
+  version "1.21.0"
+  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-1.21.0.tgz#75ccacb080ec064972e107c378f941b170cf0690"
+  integrity sha512-yaSbPsRrsoasN4K8YCL3Ly0iFmriyflbgNOXXkZbVLs62l0ub064WgMrvbf6SZTO1MrX5XMNsnWRW+C/ummkMA==
   dependencies:
     "@emotion/react" "^11.10.5"
     "@emotion/styled" "^11.10.5"
     "@mui/material" "^5.10.13"
-    "@stigg/js-client-sdk" "^1.12.0"
+    "@stigg/js-client-sdk" "1.17.0"
     "@types/styled-components" "^5.1.26"
     classnames "^2.3.2"
     color "^4.2.3"
