@@ -1,0 +1,77 @@
+# This action is centrally managed in https://github.com/stiggio/.github/
+# Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
+
+# In order to use this action, need to create a configuration file "notify-package-published.conf.json"
+# in the same directory as the action yml file, with a list of repositories to notify, in this syntax:
+# { "packageName": "react-sdk", "reposToNotify": [{ "repo": "repo-1" }, { "repo": "repo-2" }] }
+
+name: Notify package published
+on:
+  repository_dispatch:
+    types: [notify-package-published]
+
+env:
+  confFile: '.github/workflows/notify-package-published.conf.json'
+
+jobs:
+
+  prep:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      payload: ${{ steps.enhance-payload.outputs.result }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check if conf file exists
+        id: check_conf_file_exists
+        uses: andstor/file-existence-action@v2
+        with:
+          files: ${{ env.confFile }}
+
+      - name: Verify conf file exists
+        if: steps.check_conf_file_exists.outputs.files_exists == 'false'
+        run: |
+          echo 'Missing configuration file for action - ${{ env.confFile }}'
+          exit 1
+
+      - id: set-matrix
+        uses: JoshuaTheMiller/conditional-build-matrix@main
+        with:
+          inputFile: ${{ env.confFile }}
+          filter: 'reposToNotify[]'
+
+      - uses: actions/github-script@v6
+        id: enhance-payload
+        with:
+          result-encoding: string
+          script: |
+            try {
+              const fs = require('fs')
+              const jsonString = fs.readFileSync('${{ env.confFile }}')
+              var config = JSON.parse(jsonString)
+            } catch(err) {
+              core.error("Error while reading or parsing the JSON config file")
+              core.setFailed(err)
+            }
+            
+            const clientPayload = ${{ toJson(github.event.client_payload) }};
+            return JSON.stringify({
+              ...clientPayload,
+              packageName: config.packageName,
+            });
+
+  notify:
+    needs: prep
+    strategy:
+      matrix: ${{fromJson(needs.prep.outputs.matrix)}}
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.GUTHUB_SERVICE_TOKEN }}
+          repository: "stiggio/${{ matrix.repo }}"
+          event-type: package-published
+          client-payload: ${{ needs.prep.outputs.payload }}
