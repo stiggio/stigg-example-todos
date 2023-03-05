@@ -1,0 +1,109 @@
+# This action is centrally managed in https://github.com/stiggio/.github/
+# Don't make changes to this file in this repo as they will be overwritten with changes made to the same file in above mentioned repo
+
+name: Bump stigg dependency
+on:
+  repository_dispatch:
+    types: [package-published]
+
+env:
+  packageName: ${{ github.event.client_payload.packageName }}
+  packageVersion: ${{ github.event.client_payload.tag }}
+  prLink: ${{ github.event.client_payload.prLink }}
+  pusherName: ${{ github.event.client_payload.pusherName }}
+
+jobs:
+  create-pr:
+    name: Create pull-request
+    runs-on: ubuntu-latest
+    outputs:
+      url: ${{ steps.cpr.outputs.pull-request-url }}
+      number: ${{ steps.cpr.outputs.pull-request-number }}
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v3
+
+      - name: Install yarn
+        run: npm install -g yarn
+
+      - name: Update dependency
+        shell: bash
+        run: |
+          package_name="@stigg/${{ env.packageName }}"
+          package_version="${{ env.packageVersion }}"
+
+          for package_json in $(find . -name 'package.json' -not -path "*/node_modules/*"); do
+            cd $(dirname $package_json)
+            result=$(cat $package_json | jq ".dependencies | has(\"${package_name}\")")
+            if [ $result == "true" ]; then
+              yarn add ${package_name}@${package_version}
+            fi
+            cd -
+          done
+          
+          echo "has-changes=$(git diff --quiet && echo no || echo yes)" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GUTHUB_SERVICE_TOKEN }}
+          base: master
+          commit-message: "feat: update ${{ env.packageName }} to ${{ env.packageVersion }}"
+          title: "feat: update ${{ env.packageName }} to ${{ env.packageVersion }}"
+          committer: "cicdstigg <npc@stigg.io>"
+          branch: "automatic-update-${{ env.packageName }}"
+          delete-branch: true
+          labels: |
+            bump dependencies
+            automated pr
+
+  notify:
+    name: Notify in Slack
+    runs-on: ubuntu-latest
+    needs: create-pr
+    if: needs.create-pr.outputs.url != ''
+    steps:
+      - uses: actions/github-script@v6
+        id: get-slack-user-id
+        with:
+          result-encoding: string
+          script: |
+            const slackUsers = {
+              "elithe1": "U02CY46D57U",
+              "roystigg": "U02BRFK1M5J",
+              "antonzy": "U025XDNK3MW",
+              "nadavkaner": "U02BCH8B4S2",
+              "mortal94": "U03Q7DN07PV",
+              "itzik-bd": "U03KW1KPBJQ",
+              "MentalBrake": "U03RQURAUAF",
+              "OriErel": "U04MEATED2R",
+            };
+            
+            return slackUsers['${{ env.pusherName }}'] || 'unknown-user';
+
+      - name: Notify user in Slack
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "<@${{ steps.get-slack-user-id.outputs.result }}> has just released a new version (`${{ env.packageVersion }}`) for `${{ env.packageName }}` (see <${{ env.prLink }}|changes)>"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "To keep `${{ github.repository }}` up-to-date merge this <${{ needs.create-pr.outputs.url }}|pull-request>"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_AUTO_UPDATE_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
