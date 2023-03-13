@@ -2574,17 +2574,24 @@
   resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-0.358.0.tgz#6ecea03ccc557a6aef8b8774e2f80b26f772eff7"
   integrity sha512-hwjY1o07pfwDbmkTQFDCNND0pUJO97o177iwqRjSSB5YntBvUbEWbBk0tgHIElicHRgFb/VPp48HEybQSdmUVg==
 
-"@stigg/js-client-sdk@1.17.0":
-  version "1.17.0"
-  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-1.17.0.tgz#0e5c68ae102d8a8bac5154f06f388e4472510b6e"
-  integrity sha512-HE3B8xfaPZLwxUWrMK1n7zHq9TEIR+ypagaq5W6wlBokyJEfilUaM/VnXzZPZS87Dxj/vXj29Yupuv4pwH6f6Q==
+"@stigg/api-client-js@0.367.0":
+  version "0.367.0"
+  resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-0.367.0.tgz#5ea6570683e7812d75e68b7dc793a72bda66ac25"
+  integrity sha512-UdDFxLYqY1PKe6BKLlE8fqsR7H+dxBVhCHyknwdo0mCz101borZuR/9MWUmCD64BFM1p5ZSdXahNVoL4f3mqDw==
+  dependencies:
+    graphql "^15.6.1"
+    graphql-request "~5.1.0"
+
+"@stigg/js-client-sdk@1.23.0":
+  version "1.23.0"
+  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-1.23.0.tgz#6f7c5d11f430544cbd8d320db81998b50d61a439"
+  integrity sha512-6s+sTzZSM5avCKs4jOB9Qq3T9ErCvMwAeWv/9YC1goVQWhpExm0oZevlqz+E9n8JbtoT7exRzUezwaYx/Dat0g==
   dependencies:
     "@apollo/client" "^3.4.17"
     "@sentry/browser" "^7.11.1"
-    "@stigg/api-client-js" "0.358.0"
+    "@stigg/api-client-js" "0.367.0"
     axios "^1.2.2"
     cross-fetch "^3.1.4"
-    graphql "^16.0.1"
     husky "^7.0.4"
     lint-staged "^12.0.2"
     lodash "^4.17.21"
@@ -2615,18 +2622,19 @@
     tiny-typed-emitter "^2.1.0"
     ws "^8.5.0"
 
-"@stigg/react-sdk@1.21.0":
-  version "1.21.0"
-  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-1.21.0.tgz#75ccacb080ec064972e107c378f941b170cf0690"
-  integrity sha512-yaSbPsRrsoasN4K8YCL3Ly0iFmriyflbgNOXXkZbVLs62l0ub064WgMrvbf6SZTO1MrX5XMNsnWRW+C/ummkMA==
+"@stigg/react-sdk@1.22.1":
+  version "1.22.1"
+  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-1.22.1.tgz#1dbe2ff212882200460469619b0862db652c68bd"
+  integrity sha512-ijJhlIblTVg8SnATxGBUJ74t7y+bssMqZNe1kPeYabx8wnCpk8a1MCROWC6RqaVj/A/jkYQfj9mindAYeyc9og==
   dependencies:
     "@emotion/react" "^11.10.5"
     "@emotion/styled" "^11.10.5"
     "@mui/material" "^5.10.13"
-    "@stigg/js-client-sdk" "1.17.0"
+    "@stigg/js-client-sdk" "1.23.0"
     "@types/styled-components" "^5.1.26"
     classnames "^2.3.2"
     color "^4.2.3"
+    currency-symbol-map "^5.1.0"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
     moment "^2.29.4"
@@ -4917,6 +4925,11 @@ csstype@^3.0.2, csstype@^3.1.1:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.1.tgz#841b532c45c758ee546a11d5bd7b7b473c8c30b9"
   integrity sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
 
+currency-symbol-map@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/currency-symbol-map/-/currency-symbol-map-5.1.0.tgz#59531fbe977ba95e8d358e90e3c9e9053efb75ad"
+  integrity sha512-LO/lzYRw134LMDVnLyAf1dHE5tyO6axEFkR3TXjQIOmMkAM9YL6QsiUwuXzZAmFnuDJcs4hayOgyIYtViXFrLw==
+
 cypress@^10.7.0:
   version "10.10.0"
   resolved "https://registry.yarnpkg.com/cypress/-/cypress-10.10.0.tgz#fd671297b2ca3e64dfffd55fe3857c388cfbb695"
@@ -5765,6 +5778,11 @@ extend@~3.0.2:
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
   integrity sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==
 
+extract-files@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/extract-files/-/extract-files-9.0.0.tgz#8a7744f2437f81f5ed3250ed9f1550de902fe54a"
+  integrity sha512-CvdFfHkC95B4bBBk36hcEmvdR2awOdhhVUYH6S/zrVj3477zven/fJMYg7121h4T1xHZC+tetUpubpAhxwI7hQ==
+
 extract-zip@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/extract-zip/-/extract-zip-2.0.1.tgz#663dca56fe46df890d5f131ef4a06d22bb8ba13a"
@@ -5975,6 +5993,15 @@ fork-ts-checker-webpack-plugin@7.2.13:
     schema-utils "^3.1.1"
     semver "^7.3.5"
     tapable "^2.2.1"
+
+form-data@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/form-data/-/form-data-3.0.1.tgz#ebd53791b78356a99af9a300d4282c4d5eb9755f"
+  integrity sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
+    mime-types "^2.1.12"
 
 form-data@^4.0.0:
   version "4.0.0"
@@ -6257,6 +6284,16 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.4, 
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.10.tgz#147d3a006da4ca3ce14728c7aefc287c367d7a6c"
   integrity sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==
 
+graphql-request@~5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-5.1.0.tgz#dbc8feee27d21b993cd5da2d3af67821827b240a"
+  integrity sha512-0OeRVYigVwIiXhNmqnPDt+JhMzsjinxHE7TVy3Lm6jUzav0guVcL0lfSbi6jVTRAxcbwgyr6yrZioSHxf9gHzw==
+  dependencies:
+    "@graphql-typed-document-node/core" "^3.1.1"
+    cross-fetch "^3.1.5"
+    extract-files "^9.0.0"
+    form-data "^3.0.0"
+
 graphql-tag@^2.12.6:
   version "2.12.6"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.12.6.tgz#d441a569c1d2537ef10ca3d1633b48725329b5f1"
@@ -6273,11 +6310,6 @@ graphql@^15.6.1:
   version "15.8.0"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.8.0.tgz#33410e96b012fa3bdb1091cc99a94769db212b38"
   integrity sha512-5gghUc24tP9HRznNpV2+FIoq3xKkj5dTQqf4v0CpdPbFVwFkWoxOM+o+2OC9ZSvjEMTjfmG9QT+gcvggTwW1zw==
-
-graphql@^16.0.1:
-  version "16.6.0"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.6.0.tgz#c2dcffa4649db149f6282af726c8c83f1c7c5fdb"
-  integrity sha512-KPIBPDlW7NxrbT/eh4qPXz5FiFdL5UbaA0XUNz2Rp3Z3hqBSkbj0GVjwFDztsWVauZUWsbKHgMg++sk8UX0bkw==
 
 handle-thing@^2.0.0:
   version "2.0.1"
