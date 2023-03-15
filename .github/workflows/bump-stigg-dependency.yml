@@ -34,7 +34,7 @@ jobs:
 
           for package_json in $(find . -name 'package.json' -not -path "*/node_modules/*"); do
             cd $(dirname $package_json)
-            result=$(cat $package_json | jq ".dependencies | has(\"${package_name}\")")
+            result=$(cat package.json | jq ".dependencies | has(\"${package_name}\")")
             if [ $result == "true" ]; then
               yarn add ${package_name}@${package_version}
             fi
