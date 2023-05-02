@@ -2569,15 +2569,18 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@stigg/api-client-js@0.358.0":
-  version "0.358.0"
-  resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-0.358.0.tgz#6ecea03ccc557a6aef8b8774e2f80b26f772eff7"
-  integrity sha512-hwjY1o07pfwDbmkTQFDCNND0pUJO97o177iwqRjSSB5YntBvUbEWbBk0tgHIElicHRgFb/VPp48HEybQSdmUVg==
-
 "@stigg/api-client-js@0.373.1":
   version "0.373.1"
   resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-0.373.1.tgz#7634db6ba3aa10d64b8f42a55046a2144c9e9cf3"
   integrity sha512-XUha2u3ZAXyL/4ooIzsXI+qFR24uxhQV/9xGJZikJRwjoPaIdL/ysqfrlJPK3Qo1IwMVYNzvAr07aXrDQTM4RQ==
+  dependencies:
+    graphql "^15.6.1"
+    graphql-request "~5.1.0"
+
+"@stigg/api-client-js@0.423.0":
+  version "0.423.0"
+  resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-0.423.0.tgz#07399ecd9e23af81c87b23da26a2f6745257ed04"
+  integrity sha512-bKDfezlXKMp0FWCHsgtZaiADODNvqJpn656KFSDT3HKslHNrWOXkX7G0LdU2LKqnIspdivmu0cxgqKUf4SxDPg==
   dependencies:
     graphql "^15.6.1"
     graphql-request "~5.1.0"
@@ -2597,16 +2600,16 @@
     lodash "^4.17.21"
     tiny-typed-emitter "^2.1.0"
 
-"@stigg/node-server-sdk@0.81.0":
-  version "0.81.0"
-  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-0.81.0.tgz#70175f2d63605509d477378d1107ddfbdd5e7688"
-  integrity sha512-wrC1dnFo4/EhiJlXusysYtuDl038pO/nCUz5BOF6BYBIgOQ4lQPwDib3UIaeaqrOAvGM1PZ8fS+gSA6cEK4PGA==
+"@stigg/node-server-sdk@1.15.0":
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-1.15.0.tgz#582c651fcceae4fbdaaccf2513366b31f18d3cae"
+  integrity sha512-6IsSKFw5wJHc2UHGPnrdG+qpTpFtcXFbThRivvEwsqrQ+7f+L5T/Zu52Xjl/ifBprLHlffur4yflHFFhneoJiA==
   dependencies:
     "@apollo/client" "^3.4.16"
     "@bitauth/libauth" "^1.17.1"
     "@graphql-codegen/fragment-matcher" "^3.2.1"
     "@sentry/node" "^7.11.1"
-    "@stigg/api-client-js" "0.358.0"
+    "@stigg/api-client-js" "0.423.0"
     "@types/ws" "^8.2.3"
     axios "^1.2.2"
     cross-fetch "^3.1.5"
