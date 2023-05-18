@@ -46,7 +46,7 @@ export function TodoItems({
       flexDirection="column"
       minHeight={300}
       maxHeight={300}
-      overflow="scroll"
+      overflow="auto"
       flexWrap="nowrap"
     >
       {isLoading ? (

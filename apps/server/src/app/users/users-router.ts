@@ -1,7 +1,12 @@
 import * as express from 'express';
 import * as shortUUID from 'short-uuid';
 import { authMiddleware } from '../middleware/authMiddleware';
-import { stiggClient, ENTITLEMENTS_IDS, STARTER_PLAN_ID, createCustomerToken } from '../stiggClient';
+import {
+  stiggClient,
+  ENTITLEMENTS_IDS,
+  STARTER_PLAN_ID,
+  createCustomerToken,
+} from '../stiggClient';
 import * as usersRepository from './users-repository';
 
 const router = express.Router();
@@ -11,7 +16,9 @@ router.get('/:email', async (req, res) => {
   const { email } = req.params;
 
   const user = await usersRepository.getUserByEmail(email);
-  const stiggCustomerToken = user ? createCustomerToken(user.stiggCustomerId) : null;
+  const stiggCustomerToken = user
+    ? createCustomerToken(user.stiggCustomerId)
+    : null;
 
   res.json({ user, stiggCustomerToken });
 });
@@ -35,8 +42,10 @@ router.post('/signup', async (req, res) => {
 
   const existingUser = await usersRepository.getUserByEmail(email);
   if (existingUser) {
-    res.status(409);
-    throw new Error('Email address already exists');
+    res.status(409).json({
+      message: 'Email already exists',
+    });
+    return;
   }
 
   const customerStiggId = shortUUID.generate();

@@ -13,6 +13,7 @@ export function SignIn() {
   const navigate = useNavigate();
   const [createNewUser, setCreateNewUser] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [signupError, setSignupError] = useState<string | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { stigg } = useStiggContext();
@@ -30,7 +31,13 @@ export function SignIn() {
   const onLogin = async (email: string, password: string) => {
     setIsLoading(true);
     if (createNewUser) {
-      await signUp(dispatch, { email, password }, stigg);
+      try {
+        await signUp(dispatch, { email, password }, stigg);
+      } catch (err: any) {
+        if (err.response.status === 409) {
+          setSignupError('User email already exists');
+        }
+      }
     } else {
       await signIn(dispatch, { email, password }, stigg);
     }
@@ -57,6 +64,11 @@ export function SignIn() {
         {signInError && !createNewUser && (
           <Typography variant="body1" color="text.primary">
             Incorrect email or password
+          </Typography>
+        )}
+        {signupError && createNewUser && (
+          <Typography variant="body1" color="text.primary">
+            {signupError}
           </Typography>
         )}
       </Grid>
