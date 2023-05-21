@@ -2617,10 +2617,10 @@
     tiny-typed-emitter "^2.1.0"
     ws "^8.5.0"
 
-"@stigg/react-sdk@1.38.0":
-  version "1.38.0"
-  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-1.38.0.tgz#42aa7d79966fd224983c8fc62c91020118611371"
-  integrity sha512-+hVTwdgOzRBa3F+Au9aoL9pEiMhiKrSCm+CehL86Z2swUK7WKgDKcYP0yTBdrRxnjF4p0ZTrUNiHoX6kwgvfFw==
+"@stigg/react-sdk@1.38.4":
+  version "1.38.4"
+  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-1.38.4.tgz#f92e6681bd934c986030db5e795550d5f8830d5a"
+  integrity sha512-WNd+FllOzLOLWcsAx3MyjW98h9Ut0zf07G4qlFz/cyUVh9y50xjEXfKq019vRdZ/BX03E/Ls3Pum/1dC97pv7g==
   dependencies:
     "@emotion/react" "^11.10.5"
     "@emotion/styled" "^11.10.5"
