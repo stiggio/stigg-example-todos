@@ -48,7 +48,9 @@ In order to test this example project with Stripe integration, you'll need to [c
   ```
   cp .env.example .env
   ```
-* Obtain API keys from https://app.stigg.io/account/settings and update `.env` file:
+* Generate the example project environmnet by navigating to https://app.stigg.io/sandbox/todos
+* Navigate to https://app.stigg.io/account/settings
+* Obtain the API keys of the "Todos sandbox" environment and update `.env` file:
   * Client API key - `NX_STIGG_CLIENT_API_KEY`
   * Server API key - `NX_STIGG_SERVER_API_KEY` 
 * If this is your first time running the app, you'll need to set up the app:
