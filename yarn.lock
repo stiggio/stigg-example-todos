@@ -2569,10 +2569,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@stigg/api-client-js@0.423.0":
-  version "0.423.0"
-  resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-0.423.0.tgz#07399ecd9e23af81c87b23da26a2f6745257ed04"
-  integrity sha512-bKDfezlXKMp0FWCHsgtZaiADODNvqJpn656KFSDT3HKslHNrWOXkX7G0LdU2LKqnIspdivmu0cxgqKUf4SxDPg==
+"@stigg/api-client-js@0.424.2":
+  version "0.424.2"
+  resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-0.424.2.tgz#2e6c46a94809128e26b804bbc51f958c005d1cdb"
+  integrity sha512-1rLRobE/osQw/6nasUSmnRXO+NNF2cCYL/Tmrje0Y2ndUAY/VyPM34t/8HD2tEtlrNt8aXMaRL+bBtL9Rg9JPQ==
   dependencies:
     graphql "^15.6.1"
     graphql-request "~5.1.0"
@@ -2585,14 +2585,14 @@
     graphql "^15.6.1"
     graphql-request "~5.1.0"
 
-"@stigg/js-client-sdk@1.36.0":
-  version "1.36.0"
-  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-1.36.0.tgz#8decc98c35d4e8d66591d446536b03d1d848258f"
-  integrity sha512-oYEIcM/lSKSuEgf+DwL0n55O1w2l7dvtyXq3Y86igJoWUdN97uUsNbbzim0g/zMkwB6QnvnY2wKiIW/Jmo+cTg==
+"@stigg/js-client-sdk@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-2.0.0.tgz#6814c3a7ad5b33330db9e2a70903082d5a1eedf0"
+  integrity sha512-qrMx/+hAjxqYp2plceenQuhziQMowMZtE/lqgFqTLyhY1hIqdn/DorvNnlEroJgRKW4jofutbLUhjFZ2eGVxbA==
   dependencies:
     "@apollo/client" "^3.4.17"
     "@sentry/browser" "^7.11.1"
-    "@stigg/api-client-js" "0.423.0"
+    "@stigg/api-client-js" "0.424.2"
     axios "^1.2.2"
     cross-fetch "^3.1.4"
     husky "^7.0.4"
@@ -2625,15 +2625,15 @@
     tiny-typed-emitter "^2.1.0"
     ws "^8.5.0"
 
-"@stigg/react-sdk@1.38.4":
-  version "1.38.4"
-  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-1.38.4.tgz#f92e6681bd934c986030db5e795550d5f8830d5a"
-  integrity sha512-WNd+FllOzLOLWcsAx3MyjW98h9Ut0zf07G4qlFz/cyUVh9y50xjEXfKq019vRdZ/BX03E/Ls3Pum/1dC97pv7g==
+"@stigg/react-sdk@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-2.0.0.tgz#9712d07f9d5fd53a7461eb49838a08d5ad6f64c9"
+  integrity sha512-Wr3ek3S9VRFxqmwFUk6tnQgbiMu1xW4cKiAXxJqKtnPkB4bC5WU8d7Q8oKYAiC3jCOJylzXTih6uhu6oTD28bg==
   dependencies:
     "@emotion/react" "^11.10.5"
     "@emotion/styled" "^11.10.5"
     "@mui/material" "^5.10.13"
-    "@stigg/js-client-sdk" "1.36.0"
+    "@stigg/js-client-sdk" "2.0.0"
     "@types/styled-components" "^5.1.26"
     classnames "^2.3.2"
     color "^4.2.3"
