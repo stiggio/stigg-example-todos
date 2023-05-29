@@ -2577,6 +2577,14 @@
     graphql "^15.6.1"
     graphql-request "~5.1.0"
 
+"@stigg/api-client-js@0.442.1":
+  version "0.442.1"
+  resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-0.442.1.tgz#ee515ac1d9dcd1e2a22617821137cfebb885e076"
+  integrity sha512-5Cbd8ZMgliuDarpWhBUdSJs7z+GGtNOhTD6tCetLSBkNC2JC5Y145gNFux1zD1f4+XDMEr8X8xm/gQDeoxqRKg==
+  dependencies:
+    graphql "^15.6.1"
+    graphql-request "~5.1.0"
+
 "@stigg/js-client-sdk@1.36.0":
   version "1.36.0"
   resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-1.36.0.tgz#8decc98c35d4e8d66591d446536b03d1d848258f"
@@ -2592,16 +2600,16 @@
     lodash "^4.17.21"
     tiny-typed-emitter "^2.1.0"
 
-"@stigg/node-server-sdk@1.15.0":
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-1.15.0.tgz#582c651fcceae4fbdaaccf2513366b31f18d3cae"
-  integrity sha512-6IsSKFw5wJHc2UHGPnrdG+qpTpFtcXFbThRivvEwsqrQ+7f+L5T/Zu52Xjl/ifBprLHlffur4yflHFFhneoJiA==
+"@stigg/node-server-sdk@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-2.0.0.tgz#656880b1df14dc441ba3766e6563805cf4d4f332"
+  integrity sha512-j6FMSnU/LehRmKySLdXvdsI/K5pjnw4fZZJwVJ8CHlD81OH/RbbkTO0RHgPvkPkHSQOkXWMRlCxUTZh6WbOvWw==
   dependencies:
     "@apollo/client" "^3.4.16"
     "@bitauth/libauth" "^1.17.1"
     "@graphql-codegen/fragment-matcher" "^3.2.1"
     "@sentry/node" "^7.11.1"
-    "@stigg/api-client-js" "0.423.0"
+    "@stigg/api-client-js" "0.442.1"
     "@types/ws" "^8.2.3"
     axios "^1.2.2"
     cross-fetch "^3.1.5"
