@@ -1,3 +1,12 @@
+# [1.2.0](https://github.com/stiggio/stigg-example-todos/compare/1.1.0...1.2.0) (2023-11-26)
+
+
+### Features
+
+* add test GH action ([#53](https://github.com/stiggio/stigg-example-todos/issues/53)) ([2ff1592](https://github.com/stiggio/stigg-example-todos/commit/2ff1592d054d1d0d21fed3946d3a83f38b98998f))
+
+
+
 # [1.1.0](https://github.com/stiggio/stigg-example-todos/compare/1.0.0...1.1.0) (2023-11-26)
 
 
