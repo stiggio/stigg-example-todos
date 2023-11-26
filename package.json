@@ -1,6 +1,6 @@
 {
   "name": "stigg-example-todos",
-  "version": "1.2.0",
+  "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
