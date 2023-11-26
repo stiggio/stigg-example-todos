@@ -2577,10 +2577,10 @@
     graphql "^15.6.1"
     graphql-request "~5.1.0"
 
-"@stigg/api-client-js@0.442.1":
-  version "0.442.1"
-  resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-0.442.1.tgz#ee515ac1d9dcd1e2a22617821137cfebb885e076"
-  integrity sha512-5Cbd8ZMgliuDarpWhBUdSJs7z+GGtNOhTD6tCetLSBkNC2JC5Y145gNFux1zD1f4+XDMEr8X8xm/gQDeoxqRKg==
+"@stigg/api-client-js@0.665.2":
+  version "0.665.2"
+  resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-0.665.2.tgz#3ef171f40a5eaef6952bbabae4f9f1efcf1680f9"
+  integrity sha512-OchZK2IY7U23sXz6z4cJLqETM7U0VGo+nrTZTeqdJrDXDMoiUADl+IJcuzI7XxrGBaxZN4it+UaJ3q44kowJTQ==
   dependencies:
     graphql "^15.6.1"
     graphql-request "~5.1.0"
@@ -2600,16 +2600,16 @@
     lodash "^4.17.21"
     tiny-typed-emitter "^2.1.0"
 
-"@stigg/node-server-sdk@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-2.0.0.tgz#656880b1df14dc441ba3766e6563805cf4d4f332"
-  integrity sha512-j6FMSnU/LehRmKySLdXvdsI/K5pjnw4fZZJwVJ8CHlD81OH/RbbkTO0RHgPvkPkHSQOkXWMRlCxUTZh6WbOvWw==
+"@stigg/node-server-sdk@2.42.0":
+  version "2.42.0"
+  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-2.42.0.tgz#7194f6369656e3a9a472e56b6455279c10b6faeb"
+  integrity sha512-wNutIaWsFrezt+ilj6tJAsHpQxoc8YWUlZICE7puvMBtmKMhOJWeWKVaxRVZOI0YA7nPTB+U040CrUj3lPWM4g==
   dependencies:
     "@apollo/client" "^3.4.16"
     "@bitauth/libauth" "^1.17.1"
     "@graphql-codegen/fragment-matcher" "^3.2.1"
     "@sentry/node" "^7.11.1"
-    "@stigg/api-client-js" "0.442.1"
+    "@stigg/api-client-js" "0.665.2"
     "@types/ws" "^8.2.3"
     axios "^1.2.2"
     cross-fetch "^3.1.5"
@@ -2620,6 +2620,7 @@
     isomorphic-ws "^4.0.1"
     lint-staged "^11.2.3"
     lodash "^4.17.21"
+    lru-cache "^10.0.1"
     nanoid "^3.3.2"
     redlock "^5.0.0-beta.2"
     tiny-typed-emitter "^2.1.0"
@@ -7942,6 +7943,11 @@ lower-case@^2.0.2:
   integrity sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==
   dependencies:
     tslib "^2.0.3"
+
+lru-cache@^10.0.1:
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-10.1.0.tgz#2098d41c2dc56500e6c88584aa656c84de7d0484"
+  integrity sha512-/1clY/ui8CzjKFyjdvwPWJUYKiFVXG2I2cY0ssG7h4+hwk+XOIX7ZSG9Q7TW8TW3Kp3BUSqgFWBLgL4PJ+Blag==
 
 lru-cache@^6.0.0:
   version "6.0.0"
