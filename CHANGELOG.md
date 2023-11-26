@@ -1,4 +1,13 @@
-# 1.0.0 (2023-06-28)
+# [1.1.0](https://github.com/stiggio/stigg-example-todos/compare/1.0.0...1.1.0) (2023-11-26)
+
+
+### Features
+
+* update node-server-sdk to 2.42.0 ([#52](https://github.com/stiggio/stigg-example-todos/issues/52)) ([df0e5ff](https://github.com/stiggio/stigg-example-todos/commit/df0e5ffa93c4c5f65f6b168753fb72e6397e0268))
+
+
+
+# [1.0.0](https://github.com/stiggio/stigg-example-todos/compare/727924047784476b1d1c7511fa0aba45e5565aa0...1.0.0) (2023-06-28)
 
 
 ### Bug Fixes
