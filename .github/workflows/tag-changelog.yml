@@ -61,24 +61,15 @@ jobs:
             true
         env:
           GITHUB_TOKEN: ${{ secrets.GUTHUB_SERVICE_TOKEN }}
-
-      - name: Get pr url
-        uses: kceb/pull-request-url-action@v2
-        id: pr-url
-
-      # # Split url to get the pr number - will be used to get branch name
-      # # e.g url: https://github.com/stiggio/changelog-test/pull/32 
-      - name: Extract pr number
-        uses: rishabhgupta/split-by@v1
-        id: Split 
-        with:
-          string:  ${{ steps.pr-url.outputs.url }}
-          split-by: 'pull/' # split result: place[0] -> https://github.com/stiggio/changelog-test/, place[1] -> 32
+        
+      - name: Get current PR
+        uses: 8BitJonny/gh-get-current-pr@2.2.0
+        id: current_pr
       
       # Step is used to get branch name
       - name: Curl to get pr metadata
         run: |
-           curl -H "Accept: application/vnd.github+json"  -H "Authorization: token ${{ secrets.GH_NPC_READ_TOKEN }}" https://api.github.com/repos/stiggio/${{ github.event.repository.name }}/pulls/${{ steps.Split.outputs._1 }} > pr.json
+           curl -H "Accept: application/vnd.github+json"  -H "Authorization: token ${{ secrets.GH_NPC_READ_TOKEN }}" https://api.github.com/repos/stiggio/${{ github.event.repository.name }}/pulls/${{ steps.current_pr.outputs.number }} > pr.json
       
       #  Extract branch name from curl output json
       - name: Get brach name
@@ -94,4 +85,4 @@ jobs:
         with:
           token: ${{ secrets.GUTHUB_SERVICE_TOKEN }}
           event-type: tag-ready
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "tag": "${{ steps.change_log_create.outputs.tag }}", "prLink": "${{ steps.pr-url.outputs.url }}", "branchName": "${{steps.branch_name.outputs.prop}}", "pusherName": "${{ github.event.pusher.name }}", "pusherEmail": "${{ github.event.pusher.email }}"}'
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "tag": "${{ steps.change_log_create.outputs.tag }}", "prLink": "${{ steps.current_pr.outputs.pr_url }}", "branchName": "${{steps.branch_name.outputs.prop}}", "pusherName": "${{ github.event.pusher.name }}", "pusherEmail": "${{ github.event.pusher.email }}"}'
