@@ -21,7 +21,7 @@ export function AddSeatsModal({
   const price = currentActiveSubscription.plan?.pricePoints.find(
     (price) => price.billingPeriod === currentBillingPeriod
   );
-  const seatPrice = price
+  const seatPrice = price?.amount
     ? currentBillingPeriod === BillingPeriod.Annually
       ? price.amount / 12
       : price.amount
