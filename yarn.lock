@@ -2614,22 +2614,22 @@
     graphql "^15.6.1"
     graphql-request "~5.1.0"
 
-"@stigg/api-client-js@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-1.2.0.tgz#7a1eadd361112a634e424ca50cd86c44cae800ca"
-  integrity sha512-kN8N0+3hySJxPphPd/RllMgxOo8tmOzzZ5vdI6bsazA9UwDhDcvUuBe+zgxGD3LMbP4rQu5nVabaA3aHUQd1Sg==
+"@stigg/api-client-js@1.11.1":
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-1.11.1.tgz#60ca41e75e5d6e378704781f643836101b0b767e"
+  integrity sha512-UY7fPhVCDR5I8mcv4/HsR4z7WArV4XJhK48seAq0UOrsJAvQl9xyZcjbtrs/GF3JKRlfrklZtet3RmSPY06A2w==
   dependencies:
     graphql "^15.6.1"
     graphql-request "~5.1.0"
 
-"@stigg/js-client-sdk@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-3.0.0.tgz#c3b987bc2ac815a020e069380dacb6b47643110f"
-  integrity sha512-DUXnIJdeaHVSaLXZwVivYi8ZgGxapfq4GYhWQ3RDNjTtvF2xT8gl5hovYwXDZb//CMiIE0qMOGmNUmSDBsyrMg==
+"@stigg/js-client-sdk@3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-3.3.0.tgz#ae25b323f2da4da1eefa7705be7089118e9785ce"
+  integrity sha512-Ibo5PuhvtWZzzM+55nzj6TO1GyQhZBNI45FiEfOHVQAhqSU0G7Qn0kaTvVMllD7oh5zGBjqsMv2lkvLJW8pUKw==
   dependencies:
     "@apollo/client" "^3.4.17"
     "@sentry/browser" "^7.11.1"
-    "@stigg/api-client-js" "1.2.0"
+    "@stigg/api-client-js" "1.11.1"
     cross-fetch "^3.1.6"
     fetch-retry "^5.0.6"
     husky "^7.0.4"
@@ -2663,15 +2663,15 @@
     tiny-typed-emitter "^2.1.0"
     ws "^8.5.0"
 
-"@stigg/react-sdk@5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-5.0.0.tgz#f3ee3b215dd1b7cbfa413928cd74a3dd9b8fa9df"
-  integrity sha512-NaHHbEBd7vJQhYxF2bj38ciqAxtGfyeNfNJBo88Rc5dzBC+eiY2ZehZUntfThZG10NODRxFaTv25oGdWkWNeaA==
+"@stigg/react-sdk@5.10.0":
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-5.10.0.tgz#b49096401eb4770fa412d11504d508fa31481d3a"
+  integrity sha512-WkEb9vCtHWcf1AkFXGfkCo8KoSJXA6O4mDkOrBIVdr60fblPp9Jv9Z5CYgwMBPDVe354aJnNdGztV3AKVKqfJA==
   dependencies:
     "@emotion/react" "^11.10.5"
     "@emotion/styled" "^11.10.5"
     "@mui/material" "^5.12.0"
-    "@stigg/js-client-sdk" "3.0.0"
+    "@stigg/js-client-sdk" "3.3.0"
     "@stripe/react-stripe-js" "^2.1.1"
     "@stripe/stripe-js" "^1.54.1"
     "@types/styled-components" "^5.1.26"
