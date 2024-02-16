@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx serve",
+    "start": "nx run-many --target=serve",
     "server": "nx run server:serve",
     "client": "nx run client:serve",
     "build": "nx run-many --target=build --projects=server,client --parallel=true",
