@@ -1773,8 +1773,15 @@
     "@mui/utils" "^5.15.6"
     prop-types "^15.8.1"
 
-"@mui/styled-engine-sc@^5.10.3", "@mui/styled-engine@^5.10.8", "@mui/styled-engine@^5.15.6", "@mui/styled-engine@npm:@mui/styled-engine-sc@latest":
-  name "@mui/styled-engine"
+"@mui/styled-engine-sc@^5.10.3":
+  version "5.10.6"
+  resolved "https://registry.yarnpkg.com/@mui/styled-engine-sc/-/styled-engine-sc-5.10.6.tgz#e1c1f1e6a80f2bcd11f83e33c9925753cf61bf23"
+  integrity sha512-AQIa478w3UI8gmlht7orp96tEJbEN26FiEs9Aee6E+iVTnoyT3b6V/JapgKlITo6rn7tYTSX9iJYwnDTMhbzTg==
+  dependencies:
+    "@babel/runtime" "^7.19.0"
+    prop-types "^15.8.1"
+
+"@mui/styled-engine@^5.10.8", "@mui/styled-engine@^5.15.6", "@mui/styled-engine@npm:@mui/styled-engine-sc@latest":
   version "5.10.6"
   resolved "https://registry.yarnpkg.com/@mui/styled-engine-sc/-/styled-engine-sc-5.10.6.tgz#e1c1f1e6a80f2bcd11f83e33c9925753cf61bf23"
   integrity sha512-AQIa478w3UI8gmlht7orp96tEJbEN26FiEs9Aee6E+iVTnoyT3b6V/JapgKlITo6rn7tYTSX9iJYwnDTMhbzTg==
@@ -2606,18 +2613,18 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@stigg/api-client-js@0.665.2":
-  version "0.665.2"
-  resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-0.665.2.tgz#3ef171f40a5eaef6952bbabae4f9f1efcf1680f9"
-  integrity sha512-OchZK2IY7U23sXz6z4cJLqETM7U0VGo+nrTZTeqdJrDXDMoiUADl+IJcuzI7XxrGBaxZN4it+UaJ3q44kowJTQ==
-  dependencies:
-    graphql "^15.6.1"
-    graphql-request "~5.1.0"
-
 "@stigg/api-client-js@1.11.1":
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-1.11.1.tgz#60ca41e75e5d6e378704781f643836101b0b767e"
   integrity sha512-UY7fPhVCDR5I8mcv4/HsR4z7WArV4XJhK48seAq0UOrsJAvQl9xyZcjbtrs/GF3JKRlfrklZtet3RmSPY06A2w==
+  dependencies:
+    graphql "^15.6.1"
+    graphql-request "~5.1.0"
+
+"@stigg/api-client-js@1.85.0":
+  version "1.85.0"
+  resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-1.85.0.tgz#6803c68a058e950690c535306e097a0a82399a45"
+  integrity sha512-VpRnAMsMehWfUwx1sW059YrU4JdDCnDL1b2B2BHuf3d4FHrMrH19dCZQ4p6dhG60RfdNqL82SKp+PZvblchc3w==
   dependencies:
     graphql "^15.6.1"
     graphql-request "~5.1.0"
@@ -2637,18 +2644,19 @@
     lodash "^4.17.21"
     tiny-typed-emitter "^2.1.0"
 
-"@stigg/node-server-sdk@2.42.0":
-  version "2.42.0"
-  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-2.42.0.tgz#7194f6369656e3a9a472e56b6455279c10b6faeb"
-  integrity sha512-wNutIaWsFrezt+ilj6tJAsHpQxoc8YWUlZICE7puvMBtmKMhOJWeWKVaxRVZOI0YA7nPTB+U040CrUj3lPWM4g==
+"@stigg/node-server-sdk@3.16.0":
+  version "3.16.0"
+  resolved "https://registry.yarnpkg.com/@stigg/node-server-sdk/-/node-server-sdk-3.16.0.tgz#c5ade61e2966f773d1af67ab3aff1a5ff56501e3"
+  integrity sha512-9RoWMLIXRzUhd5TUIQs20KTCeonxqB6zDCiaP7DVQ44RAU3+EO1QNuUC/D+jz/w/2J1y0oBnsE6RXRK1YjINJQ==
   dependencies:
     "@apollo/client" "^3.4.16"
     "@bitauth/libauth" "^1.17.1"
     "@graphql-codegen/fragment-matcher" "^3.2.1"
     "@sentry/node" "^7.11.1"
-    "@stigg/api-client-js" "0.665.2"
+    "@stigg/api-client-js" "1.85.0"
     "@types/ws" "^8.2.3"
     axios "^1.2.2"
+    axios-retry "^4.0.0"
     cross-fetch "^3.1.5"
     graphql "^15.6.1"
     graphql-ws "^5.6.0"
@@ -3897,6 +3905,13 @@ axe-core@^4.4.3:
   version "4.4.3"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.4.3.tgz#11c74d23d5013c0fa5d183796729bc3482bd2f6f"
   integrity sha512-32+ub6kkdhhWick/UjvEwRchgoetXqTK14INLqbGm5U2TzBkBNF3nQtLYm8ovxSkQWArjEQvftCKryjZaATu3w==
+
+axios-retry@^4.0.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/axios-retry/-/axios-retry-4.1.0.tgz#aac5a9657213913048201152ef14090f7111608f"
+  integrity sha512-svdth4H00yhlsjBbjfLQ/sMLkXqeLxhiFC1nE1JtkN/CIssGxqk0UwTEdrVjwA2gr3yJkAulwvDSIm4z4HyPvg==
+  dependencies:
+    is-retry-allowed "^2.2.0"
 
 axios@^0.27.2:
   version "0.27.2"
@@ -6990,6 +7005,11 @@ is-regexp@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/is-regexp/-/is-regexp-1.0.0.tgz#fd2d883545c46bac5a633e7b9a09e87fa2cb5069"
   integrity sha512-7zjFAPO4/gwyQAAgRRmqeEeyIICSdmCqa3tsVHMdBzaXXRiqopZL4Cyghg/XulGWrtABTpbnYYzzIRffLkP4oA==
+
+is-retry-allowed@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/is-retry-allowed/-/is-retry-allowed-2.2.0.tgz#88f34cbd236e043e71b6932d09b0c65fb7b4d71d"
+  integrity sha512-XVm7LOeLpTW4jV19QSH38vkswxoLud8sQ57YwJVTPWdiaI9I8keEhGFpBlslyVsgdQy4Opg8QOLb8YRgsyZiQg==
 
 is-shared-array-buffer@^1.0.2:
   version "1.0.2"
