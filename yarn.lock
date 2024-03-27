@@ -1773,8 +1773,15 @@
     "@mui/utils" "^5.15.6"
     prop-types "^15.8.1"
 
-"@mui/styled-engine-sc@^5.10.3", "@mui/styled-engine@^5.10.8", "@mui/styled-engine@^5.15.6", "@mui/styled-engine@npm:@mui/styled-engine-sc@latest":
-  name "@mui/styled-engine"
+"@mui/styled-engine-sc@^5.10.3":
+  version "5.10.6"
+  resolved "https://registry.yarnpkg.com/@mui/styled-engine-sc/-/styled-engine-sc-5.10.6.tgz#e1c1f1e6a80f2bcd11f83e33c9925753cf61bf23"
+  integrity sha512-AQIa478w3UI8gmlht7orp96tEJbEN26FiEs9Aee6E+iVTnoyT3b6V/JapgKlITo6rn7tYTSX9iJYwnDTMhbzTg==
+  dependencies:
+    "@babel/runtime" "^7.19.0"
+    prop-types "^15.8.1"
+
+"@mui/styled-engine@^5.10.8", "@mui/styled-engine@^5.15.6", "@mui/styled-engine@npm:@mui/styled-engine-sc@latest":
   version "5.10.6"
   resolved "https://registry.yarnpkg.com/@mui/styled-engine-sc/-/styled-engine-sc-5.10.6.tgz#e1c1f1e6a80f2bcd11f83e33c9925753cf61bf23"
   integrity sha512-AQIa478w3UI8gmlht7orp96tEJbEN26FiEs9Aee6E+iVTnoyT3b6V/JapgKlITo6rn7tYTSX9iJYwnDTMhbzTg==
@@ -2614,22 +2621,22 @@
     graphql "^15.6.1"
     graphql-request "~5.1.0"
 
-"@stigg/api-client-js@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-1.11.1.tgz#60ca41e75e5d6e378704781f643836101b0b767e"
-  integrity sha512-UY7fPhVCDR5I8mcv4/HsR4z7WArV4XJhK48seAq0UOrsJAvQl9xyZcjbtrs/GF3JKRlfrklZtet3RmSPY06A2w==
+"@stigg/api-client-js@1.46.0":
+  version "1.46.0"
+  resolved "https://registry.yarnpkg.com/@stigg/api-client-js/-/api-client-js-1.46.0.tgz#cdbd7707fb451fc653b95006d5b0599ceb279c71"
+  integrity sha512-M7b7gPZhd7Cy0gY4msf0AN2yNxEBpuov4JkFyByaa+iScvFJ3U2YPf+qmtnqV922Jk4R2XH82hkkN4yQqDIaag==
   dependencies:
     graphql "^15.6.1"
     graphql-request "~5.1.0"
 
-"@stigg/js-client-sdk@3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-3.3.0.tgz#ae25b323f2da4da1eefa7705be7089118e9785ce"
-  integrity sha512-Ibo5PuhvtWZzzM+55nzj6TO1GyQhZBNI45FiEfOHVQAhqSU0G7Qn0kaTvVMllD7oh5zGBjqsMv2lkvLJW8pUKw==
+"@stigg/js-client-sdk@3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-3.4.0.tgz#0484526eb1b7891e7970b0de3fb2e01ac0035fa0"
+  integrity sha512-9djbUE+WGJSobnd1tNYlyCmx/QSrTTp3l91SiwrMTH1B+Mcz+QAFyrWX2nQossjAzZ5pT555DUPcB6t7a2Z8pg==
   dependencies:
     "@apollo/client" "^3.4.17"
     "@sentry/browser" "^7.11.1"
-    "@stigg/api-client-js" "1.11.1"
+    "@stigg/api-client-js" "1.46.0"
     cross-fetch "^3.1.6"
     fetch-retry "^5.0.6"
     husky "^7.0.4"
@@ -2663,15 +2670,15 @@
     tiny-typed-emitter "^2.1.0"
     ws "^8.5.0"
 
-"@stigg/react-sdk@5.10.0":
-  version "5.10.0"
-  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-5.10.0.tgz#b49096401eb4770fa412d11504d508fa31481d3a"
-  integrity sha512-WkEb9vCtHWcf1AkFXGfkCo8KoSJXA6O4mDkOrBIVdr60fblPp9Jv9Z5CYgwMBPDVe354aJnNdGztV3AKVKqfJA==
+"@stigg/react-sdk@5.11.1":
+  version "5.11.1"
+  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-5.11.1.tgz#acab8e46532d7ccbcfaa2fadac204985b3cbd39a"
+  integrity sha512-D1xwoPul4aXhhE1Ys8koX9zta6BQYSB5Aavy6GbdAySgqzuBkWc8qHOJabt+MN8qEMtiOBbHDAx7pwvfwV9ppg==
   dependencies:
     "@emotion/react" "^11.10.5"
     "@emotion/styled" "^11.10.5"
     "@mui/material" "^5.12.0"
-    "@stigg/js-client-sdk" "3.3.0"
+    "@stigg/js-client-sdk" "3.4.0"
     "@stripe/react-stripe-js" "^2.1.1"
     "@stripe/stripe-js" "^1.54.1"
     "@types/styled-components" "^5.1.26"
