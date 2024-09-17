@@ -59,28 +59,3 @@ export async function addSeats(additionalSeats: number) {
     additionalSeats,
   });
 }
-
-export async function provisionSubscription({
-  customerId,
-  planId,
-  billingPeriod,
-  unitQuantity,
-  cancelUrl,
-  successUrl,
-}: {
-  customerId: string;
-  planId: string;
-  billingPeriod: BillingPeriod;
-  cancelUrl: string;
-  successUrl: string;
-  unitQuantity?: number;
-}) {
-  return axios.post('api/users/provisionSubscription', {
-    customerId,
-    planId,
-    billingPeriod,
-    unitQuantity,
-    successUrl,
-    cancelUrl,
-  });
-}

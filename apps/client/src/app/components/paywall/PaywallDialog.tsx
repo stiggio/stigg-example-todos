@@ -1,13 +1,7 @@
-import { Close } from '@mui/icons-material';
-import { useWaitForCheckoutCompleted, ProvisionStatus } from '@stigg/react-sdk';
 import { useState } from 'react';
-import {
-  CloseButton,
-  StyledDialog,
-  StyledDialogTitle,
-} from './PaywallDialog.style';
-import { PlanProvisionStatus } from './PlanProvisionStatus';
 import { Paywall } from './StiggPaywall';
+import { StiggCheckout } from '../checkout/StiggCheckout';
+import { PricingDialog } from '../pricing-dialog/PricingDialog';
 
 type TodosPaywallProps = {
   paywallIsOpen: boolean;
@@ -15,33 +9,21 @@ type TodosPaywallProps = {
 };
 
 export function PaywallDialog({ paywallIsOpen, onClose }: TodosPaywallProps) {
-  const [provisionStatus, setProvisionStatus] =
-    useState<ProvisionStatus | null>(null);
-  const { isAwaitingCheckout } = useWaitForCheckoutCompleted({
-    onProvisionStart: () => setProvisionStatus(ProvisionStatus.IN_PROGRESS),
-    onProvisionSucceeded: () => setProvisionStatus(ProvisionStatus.SUCCEEDED),
-    onProvisionFailed: () => setProvisionStatus(ProvisionStatus.FAILED),
-  });
+  const [planId, setPlanId] = useState<string | null>(null);
 
-  const open = paywallIsOpen || isAwaitingCheckout || !!provisionStatus;
+  const onCloseDialog = () => {
+    onClose();
+    setPlanId(null);
+  };
+
+  // show checkout if plan was selected, otherwise show paywall to allow selecting a plan
+  const element = planId
+    ? <StiggCheckout planId={planId} onClose={onCloseDialog} />
+    : <Paywall onPlanSelected={({ plan }) => setPlanId(plan.id)} />;
 
   return (
-    <StyledDialog open={open} onClose={onClose} fullWidth>
-      <StyledDialogTitle>
-        <CloseButton onClick={onClose}>
-          <Close />
-        </CloseButton>
-      </StyledDialogTitle>
-
-      {provisionStatus ? (
-        <PlanProvisionStatus provisionStatus={provisionStatus} />
-      ) : (
-        <Paywall
-          onSuccessProvision={() =>
-            setProvisionStatus(ProvisionStatus.SUCCEEDED)
-          }
-        />
-      )}
-    </StyledDialog>
+    <PricingDialog open={paywallIsOpen} onClose={onCloseDialog}>
+      {element}
+    </PricingDialog>
   );
 }

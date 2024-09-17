@@ -132,18 +132,6 @@ export async function addCollaboratorSeats(payload: {
   await apiGateway.addSeats(payload.additionalSeats);
 }
 
-export async function provisionSubscription(payload: {
-  customerId: string;
-  planId: string;
-  billingPeriod: BillingPeriod;
-  cancelUrl: string;
-  successUrl: string;
-  unitQuantity?: number;
-}) {
-  const res = await apiGateway.provisionSubscription(payload);
-  return res.data.result;
-}
-
 async function loadUser(
   dispatch: UsersDispatch,
   payload: { email?: string | null },
