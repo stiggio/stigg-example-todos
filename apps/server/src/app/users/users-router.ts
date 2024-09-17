@@ -58,7 +58,6 @@ router.post('/signup', async (req, res) => {
     subscriptionParams: {
       planId: STARTER_PLAN_ID,
     },
-    shouldSyncFree: false,
   });
   // The current user is considered as collaborator as well, therefore
   // reporting initial usage of 1
@@ -69,37 +68,6 @@ router.post('/signup', async (req, res) => {
   });
 
   return res.json({ user });
-});
-
-router.post('/provisionSubscription', authMiddleware, async (req, res) => {
-  const {
-    customerId,
-    cancelUrl,
-    successUrl,
-    planId,
-    billingPeriod,
-    unitQuantity,
-  } = req.body;
-  let result = null;
-  try {
-    result = await stiggClient.provisionSubscription({
-      planId,
-      customerId,
-      billingPeriod,
-      unitQuantity,
-      checkoutOptions: {
-        cancelUrl,
-        successUrl,
-      },
-      awaitPaymentConfirmation: true,
-    });
-  } catch (err) {
-    console.warn(
-      `Failed to provision a subscription for user ${customerId} for plan ${planId}`
-    );
-  }
-
-  res.json({ result });
 });
 
 export default router;

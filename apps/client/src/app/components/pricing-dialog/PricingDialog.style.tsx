@@ -2,10 +2,9 @@ import { styled, Dialog, DialogTitle, IconButton } from '@mui/material';
 
 export const StyledDialog = styled(Dialog)`
   .MuiDialog-paper {
-    height: 730px;
     min-width: 1150px;
     background-color: #f4f4f4;
-    padding-top: ${({ theme }) => theme.spacing(6)};
+    padding: ${({ theme }) => theme.spacing(6)} 0;
   }
 `;
 
