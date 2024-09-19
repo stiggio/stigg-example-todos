@@ -2629,10 +2629,10 @@
     graphql "^15.6.1"
     graphql-request "~5.1.0"
 
-"@stigg/js-client-sdk@3.23.0":
-  version "3.23.0"
-  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-3.23.0.tgz#8c38886373f957216f90c6886e2aed69e1fb6394"
-  integrity sha512-v5FsKFeeW+PJQsBDLKUkD5e9XOIuv16xIX+2FC7b7oOaYgtUAeLBx/q+7R7z37R319v3UzaFcB2EZVNLHwkh8g==
+"@stigg/js-client-sdk@3.25.0":
+  version "3.25.0"
+  resolved "https://registry.yarnpkg.com/@stigg/js-client-sdk/-/js-client-sdk-3.25.0.tgz#e12dca57d76bb54f8d080700d239f2fe18fd889b"
+  integrity sha512-O7OMtH1wub9LyYcNG+ZsleUFW5gqRMcFs/6YMTNtQhMHjJ5BfgW80b85972Nd+4saMzfIHx0TFXj2/NLWjkSuA==
   dependencies:
     "@apollo/client" "^3.4.17"
     "@sentry/browser" "^7.11.1"
@@ -2670,15 +2670,15 @@
     tiny-typed-emitter "^2.1.0"
     ws "^8.5.0"
 
-"@stigg/react-sdk@5.18.0":
-  version "5.18.0"
-  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-5.18.0.tgz#3b642ff29e7cd81b4d4a47e1643e00cf2cc1b0bc"
-  integrity sha512-+l0+I2W9emEwIWtl+xBDN9zn3WOAwLo2yfxBW8ZWYpuyS2sskBcDbO+XhO2OVDQBJyDxMeXYV30Z9v09hzmQvQ==
+"@stigg/react-sdk@5.19.0":
+  version "5.19.0"
+  resolved "https://registry.yarnpkg.com/@stigg/react-sdk/-/react-sdk-5.19.0.tgz#312e2b710c55c97d372bce77836457dfcccc03c2"
+  integrity sha512-INWetLE7fnV735Li+d11Xo+lQ59sB4EASJGp4C4EApgw8mrj1o0HvfAnnvQhEVUKrnmFyEdy+mZvCq9ves3N8g==
   dependencies:
     "@emotion/react" "^11.10.5"
     "@emotion/styled" "^11.10.5"
     "@mui/material" "^5.12.0"
-    "@stigg/js-client-sdk" "3.23.0"
+    "@stigg/js-client-sdk" "3.25.0"
     "@stripe/react-stripe-js" "^2.1.1"
     "@stripe/stripe-js" "^1.54.1"
     "@types/styled-components" "^5.1.26"
